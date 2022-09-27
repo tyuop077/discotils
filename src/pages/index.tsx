@@ -5,23 +5,19 @@ import styles from 'styles/Home.module.scss'
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Discotils</title>
-        <meta name="description" content="Discord Utilities" />
-        {/*<link rel="icon" href="/favicon.ico" />*/}
-      </Head>
+    <>
+        <Head>
+            <title>Discotils</title>
+            <meta name="description" content="Discord Utilities" />
+            {/*<link rel="icon" href="/favicon.ico" />*/}
+        </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Discutils
-        </h1>
-      </main>
-
-      <footer className={styles.footer}>
-
-      </footer>
-    </div>
+        <main>
+            <h1>
+                Discotils
+            </h1>
+        </main>
+    </>
   )
 }
 

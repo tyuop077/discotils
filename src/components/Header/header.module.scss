@@ -1,0 +1,29 @@
+.header {
+  position: sticky;
+  top: 0;
+  background-color: #21252BCC;
+  backdrop-filter: blur(3px);
+  padding: 5px;
+  z-index: 2;
+  height: 50px;
+  display: flex;
+}
+
+.container {
+  max-width: 960px;
+  padding: 0 20px;
+  margin: auto 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.glow {
+  background:
+    linear-gradient(to bottom, #ffffff00, #1d2126),
+    linear-gradient(110deg, #7584ff, #1d2126);
+  width: 100%;
+  max-width: 400px;
+  height: 50px;
+  position: absolute;
+}
