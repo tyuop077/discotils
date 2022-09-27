@@ -9,7 +9,7 @@ const Home: NextPage = () => {
         <Head>
             <title>Discotils</title>
             <meta name="description" content="Discord Utilities" />
-            {/*<link rel="icon" href="/favicon.ico" />*/}
+            <link rel="icon" href="/favicon.ico" />
         </Head>
 
         <main>
