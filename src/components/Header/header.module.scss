@@ -16,6 +16,20 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  a {
+    font-size: 1.5em;
+    transition: color ease-out 80ms;
+    &:hover {
+      color: #aecfe3;
+    }
+    &:active {
+      color: #007ED4;
+    }
+    span {
+      color: #75A8F9;
+    }
+    color: #92EBFF;
+  }
 }
 
 .glow {
