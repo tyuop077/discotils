@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.guildsPicker {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+}
+
+.commandsPicker {
+  display: flex;
+  flex-direction: column;
+}
