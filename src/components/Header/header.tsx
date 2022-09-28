@@ -1,6 +1,7 @@
 import styles from "./header.module.scss";
+import Link from "next/link";
 import Logo from "assets/Logo.svg";
-import ID from "assets/ID.svg";
+import Lookup from "assets/Lookup.svg";
 
 const Header = () => (
   <>
@@ -9,7 +10,9 @@ const Header = () => (
       <div className={styles.container}>
         <Logo className={styles.logo} />
         <a href="#"><span>Disco</span>tils</a>
-        <ID className={styles.id} />
+        <Link href="/lookup">
+          <Lookup />
+        </Link>
       </div>
     </header>
   </>
