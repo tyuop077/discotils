@@ -69,5 +69,12 @@
     width: 25px;
     height: 25px;
     cursor: pointer;
+    transition: color ease-out 80ms;
+    &:hover {
+      color: #7584ff;
+    }
+    &:active {
+      color: #5e6bcc;
+    }
   }
 }
