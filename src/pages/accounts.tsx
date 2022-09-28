@@ -5,11 +5,13 @@ import AccountManager, {Account} from "../utils/accountManager";
 import Loader from "../components/Loader/loader";
 
 const tokenRegex = /^(Bot\s)?(?<token>[\w-]{24}\.[\w-]{6}\.[\w-]{27})/i;
+const timeFormatter = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
 
 const Accounts: NextPage = () => {
   const [accounts, setAccounts] = useState<Record<string, Account>>();
+  const now = Date.now() / 1000 | 0;
   useEffect(() => {
-    setAccounts(AccountManager.accounts);
+    AccountManager.refreshAll().then(() => setAccounts(AccountManager.accounts));
   }, [])
   useEffect(() => {
     const listener = (e: any) => {
@@ -44,6 +46,7 @@ const Accounts: NextPage = () => {
               alt={account.username}
             />
             <span>{account.username}#{account.discriminator}</span>
+            {account.active ? `Active (verified ${timeFormatter.format((account.cachedOn - now) / 60 | 0, "minutes")})` : "Invalid token"}
           </div>
         )) : <Loader />}
       </div>
