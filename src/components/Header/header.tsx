@@ -19,7 +19,7 @@ const Header = () => (
           <Link href="/lookup">
             <Lookup title="Discord Snowflake Parser & User ID Fetcher" />
           </Link>
-          <Link href="/application-commands">
+          <Link href="/commands">
             <Slash title="Application Commands" />
           </Link>
         </div>
