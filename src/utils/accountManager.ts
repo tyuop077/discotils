@@ -23,11 +23,12 @@ class AccountManager {
   static set accounts(accounts: Record<string, Account>) {
     localStorage.setItem("accounts", JSON.stringify(accounts));
   }
-  static async refreshAll() {
+  static async checkAll() {
     const accounts = this.accounts;
+    const now = Date.now() / 1000 | 0;
     for (const [id, account] of Object.entries(accounts)) {
-      if (!account.cachedOn || account.cachedOn < Date.now() - 3600) {
-        await this.refresh(id);
+      if (!account.cachedOn || account.cachedOn < now - 3600) {
+        await this.checkValidity(id);
       }
     }
   }
@@ -41,7 +42,7 @@ class AccountManager {
     if (res.ok) return res.json();
     console.error(`Failed to fetch user info (${res.statusText}):\n${await res.text()}`);
   }
-  static async refresh(id: string, removeOnFail = false) {
+  static async checkValidity(id: string, removeOnFail = false) {
     const accounts = this.accounts;
     const account = accounts[id];
     if (!account || !account.active) return;

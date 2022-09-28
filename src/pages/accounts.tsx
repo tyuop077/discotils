@@ -11,7 +11,7 @@ const Accounts: NextPage = () => {
   const [accounts, setAccounts] = useState<Record<string, Account>>();
   const now = Date.now() / 1000 | 0;
   useEffect(() => {
-    AccountManager.refreshAll().then(() => setAccounts(AccountManager.accounts));
+    AccountManager.checkAll().then(() => setAccounts(AccountManager.accounts));
   }, [])
   useEffect(() => {
     const listener = (e: any) => {
