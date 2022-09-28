@@ -34,8 +34,8 @@ class AccountManager {
   static async fetchUser(token: string) {
     const res = await fetch(`https://discord.com/api/v10/users/@me`, {
       headers: {
-        authorization: token,
-        contentType: "application/json"
+        Authorization: `Bot ${token}`,
+        "Content-Type": "application/json"
       }
     });
     if (res.ok) return res.json();
@@ -45,6 +45,11 @@ class AccountManager {
     const accounts = this.accounts;
     const account = accounts[id];
     if (!account || !account.active) return;
+    if (!account.token) {
+      delete accounts[id];
+      this.accounts = accounts;
+      return
+    }
     const user = await this.fetchUser(account.token);
     if (!user) {
       if (removeOnFail) delete accounts[id];
