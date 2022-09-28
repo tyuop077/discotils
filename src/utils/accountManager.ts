@@ -1,6 +1,6 @@
 import tryParse from "./tryParse";
 
-interface Account {
+export interface Account {
   username: string;
   discriminator: string;
   avatar: string;
@@ -10,7 +10,7 @@ interface Account {
 }
 
 class AccountManager {
-  get accounts(): Record<string, Account> {
+  static get accounts(): Record<string, Account> {
     const accounts = localStorage.getItem("accounts");
     if (!accounts) return {};
     const accounts_json = tryParse<Record<string, Account>>(accounts);
@@ -20,10 +20,10 @@ class AccountManager {
     }
     return accounts_json;
   }
-  set accounts(accounts: Record<string, Account>) {
+  static set accounts(accounts: Record<string, Account>) {
     localStorage.setItem("accounts", JSON.stringify(accounts));
   }
-  async refreshAll() {
+  static async refreshAll() {
     const accounts = this.accounts;
     for (const [id, account] of Object.entries(accounts)) {
       if (!account.cachedOn || account.cachedOn < Date.now() - 3600) {
@@ -31,7 +31,7 @@ class AccountManager {
       }
     }
   }
-  async fetchUser(token: string) {
+  static async fetchUser(token: string) {
     const res = await fetch(`https://discord.com/api/v10/users/@me`, {
       headers: {
         authorization: token,
@@ -41,7 +41,7 @@ class AccountManager {
     if (res.ok) return res.json();
     console.error(`Failed to fetch user info (${res.statusText}):\n${await res.text()}`);
   }
-  async refresh(id: string, removeOnFail = false) {
+  static async refresh(id: string, removeOnFail = false) {
     const accounts = this.accounts;
     const account = accounts[id];
     if (!account || !account.active) return;
@@ -57,7 +57,7 @@ class AccountManager {
     }
     this.accounts = accounts;
   }
-  async add(token: string) {
+  static async add(token: string) {
     const accounts = this.accounts;
     const user = await this.fetchUser(token);
     if (!user) return;
@@ -71,7 +71,7 @@ class AccountManager {
     }
     this.accounts = accounts;
   }
-  remove(id: string) {
+  static remove(id: string) {
     const accounts = this.accounts;
     delete accounts[id];
     this.accounts = accounts;

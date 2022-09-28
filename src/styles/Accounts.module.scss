@@ -1,0 +1,37 @@
+.container {
+  width: 100%;
+  max-width: 620px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 20px 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  input {
+    color: white;
+    height: 50px;
+    border-radius: 25px;
+    background-color: #1f2226;
+    border: 1px solid #5f6368;
+    outline: none;
+    font-size: 28px;
+    padding: 0 20px;
+    &:hover {
+      background-color: #33383f;
+      box-shadow: 0 1px 6px 0 #171717;
+      border-color: rgba(223,225,229,0);
+    }
+  }
+}
+
+.accounts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 1rem;
+}
+
+.account {
+  img {
+    border-radius: 50%;
+  }
+}
