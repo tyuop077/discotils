@@ -15,25 +15,7 @@
   margin: auto 0;
   display: flex;
   align-items: center;
-  gap: 10px;
-  a {
-    font-size: 1.5em;
-    transition: color ease-out 80ms;
-    &:hover {
-      color: #aecfe3;
-    }
-    &:active {
-      color: #007ED4;
-    }
-    span {
-      color: #75A8F9;
-    }
-    color: #92EBFF;
-  }
-  svg {
-    height: 35px;
-    width: 35px;
-  }
+  gap: 20px;
 }
 
 .glow {
@@ -44,4 +26,48 @@
   max-width: 400px;
   height: 50px;
   position: absolute;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  svg {
+    width: 35px;
+    height: 35px;
+  }
+  transition: color ease-out 80ms;
+  span {
+    transition: color ease-out 80ms;
+  }
+  font-size: 1.5em;
+  &:hover {
+    color: white;
+    span {
+      color: white;
+    }
+  }
+  &:active {
+    color: #c7c7c7;
+    span {
+      color: #c7c7c7;
+    }
+  }
+  span {
+    color: #75A8F9;
+  }
+  color: #92EBFF;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  svg {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+  }
 }
