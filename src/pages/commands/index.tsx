@@ -1,7 +1,7 @@
 import {NextPage} from "next";
 import Head from "next/head";
 import styles from "styles/Commands.module.scss";
-import AccountPicker from "../../components/AccountPicker/accountPicker";
+import AccountPicker from "components/AccountPicker/accountPicker";
 
 const Commands: NextPage = () => {
   return (

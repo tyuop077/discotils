@@ -1,8 +1,9 @@
 import {NextPage} from "next";
 import {useEffect, useState} from "react";
 import styles from "styles/Accounts.module.scss";
-import AccountManager, {Account} from "../utils/accountManager";
-import Loader from "../components/Loader/loader";
+import AccountManager, {Account} from "utils/accountManager";
+import Loader from "components/Loader/loader";
+import Close from "assets/Close.svg";
 
 const tokenRegex = /^(Bot\s)?(?<token>[\w-]{24}\.[\w-]{6}\.[\w-]{27})/i;
 const timeFormatter = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
@@ -30,9 +31,12 @@ const Accounts: NextPage = () => {
   const list = accounts ? Object.entries(accounts) : undefined;
   return (
     <div className={styles.container}>
+      <h1>Accounts</h1>
+      <h3>Paste a new or existing bot token</h3>
+      <h5>or type it there:</h5>
       <input
         type="password"
-        placeholder="Paste new or existing bot token here" />
+        placeholder="token" />
       <div className={styles.accounts}>
         {list ? list.map(([id, account]) => (
           <div className={styles.account} key={id}>
@@ -45,8 +49,16 @@ const Accounts: NextPage = () => {
               }
               alt={account.username}
             />
-            <span>{account.username}#{account.discriminator}</span>
-            {account.active ? `Active (verified ${timeFormatter.format((account.cachedOn - now) / 60 | 0, "minutes")})` : "Invalid token"}
+            <button
+              onClick={() => {
+                AccountManager.remove(id);
+                setAccounts(AccountManager.accounts);
+              }}
+            ><Close /></button>
+            <b>{account.username}</b><span>#{account.discriminator}</span>
+            {account.active ?
+              <p>{`Active (verified ${timeFormatter.format((account.cachedOn - now) / 60 | 0, "minutes")})`}</p>
+              : <p className="error">Invalid token</p>}
           </div>
         )) : <Loader />}
       </div>

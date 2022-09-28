@@ -1,7 +1,7 @@
 import styles from "./accountPicker.module.scss";
 import {useEffect, useState} from "react";
 import tryParse from "utils/tryParse";
-import Loader from "../Loader/loader";
+import Loader from "components/Loader/loader";
 
 interface Account {
   id: string;

@@ -3,10 +3,10 @@
   max-width: 620px;
   margin-right: auto;
   margin-left: auto;
-  padding: 20px 1rem 0;
+  padding: 20px 1rem;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  height: calc(100vh - 50px - 50px);
   input {
     color: white;
     height: 50px;
@@ -14,24 +14,66 @@
     background-color: #1f2226;
     border: 1px solid #5f6368;
     outline: none;
-    font-size: 28px;
-    padding: 0 20px;
+    font-size: 20px;
+    padding: 2px 20px;
+    margin-bottom: 20px;
     &:hover {
       background-color: #33383f;
       box-shadow: 0 1px 6px 0 #171717;
       border-color: rgba(223,225,229,0);
     }
   }
+  h3, h5 {
+    margin: 0;
+    text-align: center;
+    font-weight: 400;
+  }
+  h5 {
+    padding-bottom: 10px;
+  }
+  button {
+    float: right;
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    padding: 3px;
+    background-color: unset;
+    transition: background-color 0.2s;
+    &:hover {
+      background-color: #FFFFFF33;
+    }
+    &:active {
+      background-color: #FFFFFF19;
+    }
+  }
 }
 
 .accounts {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100vh;
+  gap: 10px;
 }
 
 .account {
   img {
     border-radius: 50%;
+    float: left;
+    height: 64px;
+    width: 64px;
+    margin-right: 10px;
+  }
+  span {
+    padding-left: 2px;
+    color: gray;
+  }
+  p {
+    margin: 0;
+    color: #3f673c;
+  }
+  :global .error {
+    color: #ed4245;
   }
 }
