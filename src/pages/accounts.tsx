@@ -42,7 +42,6 @@ const Accounts: NextPage = () => {
           setAccounts(AccountManager.accounts)
         });
       }
-      alert(e.clipboardData?.getData("text"));
     };
     addEventListener("paste", listener);
     return () => removeEventListener("paste", listener);
