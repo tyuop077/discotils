@@ -29,6 +29,7 @@ const Accounts: NextPage = () => {
     return () => removeEventListener("paste", listener);
   })
   const list = accounts ? Object.entries(accounts) : undefined;
+  let spent;
   return (
     <div className={styles.container}>
       <h1>Accounts</h1>
@@ -57,7 +58,10 @@ const Accounts: NextPage = () => {
             ><Close /></button>
             <b>{account.username}</b><span>#{account.discriminator}</span>
             {account.active ?
-              <p>{`Active (verified ${timeFormatter.format((account.cachedOn - now) / 60 | 0, "minutes")})`}</p>
+              <p>{`Active (validated ${
+                (spent = account.cachedOn - now) < -10 ?
+                  timeFormatter.format(spent / 60 | 0, "minutes") : "just now"
+              })`}</p>
               : <p className="error">Invalid token</p>}
           </div>
         )) : <Loader />}
