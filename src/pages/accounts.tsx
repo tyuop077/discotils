@@ -11,7 +11,8 @@ const toastLabels: Record<string, string> = {
   validating: "Validating...",
   failed: "Failed verifying accounts",
   failedPartially: "Failed verifying some accounts",
-  invalidToken: "Pasted token is invalid"
+  invalidToken: "Pasted token is invalid",
+  noConnection: "There's a connection issue, please check your access to the internet and try again"
 }
 
 const Accounts: NextPage = () => {
@@ -28,6 +29,9 @@ const Accounts: NextPage = () => {
         setStatus(`failed${r.failed === "some" ? "Partially" : ""}`)
       }
       setAccounts(AccountManager.accounts);
+    }).catch(e => {
+      console.error(e);
+      setStatus("noConnection")
     });
   }, [])
   useEffect(() => {
@@ -40,7 +44,10 @@ const Accounts: NextPage = () => {
         AccountManager.add(token).then(r => {
           if (r?.failed) setStatus("invalidToken");
           setAccounts(AccountManager.accounts)
-        });
+        }).catch(e => {
+          console.error(e);
+          setStatus("noConnection")
+        })
       }
     };
     addEventListener("paste", listener);
