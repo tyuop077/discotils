@@ -26,11 +26,25 @@ class AccountManager {
   static async checkAll() {
     const accounts = this.accounts;
     const now = Date.now() / 1000 | 0;
+    let failed = 0;
     for (const [id, account] of Object.entries(accounts)) {
       if (!account.cachedOn || account.cachedOn < now - 3600) {
-        await this.checkValidity(id);
+        try {
+          await this.checkValidity(id);
+        } catch (e) {
+          console.error(`Failed verifying ${account.username}`, e);
+          failed++;
+        }
       }
     }
+    if (failed !== 0) {
+      if (failed === Object.keys(accounts).length) {
+        return {success: false, failed: "all"}
+      } else {
+        return {success: false, failed: "some"}
+      }
+    }
+    return {success: true}
   }
   static async fetchUser(token: string) {
     const res = await fetch(`https://discord.com/api/v10/users/@me`, {
@@ -41,6 +55,7 @@ class AccountManager {
     });
     if (res.ok) return res.json();
     console.error(`Failed to fetch user info (${res.statusText}):\n${await res.text()}`);
+    return {invalid: true}
   }
   static async checkValidity(id: string, removeOnFail = false) {
     const accounts = this.accounts;
@@ -52,7 +67,7 @@ class AccountManager {
       return
     }
     const user = await this.fetchUser(account.token);
-    if (!user) {
+    if (user.invalid) {
       if (removeOnFail) delete accounts[id];
       account.active = false;
     } else {
@@ -66,7 +81,7 @@ class AccountManager {
   static async add(token: string) {
     const accounts = this.accounts;
     const user = await this.fetchUser(token);
-    if (!user) return;
+    if (user.failed) return {failed: true};
     accounts[user.id] = {
       username: user.username,
       discriminator: user.discriminator,
