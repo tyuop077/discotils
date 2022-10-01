@@ -6,13 +6,13 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Not Found - Discotils</title>
+        <title>Internal error - Discotils</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
         <div className={styles.error}>
-          <h1>404</h1>
-          <h2>Oops… Nothing found :(</h2>
+          <h1>500</h1>
+          <h2>Something went wrong</h2>
         </div>
       </main>
     </>
