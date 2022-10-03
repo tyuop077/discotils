@@ -2,20 +2,25 @@ import type { NextPage } from "next"
 import Head from "next/head"
 import Image from "next/image"
 import styles from "styles/Home.module.scss"
+import Logo from "assets/Logo.svg";
 
 const Home: NextPage = () => {
   return (
-    <>
+    <main className={styles.container}>
       <Head>
         <title>Discotils</title>
         <meta name="description" content="Discord Utilities" />
       </Head>
-      <main>
-        <h1>
-          Discotils
-        </h1>
-      </main>
-    </>
+      <div className={styles.logo}>
+        <Logo />
+        <h1>Discotils</h1>
+      </div>
+      <h2>Various Discord Utilities</h2>
+      <ul>
+        <li>Easily interact with your bot from the visual interface</li>
+        <li>Various utilities, that would help managing your server</li>
+      </ul>
+    </main>
   )
 }
 
