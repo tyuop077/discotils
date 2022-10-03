@@ -62,24 +62,35 @@ const Accounts: NextPage = () => {
   return (
     <div className={styles.container}>
       <h1>Accounts</h1>
-      <h3>Paste a new or existing bot token</h3>
-      <h5>or type it there:</h5>
+      {list?.length !== 0 ? (
+        <h3>Paste a new or existing bot token to add it here</h3>
+      ) : null}
       <input
         type="password"
-        placeholder="token" />
+        placeholder="token"
+      />
       <div className={styles.accounts}>
-        {list ? list.map(([id, account]) => (
-          <AccountDetails
-            key={id}
-            id={id}
-            account={account}
-            onClose={() => {
-              AccountManager.remove(id);
-              setAccounts(AccountManager.accounts);
-            }}
-            validating={status === "validating"}
-          />
-        )) : (
+        {list ? (
+          list.length !== 0 ? (
+            list.map(([id, account]) => (
+              <AccountDetails
+                key={id}
+                id={id}
+                account={account}
+                onClose={() => {
+                  AccountManager.remove(id);
+                  setAccounts(AccountManager.accounts);
+                }}
+                validating={status === "validating"}
+              />
+            ))
+          ) : (
+            <div className={styles.empty}>
+              <b>Looks like you haven&apos;t added any accounts yet</b>
+              <p>Add one by pasting the new token here</p>
+            </div>
+          )
+        ) : (
           <>
             <AccountDetailsPlaceholder />
             <AccountDetailsPlaceholder />
