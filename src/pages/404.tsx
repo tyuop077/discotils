@@ -4,17 +4,15 @@ import styles from "styles/ErrorHandler.module.scss"
 
 const Home: NextPage = () => {
   return (
-    <>
+    <main>
       <Head>
         <title>Not Found - Discotils</title>
       </Head>
-      <main>
-        <div className={styles.error}>
-          <h1>404</h1>
-          <h2>Oops… Nothing found :(</h2>
-        </div>
-      </main>
-    </>
+      <div className={styles.error}>
+        <h1>404</h1>
+        <h2>Oops… Nothing found :(</h2>
+      </div>
+    </main>
   )
 }
 
