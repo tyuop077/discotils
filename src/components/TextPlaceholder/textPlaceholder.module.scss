@@ -1,0 +1,31 @@
+.placeholder {
+  background-color: rgba(128, 128, 128, 0.1);
+  height: 1em;
+  margin-bottom: 1em;
+  overflow: hidden;
+  position: relative;
+  border-radius: 5px;
+  &:last-of-type {
+    width: 60%;
+    margin-bottom: inherit;
+  }
+  &:after {
+    display: block;
+    content: "";
+    width: 50%;
+    height: inherit;
+    animation: placeholder-loader 1s linear infinite;
+    background: linear-gradient(to right, #0C0C0C00 0%, currentColor 50%, #FFFFFF00 100%);
+    opacity: 0.2;
+  }
+}
+
+@keyframes placeholder-loader {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(300%);
+  }
+}
