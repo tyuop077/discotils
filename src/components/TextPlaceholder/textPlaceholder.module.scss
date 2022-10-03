@@ -1,25 +1,14 @@
-.textPlaceholder {
+.placeholder {
+  background-color: rgba(128, 128, 128, 0.1);
   height: 1em;
   margin-bottom: 1em;
+  overflow: hidden;
+  position: relative;
+  border-radius: 5px;
   &:last-of-type {
     width: 60%;
     margin-bottom: inherit;
   }
-  @extend .placeholder;
-}
-
-.imagePlaceholder {
-  border-radius: 100%;
-  width: var(--size);
-  height: var(--size);
-  @extend .placeholder;
-}
-
-.placeholder {
-  background-color: rgba(128, 128, 128, 0.1);
-  overflow: hidden;
-  position: relative;
-  border-radius: 5px;
   &:after {
     display: block;
     content: "";
