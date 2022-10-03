@@ -47,6 +47,7 @@ class AccountManager {
     return {success: true}
   }
   static async fetchUser(token: string) {
+    console.trace(`doing the fetch for ${token}`);
     const res = await fetch(`https://discord.com/api/v10/users/@me`, {
       headers: {
         Authorization: `Bot ${token}`,

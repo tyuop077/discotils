@@ -1,0 +1,28 @@
+.account {
+  img {
+    border-radius: 50%;
+    float: left;
+    height: 64px;
+    width: 64px;
+    margin-right: 10px;
+  }
+  span {
+    padding-left: 2px;
+    color: gray;
+  }
+  p {
+    margin: 0;
+    color: #3f673c;
+  }
+  :global .error {
+    color: #ed4245;
+  }
+}
+
+.image {
+  border-radius: 50%;
+  float: left;
+  height: 64px;
+  width: 64px;
+  margin-right: 10px;
+}
