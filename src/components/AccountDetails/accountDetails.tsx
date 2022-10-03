@@ -1,14 +1,16 @@
 import styles from "./accountsDetails.module.scss";
 import {Account} from "utils/accountManager";
 import Close from "assets/Close.svg";
+import TextPlaceholder from "../TextPlaceholder/textPlaceholder";
 
 interface Props {
   id: string,
   account: Account,
-  onClose: () => void
+  onClose: () => void,
+  validating: boolean
 }
 
-const AccountDetails = ({id, account, onClose}: Props) => {
+const AccountDetails = ({id, account, onClose, validating}: Props) => {
   const timeLabel = new Intl.RelativeTimeFormat().format((account.cachedOn - Date.now() / 1000 | 0) / 60 | 0, "minutes");
   return (
     <div className={styles.account}>
@@ -29,8 +31,13 @@ const AccountDetails = ({id, account, onClose}: Props) => {
       <b>{account.username}</b>
       <span>#{account.discriminator}</span>
       {account.active ?
-        <p>{`Active (verified ${timeLabel}`}</p>
-        : <p className="error">Invalid token</p>}
+        <p>
+          {validating ?
+            <TextPlaceholder />
+            : `Active (verified ${timeLabel}`}
+        </p>
+        : <p className="error">Invalid token</p>
+      }
     </div>
   )
 }

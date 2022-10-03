@@ -19,10 +19,11 @@
   }
 }
 
-.image {
+.imagePlaceholder {
   border-radius: 50%;
   float: left;
   height: 64px;
   width: 64px;
   margin-right: 10px;
+  background-color: rgba(128, 128, 128, 0.01);
 }

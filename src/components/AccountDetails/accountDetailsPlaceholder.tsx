@@ -4,6 +4,7 @@ import TextPlaceholder from "components/TextPlaceholder/textPlaceholder";
 
 const AccountDetailsPlaceholder = () => (
   <div className={styles.account}>
+    <div className={styles.imagePlaceholder} />
     <button>
       <Close />
     </button>

@@ -17,7 +17,6 @@ const toastLabels: Record<string, string> = {
 const Accounts: NextPage = () => {
   const [accounts, setAccounts] = useState<Record<string, Account>>();
   const [status, setStatus] = useState<string | null>(null);
-  const now = Date.now() / 1000 | 0;
   useEffect(() => {
     setAccounts(AccountManager.accounts);
     setStatus("validating")
@@ -78,6 +77,7 @@ const Accounts: NextPage = () => {
               AccountManager.remove(id);
               setAccounts(AccountManager.accounts);
             }}
+            validating={status === "validating"}
           />
         )) : (
           <>
