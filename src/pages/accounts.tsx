@@ -4,6 +4,7 @@ import styles from "styles/Accounts.module.scss";
 import AccountManager, {Account} from "utils/accountManager";
 import AccountDetails from "components/AccountDetails/accountDetails";
 import AccountDetailsPlaceholder from "components/AccountDetails/accountDetailsPlaceholder";
+import Head from "next/head";
 
 const tokenRegex = /^(Bot\s)?(?<token>[\w-]{24}\.[\w-]{6}\.[\w-]{27})/i;
 const toastLabels: Record<string, string> = {
@@ -60,50 +61,56 @@ const Accounts: NextPage = () => {
   const list = accounts ? Object.entries(accounts) : undefined;
   const toast = toastLabels[status!];
   return (
-    <div className={styles.container}>
-      <h1>Accounts</h1>
-      {list?.length !== 0 ? (
-        <h3>Paste a new or existing bot token to add it here</h3>
-      ) : null}
-      <input
-        type="password"
-        placeholder="token"
-      />
-      <div className={styles.accounts}>
-        {list ? (
-          list.length !== 0 ? (
-            list.map(([id, account]) => (
-              <AccountDetails
-                key={id}
-                id={id}
-                account={account}
-                onClose={() => {
-                  AccountManager.remove(id);
-                  setAccounts(AccountManager.accounts);
-                }}
-                validating={status === "validating"}
-              />
-            ))
+    <>
+      <Head>
+        <title>Accounts - Discotils</title>
+        <meta name="description" content="Discord Utilities" />
+      </Head>
+      <main className={styles.container}>
+        <h1>Accounts</h1>
+        {list?.length !== 0 ? (
+          <h3>Paste a new or existing bot token to add it here</h3>
+        ) : null}
+        <input
+          type="password"
+          placeholder="token"
+        />
+        <div className={styles.accounts}>
+          {list ? (
+            list.length !== 0 ? (
+              list.map(([id, account]) => (
+                <AccountDetails
+                  key={id}
+                  id={id}
+                  account={account}
+                  onClose={() => {
+                    AccountManager.remove(id);
+                    setAccounts(AccountManager.accounts);
+                  }}
+                  validating={status === "validating"}
+                />
+              ))
+            ) : (
+              <div className={styles.empty}>
+                <b>Looks like you haven&apos;t added any accounts yet</b>
+                <p>Add one by pasting the new token here</p>
+              </div>
+            )
           ) : (
-            <div className={styles.empty}>
-              <b>Looks like you haven&apos;t added any accounts yet</b>
-              <p>Add one by pasting the new token here</p>
-            </div>
-          )
-        ) : (
-          <>
-            <AccountDetailsPlaceholder />
-            <AccountDetailsPlaceholder />
-            <AccountDetailsPlaceholder />
-          </>
-        )}
-      </div>
-      {toast ? (
-        <div className={styles.toast}>
-          <span>{toast}</span>
+            <>
+              <AccountDetailsPlaceholder />
+              <AccountDetailsPlaceholder />
+              <AccountDetailsPlaceholder />
+            </>
+          )}
         </div>
-      ) : null}
-    </div>
+        {toast ? (
+          <div className={styles.toast}>
+            <span>{toast}</span>
+          </div>
+        ) : null}
+      </main>
+    </>
   )
 }
 

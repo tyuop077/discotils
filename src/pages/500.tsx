@@ -7,7 +7,6 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>Internal error - Discotils</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
         <div className={styles.error}>
