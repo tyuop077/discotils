@@ -11,7 +11,8 @@ interface Props {
 }
 
 const AccountDetails = ({id, account, onClose, validating}: Props) => {
-  const timeLabel = new Intl.RelativeTimeFormat().format((account.cachedOn - Date.now() / 1000 | 0) / 60 | 0, "minutes");
+  const timeLabel = new Intl.RelativeTimeFormat("en", { numeric: "auto" })
+    .format((account.cachedOn - Date.now() / 1000 | 0) / 60 | 0, "minutes");
   return (
     <div className={styles.account}>
       <img
@@ -34,7 +35,7 @@ const AccountDetails = ({id, account, onClose, validating}: Props) => {
         <p>
           {validating ?
             <TextPlaceholder />
-            : `Active (verified ${timeLabel}`}
+            : `Active (verified ${timeLabel})`}
         </p>
         : <p className="error">Invalid token</p>
       }
