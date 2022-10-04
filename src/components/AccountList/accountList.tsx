@@ -3,6 +3,7 @@ import styles from "./accountList.module.scss";
 import AccountManager, {Account} from "utils/accountManager";
 import AccountDetails from "components/AccountDetails/accountDetails";
 import AccountDetailsPlaceholder from "components/AccountDetails/accountDetailsPlaceholder";
+import Link from "next/link";
 
 const tokenRegex = /^(Bot\s)?(?<token>[\w-]{24}\.[\w-]{6}\.[\w-]{27})/i;
 const toastLabels: Record<string, string> = {
@@ -13,7 +14,7 @@ const toastLabels: Record<string, string> = {
   noConnection: "There's a connection issue, please check your access to the internet and try again"
 }
 
-const Accounts = ({extended}: {extended?: boolean}) => {
+const Accounts = ({extended, to}: {extended?: boolean, to?: string}) => {
   const [accounts, setAccounts] = useState<Record<string, Account>>();
   const [status, setStatus] = useState<string | null>(null);
   useEffect(() => {
@@ -67,19 +68,28 @@ const Accounts = ({extended}: {extended?: boolean}) => {
       <div className={styles.accounts}>
         {list ? (
           list.length !== 0 ? (
-            list.map(([id, account]) => (
-              <AccountDetails
-                key={id}
-                id={id}
-                account={account}
-                onClose={() => {
-                  AccountManager.remove(id);
-                  setAccounts(AccountManager.accounts);
-                }}
-                validating={status === "validating"}
-                extended={extended}
-              />
-            ))
+            list.map(([id, account]) => {
+              const details = (
+                <AccountDetails
+                  key={id}
+                  id={id}
+                  account={account}
+                  onClose={() => {
+                    AccountManager.remove(id);
+                    setAccounts(AccountManager.accounts);
+                  }}
+                  validating={status === "validating"}
+                  extended={extended}
+                />
+              );
+              return to ? (
+                <Link
+                  href={to.replace("{}", id)}
+                >
+                  {details}
+                </Link>
+              ) : details;
+            })
           ) : (
             <div className={styles.empty}>
               <b>Looks like you haven&apos;t added any accounts yet</b>
