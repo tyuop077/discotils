@@ -3,7 +3,6 @@ import styles from "./accountList.module.scss";
 import AccountManager, {Account} from "utils/accountManager";
 import AccountDetails from "components/AccountDetails/accountDetails";
 import AccountDetailsPlaceholder from "components/AccountDetails/accountDetailsPlaceholder";
-import Link from "next/link";
 
 const tokenRegex = /^(Bot\s)?(?<token>[\w-]{24}\.[\w-]{6}\.[\w-]{27})/i;
 const toastLabels: Record<string, string> = {
@@ -57,19 +56,19 @@ const Accounts = ({extended, to}: {extended?: boolean, to?: string}) => {
   const list = accounts ? Object.entries(accounts) : undefined;
   const toast = toastLabels[status!];
   return (
-    <div className={styles.accountList}>
+    <>
       {list?.length !== 0 && extended ? (
         <h3>Paste a new or existing bot token to add it here</h3>
       ) : null}
-      <input
-        type="password"
-        placeholder="token"
-      />
-      <div className={styles.accounts}>
-        {list ? (
-          list.length !== 0 ? (
-            list.map(([id, account]) => {
-              const details = (
+      <div className={styles.accountList}>
+        <input
+          type="password"
+          placeholder="token"
+        />
+        <div className={styles.accounts}>
+          {list ? (
+            list.length !== 0 ? (
+              list.map(([id, account]) => (
                 <AccountDetails
                   key={id}
                   id={id}
@@ -80,36 +79,30 @@ const Accounts = ({extended, to}: {extended?: boolean, to?: string}) => {
                   }}
                   validating={status === "validating"}
                   extended={extended}
+                  href={to?.replace("{}", id)}
                 />
-              );
-              return to ? (
-                <Link
-                  href={to.replace("{}", id)}
-                >
-                  {details}
-                </Link>
-              ) : details;
-            })
+              ))
+            ) : (
+              <div className={styles.empty}>
+                <b>Looks like you haven&apos;t added any accounts yet</b>
+                <p>Add one by pasting the new token here</p>
+              </div>
+            )
           ) : (
-            <div className={styles.empty}>
-              <b>Looks like you haven&apos;t added any accounts yet</b>
-              <p>Add one by pasting the new token here</p>
-            </div>
-          )
-        ) : (
-          <>
-            <AccountDetailsPlaceholder extended={extended} />
-            <AccountDetailsPlaceholder extended={extended} />
-            <AccountDetailsPlaceholder extended={extended} />
-          </>
-        )}
-      </div>
-      {toast ? (
-        <div className={styles.toast}>
-          <span>{toast}</span>
+            <>
+              <AccountDetailsPlaceholder extended={extended} />
+              <AccountDetailsPlaceholder extended={extended} />
+              <AccountDetailsPlaceholder extended={extended} />
+            </>
+          )}
         </div>
-      ) : null}
-    </div>
+        {toast ? (
+          <div className={styles.toast}>
+            <span>{toast}</span>
+          </div>
+        ) : null}
+      </div>
+    </>
   )
 }
 

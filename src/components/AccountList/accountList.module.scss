@@ -1,4 +1,7 @@
 .accountList {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
   input {
     color: white;
     height: 50px;
@@ -17,12 +20,6 @@
     @media (hover: hover) {
       display: none;
     }
-  }
-  h3 {
-    margin: 0;
-    text-align: center;
-    font-weight: 400;
-    padding-bottom: 20px;
   }
   button {
     float: right;
@@ -45,7 +42,6 @@
 .accounts {
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   height: 100vh;
   gap: 10px;
 }
@@ -57,10 +53,6 @@
   border-radius: 4px;
   padding: 10px;
   animation: fadein 0.4s ease-in both;
-  button {
-    width: 20px;
-    height: 20px;
-  }
   position: absolute;
   top: 60px;
   right: 10px;

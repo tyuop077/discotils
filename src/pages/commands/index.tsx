@@ -15,7 +15,7 @@ const Commands: NextPage = () => {
       <div className={styles.container}>
         <h1>Application Commands Editor</h1>
         <h3>Select an account or <Link href="/accounts">add</Link> one</h3>
-        <AccountList />
+        <AccountList to="/commands/{}" />
       </div>
     </main>
   )
