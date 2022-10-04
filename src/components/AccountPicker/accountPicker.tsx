@@ -1,53 +1,31 @@
 import styles from "./accountPicker.module.scss";
 import {useEffect, useState} from "react";
-import tryParse from "utils/tryParse";
 import Loader from "components/Loader/loader";
-
-interface Account {
-  id: string;
-  username: string;
-  discriminator: string;
-  avatar: string;
-  token: string;
-}
+import AccountManager from "../../utils/accountManager";
 
 const AccountPicker = () => {
   const [open, setOpen] = useState(false);
-  const [list, setList] = useState<Account[]>();
-  const [selected, setSelected] = useState("");
+  const accounts = AccountManager.accounts;
+  const ids = Object.keys(accounts);
+  const [selected, setSelected] = useState(ids.length === 0 ? "" :
+    localStorage.getItem("accounts_selected") ?? ids[0]);
   useEffect(() => {
-    const accounts = localStorage.getItem("accounts");
-    const accounts_selected = BigInt(localStorage.getItem("accounts_selected") ?? 0);
-    if (accounts) {
-      const accounts_json = tryParse<Account[]>(accounts);
-      if (accounts_json) {
-        setList(accounts_json);
-        if (accounts_selected) {
-          setSelected(accounts_json.find(account => account.id === accounts_selected.toString())?.id ?? "");
-        }
-      } else {
-        // TODO: Add error toast
-      }
-    } else {
-      setList([]);
-    }
-  }, [])
-  useEffect(() => {
-    if (list) localStorage.setItem("accounts", JSON.stringify(list));
-  }, [list])
+    setSelected(ids.length === 0 ? "" :
+      localStorage.getItem("accounts_selected") ?? ids[0]);
+  }, [ids])
   useEffect(() => {
     if (selected) localStorage.setItem("accounts_selected", selected);
   }, [selected])
-  const account = list ? list.find(account => account.id === selected) : undefined;
+  const account = accounts[selected];
   return (
     <div className={styles.container}>
-      {list ? (
+      {accounts ? (
         account ? <>
           <img
             src={
               account.avatar ?
                 "https://cdn.discordapp.com/avatars/" +
-                `${encodeURIComponent(account.id)}/${encodeURIComponent(account.avatar)}.webp?size=128` :
+                `${encodeURIComponent(selected)}/${encodeURIComponent(account.avatar)}.webp?size=128` :
                 `https://cdn.discordapp.com/embed/avatars/${parseInt(account.discriminator) % 5}.png`
             }
             alt={account.username}

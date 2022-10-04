@@ -1,7 +1,12 @@
 import {NextPage} from "next";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import styles from "styles/Commands.module.scss";
-import AccountPicker from "components/AccountPicker/accountPicker";
+const AccountPicker = dynamic(() => import("components/AccountPicker/accountPicker"), {
+  ssr: false,
+  loading: () => <TextPlaceholder />
+});
+import TextPlaceholder from "../../components/TextPlaceholder/textPlaceholder";
 
 const Commands: NextPage = () => {
   return (
