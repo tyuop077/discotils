@@ -1,19 +1,18 @@
 .container {
-  display: flex;
-}
-
-.menu {
-  display: flex;
-  flex-direction: column;
-}
-
-.guildsPicker {
+  width: 100%;
+  max-width: 620px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 20px 1rem;
   display: flex;
   flex-direction: column;
-  width: 360px;
-}
-
-.commandsPicker {
-  display: flex;
-  flex-direction: column;
+  h3 {
+    margin: 0;
+    text-align: center;
+    font-weight: 400;
+    padding-bottom: 20px;
+    a {
+      color: #00b2ff;
+    }
+  }
 }
