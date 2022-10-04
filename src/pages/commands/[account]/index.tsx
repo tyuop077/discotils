@@ -13,9 +13,7 @@ const Commands: NextPage = () => {
       </Head>
       <div className={styles.container}>
         <div className={styles.menu}>
-          <div className={styles.account}>
-            <AccountPicker />
-          </div>
+          <AccountPicker />
           <div className={styles.guildsPicker}>
             <h1>Application Commands Editor</h1>
             test

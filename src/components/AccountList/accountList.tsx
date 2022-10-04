@@ -13,7 +13,7 @@ const toastLabels: Record<string, string> = {
   noConnection: "There's a connection issue, please check your access to the internet and try again"
 }
 
-const Accounts = ({extended, to}: {extended?: boolean, to?: string}) => {
+const AccountList = ({extended, to}: {extended?: boolean, to?: string}) => {
   const [accounts, setAccounts] = useState<Record<string, Account>>();
   const [status, setStatus] = useState<string | null>(null);
   useEffect(() => {
@@ -106,4 +106,4 @@ const Accounts = ({extended, to}: {extended?: boolean, to?: string}) => {
   )
 }
 
-export default Accounts
+export default AccountList
