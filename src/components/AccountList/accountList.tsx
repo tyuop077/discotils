@@ -88,9 +88,9 @@ const Accounts = ({extended}: {extended?: boolean}) => {
           )
         ) : (
           <>
-            <AccountDetailsPlaceholder />
-            <AccountDetailsPlaceholder />
-            <AccountDetailsPlaceholder />
+            <AccountDetailsPlaceholder extended={extended} />
+            <AccountDetailsPlaceholder extended={extended} />
+            <AccountDetailsPlaceholder extended={extended} />
           </>
         )}
       </div>

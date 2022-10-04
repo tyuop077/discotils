@@ -32,13 +32,18 @@
     background-color: #FFFFFF0D;
   }
   padding: 8px;
-  border-radius: 15px;
+  border-radius: 16px;
+  transition: background-color 80ms;
   img {
     height: 32px;
     width: 32px;
   }
   code {
     float: right;
+  }
+  .imagePlaceholder {
+    width: 32px;
+    height: 32px;
   }
 }
 
