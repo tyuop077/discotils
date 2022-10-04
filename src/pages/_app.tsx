@@ -1,16 +1,25 @@
 import "styles/globals.scss"
+import type { NextPage } from "next"
 import type { AppProps } from "next/app"
+import type { ReactElement, ReactNode } from "react"
 import Header from "../components/Header/header";
 import Footer from "../components/Footer/footer";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-      <>
-          <Header />
-          <Component {...pageProps} />
-          <Footer />
-      </>
-  )
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
 }
 
-export default MyApp
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page) => page);
+  return (
+    <>
+      <Header />
+      {getLayout(<Component {...pageProps} />)}
+      <Footer />
+    </>
+  )
+}
