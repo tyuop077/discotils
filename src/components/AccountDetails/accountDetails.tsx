@@ -1,7 +1,7 @@
 import styles from "./accountsDetails.module.scss";
 import {Account} from "utils/accountManager";
 import Close from "assets/Close.svg";
-import TextPlaceholder from "../TextPlaceholder/textPlaceholder";
+import TextPlaceholder from "@components/TextPlaceholder/textPlaceholder";
 
 interface Props {
   id: string,
