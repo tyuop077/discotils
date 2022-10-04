@@ -7,14 +7,19 @@ interface Props {
   id: string,
   account: Account,
   onClose: () => void,
-  validating: boolean
+  validating: boolean,
+  extended?: boolean,
+  onSelected?: () => void
 }
 
-const AccountDetails = ({id, account, onClose, validating}: Props) => {
+const AccountDetails = ({id, account, onClose, validating, extended, onSelected}: Props) => {
   const timeLabel = new Intl.RelativeTimeFormat("en", { numeric: "auto" })
     .format((account.cachedOn - Date.now() / 1000 | 0) / 60 | 0, "minutes");
   return (
-    <div className={styles.account}>
+    <div
+      className={`${extended ? styles.extended : styles.selectable}${account.active ? "" : ` ${styles.disabled}}`}`}
+      onClick={onSelected}
+    >
       <img
         src={
           account.avatar ?
@@ -24,21 +29,25 @@ const AccountDetails = ({id, account, onClose, validating}: Props) => {
         }
         alt={account.username}
       />
-      <button
-        onClick={onClose}
-      >
-        <Close />
-      </button>
+      {extended && (
+        <button
+          onClick={onClose}
+        >
+          <Close />
+        </button>
+      )}
       <b>{account.username}</b>
       <span>#{account.discriminator}</span>
-      {account.active ?
-        <p>
-          {validating ?
-            <TextPlaceholder />
-            : `Active (verified ${timeLabel})`}
-        </p>
-        : <p className="error">Invalid token</p>
-      }
+      {extended && (
+        account.active ?
+            <p>
+              {validating ?
+                <TextPlaceholder />
+                : `Active (verified ${timeLabel})`}
+            </p>
+            : <p className="error">Invalid token</p>
+      )}
+      <code>{id}</code>
     </div>
   )
 }

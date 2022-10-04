@@ -1,7 +1,8 @@
 import {NextPage} from "next";
 import Head from "next/head";
-import styles from "styles/Commands.module.scss";
-import AccountPicker from "components/AccountPicker/accountPicker";
+import styles from "@styles/Commands.module.scss";
+import Link from "next/link";
+import AccountList from "@components/AccountList/accountList";
 
 const Commands: NextPage = () => {
   return (
@@ -12,22 +13,9 @@ const Commands: NextPage = () => {
         Register and edit commands and interactions, add localization with Discotils application commands builder." />
       </Head>
       <div className={styles.container}>
-        <div className={styles.menu}>
-          <div className={styles.account}>
-            <AccountPicker />
-          </div>
-          <div className={styles.guildsPicker}>
-            <h1>Application Commands Editor</h1>
-            test
-            test2
-            test3
-          </div>
-        </div>
-        <div className={styles.commandsPicker}>
-          test
-          test2
-          test3
-        </div>
+        <h1>Application Commands Editor</h1>
+        <h3>Select an account or <Link href="/accounts">add</Link> one</h3>
+        <AccountList />
       </div>
     </main>
   )

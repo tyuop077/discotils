@@ -1,4 +1,4 @@
-.account {
+.extended, .selectable {
   img {
     border-radius: 50%;
     float: left;
@@ -17,6 +17,29 @@
   :global .error {
     color: #ed4245;
   }
+  code {
+    color: gray;
+  }
+}
+
+.selectable {
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    background-color: #FFFFFF19;
+  }
+  &:active {
+    background-color: #FFFFFF0D;
+  }
+  padding: 8px;
+  border-radius: 15px;
+  img {
+    height: 32px;
+    width: 32px;
+  }
+  code {
+    float: right;
+  }
 }
 
 .imagePlaceholder {
@@ -26,4 +49,8 @@
   width: 64px;
   margin-right: 10px;
   background-color: rgba(128, 128, 128, 0.01);
+}
+
+.disabled {
+  filter: grayscale(1);
 }
