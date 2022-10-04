@@ -13,6 +13,9 @@ const AccountPicker = () => {
   const accounts = AccountManager.accounts;
   const account = typeof account_id === "string" ? accounts[account_id] : undefined;
   useEffect(() => {
+    if (account_id && !account) router.push("/commands");
+  }, [account_id, account])
+  useEffect(() => {
     setOpen(false);
   }, [account_id])
   return (
