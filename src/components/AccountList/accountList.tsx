@@ -31,6 +31,7 @@ const AccountList = ({extended, to}: {extended?: boolean, to?: string}) => {
     });
   }, [extended])
   useEffect(() => {
+    if (!extended) return;
     const listener = (e: any) => {
       const text = e.clipboardData.getData("text");
       const match = tokenRegex.exec(text);
@@ -52,7 +53,7 @@ const AccountList = ({extended, to}: {extended?: boolean, to?: string}) => {
     };
     addEventListener("paste", listener);
     return () => removeEventListener("paste", listener);
-  }, [])
+  }, [extended])
   useEffect(() => {
     const timeout = setTimeout(() => {
       setStatus(null)
