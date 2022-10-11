@@ -1,9 +1,9 @@
-import "styles/globals.scss"
+import "@styles/globals.scss"
 import type { NextPage } from "next"
 import type { AppProps } from "next/app"
 import type { ReactElement, ReactNode } from "react"
-import Header from "../components/Header/header";
-import Footer from "../components/Footer/footer";
+import Header from "@components/Header/header";
+import Footer from "@components/Footer/footer";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode

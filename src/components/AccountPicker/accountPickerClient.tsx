@@ -1,7 +1,7 @@
 import styles from "./accountPicker.module.scss";
 import {useEffect, useState} from "react";
-import Loader from "components/Loader/loader";
-import AccountManager from "../../utils/accountManager";
+import Loader from "@components/Loader/loader";
+import AccountManager from "@utils/accountManager";
 import {useRouter} from "next/router";
 import ArrowDown from "@assets/ArrowDown.svg";
 import AccountList from "@components/AccountList/accountList";

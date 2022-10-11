@@ -1,5 +1,5 @@
 import {NextPage} from "next";
-import styles from "styles/Accounts.module.scss";
+import styles from "@styles/Accounts.module.scss";
 import Head from "next/head";
 import AccountList from "@components/AccountList/accountList";
 

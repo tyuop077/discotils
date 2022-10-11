@@ -1,4 +1,4 @@
-import tryParse from "./tryParse";
+import tryParse from "@utils/tryParse";
 import Account, {IAccount} from "@utils/account";
 
 class AccountManager {

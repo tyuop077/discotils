@@ -1,6 +1,6 @@
 import type { NextPage } from "next"
 import Head from "next/head"
-import styles from "styles/ErrorHandler.module.scss"
+import styles from "@styles/ErrorHandler.module.scss"
 
 const Home: NextPage = () => {
   return (

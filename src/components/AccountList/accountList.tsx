@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import styles from "./accountList.module.scss";
-import AccountManager from "utils/accountManager";
+import AccountManager from "@utils/accountManager";
 import Account from "@utils/account";
-import AccountDetails from "components/AccountDetails/accountDetails";
-import AccountDetailsPlaceholder from "components/AccountDetails/accountDetailsPlaceholder";
+import AccountDetails from "@components/AccountDetails/accountDetails";
+import AccountDetailsPlaceholder from "@components/AccountDetails/accountDetailsPlaceholder";
 
 const tokenRegex = /^(Bot\s)?(?<token>[\w-]{24}\.[\w-]{6}\.[\w-]{27})/i;
 const toastLabels: Record<string, string> = {

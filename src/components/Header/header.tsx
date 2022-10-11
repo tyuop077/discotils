@@ -1,8 +1,8 @@
 import styles from "./header.module.scss";
 import Link from "next/link";
-import Logo from "assets/Logo.svg";
-import Lookup from "assets/Lookup.svg";
-import Slash from "assets/Slash.svg";
+import Logo from "@assets/Logo.svg";
+import Lookup from "@assets/Lookup.svg";
+import Slash from "@assets/Slash.svg";
 
 const Header = () => (
   <>
