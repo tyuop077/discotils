@@ -27,13 +27,14 @@
   width: 100%;
   height: calc(100vh - 100px);
   justify-content: center;
-  h4 {
+  h3 {
     font-weight: 400;
     text-align: center;
   }
   svg {
     max-width: 150px;
-    color: #FFFFFF33;
+    filter: grayscale(100%);
+    opacity: 0.3;
   }
   @media (max-width: 600px) {
     display: none;

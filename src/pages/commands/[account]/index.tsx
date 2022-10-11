@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import {Guilds} from "@utils/guilds";
 import {useRouter} from "next/router";
 import Guild from "@utils/guild";
-import Slash from "@assets/Slash.svg";
+import Slash from "@assets/Logo.svg";
 
 const Commands: NextPage = () => {
   const router = useRouter();
@@ -50,7 +50,7 @@ const Commands: NextPage = () => {
         </div>
       <div className={styles.commandsPicker}>
         <Slash />
-        <h4>Select a server on the left</h4>
+        <h3>Select a server on the left</h3>
       </div>
     </main>
   )
