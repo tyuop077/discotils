@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import styles from "./accountList.module.scss";
-import AccountManager, {Account} from "utils/accountManager";
+import AccountManager from "utils/accountManager";
+import Account from "@utils/account";
 import AccountDetails from "components/AccountDetails/accountDetails";
 import AccountDetailsPlaceholder from "components/AccountDetails/accountDetailsPlaceholder";
 
@@ -10,7 +11,8 @@ const toastLabels: Record<string, string> = {
   failed: "Failed verifying accounts",
   failedPartially: "Failed verifying some accounts",
   invalidToken: "Pasted token is invalid",
-  noConnection: "There's a connection issue, please check your access to the internet and try again"
+  noConnection: "There's a connection issue, please check your access to the internet and try again",
+  added: "Account added"
 }
 
 const AccountList = ({extended, to}: {extended?: boolean, to?: string}) => {
@@ -36,7 +38,11 @@ const AccountList = ({extended, to}: {extended?: boolean, to?: string}) => {
         const token = match.groups?.token;
         if (!token) return;
         AccountManager.add(token).then(r => {
-          if (r?.failed) setStatus("invalidToken");
+          if (r?.failed) {
+            setStatus("invalidToken");
+          } else {
+            setStatus("added");
+          }
           setAccounts(AccountManager.accounts)
         }).catch(e => {
           console.error(e);
