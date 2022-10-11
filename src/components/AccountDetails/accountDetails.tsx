@@ -1,5 +1,5 @@
 import styles from "./accountsDetails.module.scss";
-import {Account} from "utils/accountManager";
+import Account from "@utils/account";
 import Close from "assets/Close.svg";
 import TextPlaceholder from "@components/TextPlaceholder/textPlaceholder";
 import Link from "next/link";
