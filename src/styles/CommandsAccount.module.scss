@@ -17,6 +17,9 @@
   display: flex;
   flex-direction: column;
   width: 360px;
+  @media (max-width: 360px) {
+    width: 100%;
+  }
 }
 
 .commandsPicker {

@@ -39,7 +39,14 @@
   backdrop-filter: blur(8px);
   border-radius: 16px;
   margin-top: 10px;
-
+  @media (max-width: 600px) {
+    width: calc(100vw - 20px);
+  }
+  @media (max-width: 380px) {
+    code {
+      display: none;
+    }
+  }
   div {
     height: inherit;
     max-height: 200px;
