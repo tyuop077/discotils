@@ -8,6 +8,7 @@ import {useRouter} from "next/router";
 import Guild from "@utils/guild";
 import Slash from "@assets/Logo.svg";
 import Link from "next/link";
+import Wrench from "@assets/Wrench.svg";
 
 const Commands: NextPage = () => {
   const router = useRouter();
@@ -30,6 +31,16 @@ const Commands: NextPage = () => {
       <div className={styles.menu}>
         <AccountPicker />
         <div className={styles.guildsPicker}>
+          <Link
+            href={`/commands/${accountId}/global`}
+          >
+            <div className={styles.guild}>
+              <div className={styles.global}>
+                <Wrench />
+              </div>
+              <p>Global</p>
+            </div>
+          </Link>
           {guilds && (
             guilds.map((guild) => (
               <Link
