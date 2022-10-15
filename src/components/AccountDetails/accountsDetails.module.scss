@@ -22,6 +22,26 @@
   }
 }
 
+.extended {
+  button {
+    float: right;
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    padding: 3px;
+    background-color: unset;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    &:hover {
+      background-color: #FFFFFF33;
+    }
+    &:active {
+      background-color: #FFFFFF19;
+    }
+  }
+}
+
 .selectable {
   cursor: pointer;
   user-select: none;
