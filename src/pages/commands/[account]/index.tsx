@@ -9,6 +9,7 @@ import Guild from "@utils/guild";
 import Logo from "@assets/Logo.svg";
 import Link from "next/link";
 import Wrench from "@assets/Wrench.svg";
+let once = "";
 
 const ApplicationCommandsAccount: NextPage = () => {
   const router = useRouter();
@@ -16,6 +17,8 @@ const ApplicationCommandsAccount: NextPage = () => {
   const [guilds, setGuilds] = useState<Guild[]>();
   useEffect(() => {
     if (typeof accountId !== "string") return;
+    if (once === accountId) return;
+    once = accountId;
     Guilds.getGuilds(accountId).then((guilds) => {
       if (!guilds) return;
       setGuilds(guilds);
