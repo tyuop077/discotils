@@ -76,7 +76,6 @@ export default class Account implements IAccount {
       })
     }
   }
-  // rest("/user/@me/guilds", "GET", {headers: {Authorization: `Bot ${this.token}`}})
   async rest(path: string, method = "GET", options: RequestInit = {}) {
     const res = await fetch(`https://discord.com/api/v10/${path}`, {
       method,
