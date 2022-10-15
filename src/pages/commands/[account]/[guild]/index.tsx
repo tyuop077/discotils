@@ -1,28 +1,19 @@
 import {NextPage} from "next";
 import Head from "next/head";
 import styles from "@styles/CommandsAccountGuild.module.scss";
-import {useEffect, useState} from "react";
+import {useMemo} from "react";
 import {useRouter} from "next/router";
 import Slash from "@assets/Slash.svg";
 import Link from "next/link";
-import Command from "@utils/command";
 import Commands from "@utils/commands";
-let once = ""; // react strict dev environment
 
 const ApplicationCommands: NextPage = () => {
   const router = useRouter();
   const accountId = router.query.account;
   const guildId = router.query.guild;
-  const [commands, setCommands] = useState<Command[]>();
-  useEffect(() => {
-    if (once === `${accountId}${guildId}`) return;
-    once = `${accountId}${guildId}`;
-    if (typeof accountId !== "string") return;
-    if (typeof guildId !== "string") return;
-    Commands.getCommands(accountId, guildId).then((commands) => {
-      if (!commands) return;
-      setCommands(commands);
-    });
+  const commands = useMemo(() => {
+    if (typeof accountId !== "string" || typeof guildId !== "string") return;
+    return Commands.getCommands(accountId, guildId);
   }, [accountId, guildId]);
   return (
     <main className={styles.container}>
@@ -33,7 +24,7 @@ const ApplicationCommands: NextPage = () => {
       </Head>
       <div className={styles.menu}>
         <div className={styles.commandsPicker}>
-          {commands && (
+          {Array.isArray(commands) && (
             commands.map((command) => (
               <Link
                 href={`/commands/${accountId}/${guildId}/${command.id}`}

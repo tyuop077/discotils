@@ -2,27 +2,19 @@ import {NextPage} from "next";
 import Head from "next/head";
 import styles from "@styles/CommandsAccount.module.scss";
 import AccountPicker from "@components/AccountPicker/accountPicker";
-import {useEffect, useState} from "react";
+import {useMemo} from "react";
 import {Guilds} from "@utils/guilds";
 import {useRouter} from "next/router";
-import Guild from "@utils/guild";
 import Logo from "@assets/Logo.svg";
 import Link from "next/link";
 import Wrench from "@assets/Wrench.svg";
-let once = "";
 
 const ApplicationCommandsAccount: NextPage = () => {
   const router = useRouter();
   const accountId = router.query.account;
-  const [guilds, setGuilds] = useState<Guild[]>();
-  useEffect(() => {
+  const guilds = useMemo(() => {
     if (typeof accountId !== "string") return;
-    if (once === accountId) return;
-    once = accountId;
-    Guilds.getGuilds(accountId).then((guilds) => {
-      if (!guilds) return;
-      setGuilds(guilds);
-    });
+    return Guilds.getGuilds(accountId);
   }, [accountId]);
   return (
     <main className={styles.container}>
@@ -44,7 +36,7 @@ const ApplicationCommandsAccount: NextPage = () => {
               <p>Global</p>
             </div>
           </Link>
-          {guilds && (
+          {Array.isArray(guilds) && (
             guilds.map((guild) => (
               <Link
                 href={`/commands/${accountId}/${guild.id}`}
