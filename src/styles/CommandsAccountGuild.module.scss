@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  height: 100%;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  gap: 10px;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.commandsPicker {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.command {
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #36393f;
+    width: 48px;
+    height: 48px;
+  }
+  p {
+    display: none;
+  }
+  gap: 10px;
+  padding: 0 10px;
+  border-radius: 5px;
+  user-select: none;
+  cursor: pointer;
+  &:hover {
+    background-color: #2f3136;
+    img, .icon {
+      border-radius: 15px;
+    }
+  }
+  &:active {
+    background-color: #23272a;
+  }
+  transition: background-color 80ms;
+}
