@@ -6,11 +6,11 @@ import {useEffect, useState} from "react";
 import {Guilds} from "@utils/guilds";
 import {useRouter} from "next/router";
 import Guild from "@utils/guild";
-import Slash from "@assets/Logo.svg";
+import Logo from "@assets/Logo.svg";
 import Link from "next/link";
 import Wrench from "@assets/Wrench.svg";
 
-const Commands: NextPage = () => {
+const ApplicationCommandsAccount: NextPage = () => {
   const router = useRouter();
   const accountId = router.query.account;
   const [guilds, setGuilds] = useState<Guild[]>();
@@ -66,11 +66,11 @@ const Commands: NextPage = () => {
           </div>
         </div>
       <div className={styles.commandsPicker}>
-        <Slash />
+        <Logo />
         <h3>Select a server on the left</h3>
       </div>
     </main>
   )
 }
 
-export default Commands
+export default ApplicationCommandsAccount
