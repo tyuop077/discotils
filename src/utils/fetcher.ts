@@ -15,5 +15,5 @@ export const fetcher = async (path: string, token: string, method = "GET", optio
       .update({active: false});
     throw new Error("Invalid session");
   }
-  return res;
+  return res.json();
 }

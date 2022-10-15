@@ -1,5 +1,4 @@
 import AccountManager from "@utils/accountManager";
-import {fetcher} from "@utils/fetcher";
 
 export interface IAccount {
   username: string;
@@ -76,9 +75,5 @@ export default class Account implements IAccount {
         avatar: user.avatar
       })
     }
-  }
-  /** @deprecated */
-  rest(path: string, method = "GET", options: RequestInit = {}) {
-    return fetcher(path, this.token, method, options);
   }
 }
