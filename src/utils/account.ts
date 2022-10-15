@@ -1,4 +1,5 @@
 import AccountManager from "@utils/accountManager";
+import {fetcher} from "@utils/fetcher";
 
 export interface IAccount {
   username: string;
@@ -76,16 +77,8 @@ export default class Account implements IAccount {
       })
     }
   }
-  async rest(path: string, method = "GET", options: RequestInit = {}) {
-    const res = await fetch(`https://discord.com/api/v10/${path}`, {
-      method,
-      ...options,
-      headers: {
-        Authorization: `Bot ${this.token}`,
-        ...options.headers
-      }
-    });
-    if (res.status === 401) this.update({active: false});
-    return res;
+  /** @deprecated */
+  rest(path: string, method = "GET", options: RequestInit = {}) {
+    return fetcher(path, this.token, method, options);
   }
 }
