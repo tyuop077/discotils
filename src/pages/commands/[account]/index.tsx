@@ -2,20 +2,17 @@ import {NextPage} from "next";
 import Head from "next/head";
 import styles from "@styles/CommandsAccount.module.scss";
 import AccountPicker from "@components/AccountPicker/accountPicker";
-import {useMemo} from "react";
-import {Guilds} from "@utils/guilds";
+import {useGuilds} from "@utils/guilds";
 import {useRouter} from "next/router";
 import Logo from "@assets/Logo.svg";
 import Link from "next/link";
 import Wrench from "@assets/Wrench.svg";
+import Loader from "@components/Loader/loader";
 
 const ApplicationCommandsAccount: NextPage = () => {
   const router = useRouter();
   const accountId = router.query.account;
-  const guilds = useMemo(() => {
-    if (typeof accountId !== "string") return;
-    return Guilds.getGuilds(accountId);
-  }, [accountId]);
+  const {guilds, isLoading, isError} = useGuilds(typeof accountId === "string" ? accountId : undefined);
   return (
     <main className={styles.container}>
       <Head>
@@ -36,7 +33,7 @@ const ApplicationCommandsAccount: NextPage = () => {
               <p>Global</p>
             </div>
           </Link>
-          {Array.isArray(guilds) && (
+          {guilds && (
             guilds.map((guild) => (
               <Link
                 href={`/commands/${accountId}/${guild.id}`}
@@ -58,8 +55,14 @@ const ApplicationCommandsAccount: NextPage = () => {
               </Link>
             ))
           )}
-          </div>
+          {isLoading && (
+            <Loader />
+          )}
+          {isError && (
+            <p>Something went wrong</p>
+          )}
         </div>
+      </div>
       <div className={styles.commandsPicker}>
         <Logo />
         <h3>Select a server on the left</h3>

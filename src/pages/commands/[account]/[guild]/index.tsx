@@ -1,20 +1,20 @@
 import {NextPage} from "next";
 import Head from "next/head";
 import styles from "@styles/CommandsAccountGuild.module.scss";
-import {useMemo} from "react";
 import {useRouter} from "next/router";
 import Slash from "@assets/Slash.svg";
 import Link from "next/link";
-import Commands from "@utils/commands";
+import {useCommands} from "@utils/commands";
+import Loader from "@components/Loader/loader";
 
 const ApplicationCommands: NextPage = () => {
   const router = useRouter();
   const accountId = router.query.account;
   const guildId = router.query.guild;
-  const commands = useMemo(() => {
-    if (typeof accountId !== "string" || typeof guildId !== "string") return;
-    return Commands.getCommands(accountId, guildId);
-  }, [accountId, guildId]);
+  const {commands, isLoading, isError} = useCommands(
+    typeof accountId === "string" ? accountId :undefined,
+    typeof guildId === "string" ? guildId : undefined
+  );
   return (
     <main className={styles.container}>
       <Head>
@@ -24,7 +24,7 @@ const ApplicationCommands: NextPage = () => {
       </Head>
       <div className={styles.menu}>
         <div className={styles.commandsPicker}>
-          {Array.isArray(commands) && (
+          {commands && (
             commands.map((command) => (
               <Link
                 href={`/commands/${accountId}/${guildId}/${command.id}`}
@@ -39,8 +39,14 @@ const ApplicationCommands: NextPage = () => {
               </Link>
             ))
           )}
-          </div>
+          {isLoading && (
+            <Loader />
+          )}
+          {isError && (
+            <p>Something went wrong</p>
+          )}
         </div>
+      </div>
       <div className={styles.commandsPicker}>
         <Slash />
         <h3>Select a server on the left</h3>
