@@ -10,7 +10,6 @@
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   width: 275px;
-  height: 200px;
   outline: none;
   &:hover, &:focus {
     color: #75A8F9;
@@ -28,8 +27,18 @@
     line-height: 1.5;
   }
   svg {
-    float: left;
     max-height: 80px;
-    padding-right: 10px;
+  }
+  @media (max-width: 630px) {
+    width: 100%;
+    display: block;
+    text-align: left;
+    svg {
+      float: left;
+      display: inline-block;
+    }
+    h2 {
+      text-align: left;
+    }
   }
 }

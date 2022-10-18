@@ -21,7 +21,7 @@
   h1 {
     text-align: center;
     font-weight: 400;
-    font-size: 80px;
+    font-size: min(16vw, 80px);
     background: linear-gradient(to right, #75A8F9, #92EBFF);
     -webkit-background-clip: text;
     background-clip: text;
@@ -29,6 +29,10 @@
     text-fill-color: transparent;
   }
   svg {
-    height: 1.2em;
+    display: inline-block;
+    height: min(80vw, 100px);
+    @media (max-width: 300px) {
+      display: none;
+    }
   }
 }
