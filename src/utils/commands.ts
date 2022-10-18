@@ -5,7 +5,7 @@ import {fetcher} from "@utils/fetcher";
 
 export const useCommands = (applicationId?: string, guildId?: string) => {
   const {data, error} = useSWR(applicationId && guildId ? [
-    `applications/${applicationId}${guildId === "global" ?  "" : `/guilds/${guildId}`}/commands?with_localizations=true`,
+    `applications/${applicationId}${guildId === "global" ? "" : `/guilds/${guildId}`}/commands?with_localizations=true`,
     AccountManager.accounts[applicationId].token
   ] : null, fetcher);
   return {

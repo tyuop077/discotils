@@ -47,10 +47,6 @@ const ApplicationCommands: NextPage = () => {
           )}
         </div>
       </div>
-      <div className={styles.commandsPicker}>
-        <Slash />
-        <h3>Select a server on the left</h3>
-      </div>
     </main>
   )
 }
