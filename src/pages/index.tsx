@@ -1,8 +1,8 @@
-import type { NextPage } from "next"
+import type {NextPage} from "next"
 import Head from "next/head"
-import Image from "next/image"
 import styles from "@styles/Home.module.scss"
 import Logo from "@assets/Logo.svg";
+import Selector from "@components/Selector/selector";
 
 const Home: NextPage = () => {
   return (
@@ -20,6 +20,7 @@ const Home: NextPage = () => {
         <li>Easily interact with your bot from the visual interface</li>
         <li>Various utilities, that would help managing your server</li>
       </ul>
+      <Selector />
     </main>
   )
 }
