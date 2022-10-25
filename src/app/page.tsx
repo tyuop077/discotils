@@ -1,15 +1,14 @@
 import styles from "@styles/Home.module.scss";
-import Head from "next/head";
 import Logo from "@assets/Logo.svg";
 import Selector from "@components/Selector/selector";
 
 export default async function Page() {
   return (
     <main className={styles.container}>
-      <Head>
+      <head>
         <title>Discotils</title>
         <meta name="description" content="Discord Utilities" />
-      </Head>
+      </head>
       <div className={styles.logo}>
         <Logo />
         <h1>Discotils</h1>
