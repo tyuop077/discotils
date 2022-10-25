@@ -24,9 +24,8 @@
 }
 
 .glow {
-  background:
-    linear-gradient(to bottom, #ffffff00, #1d2126),
-    linear-gradient(110deg, #7584ff, #1d2126);
+  background: linear-gradient(to bottom, #ffffff00, #1d2126),
+  linear-gradient(110deg, #7584ff, #1d2126);
   width: 100%;
   max-width: 400px;
   height: 50px;
@@ -36,10 +35,10 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
   svg {
     width: 35px;
     height: 35px;
+    margin-right: 10px;
   }
   transition: color ease-out 80ms;
   span {

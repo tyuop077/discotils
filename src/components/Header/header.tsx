@@ -9,12 +9,9 @@ const Header = () => (
     <div className={styles.glow} />
     <header className={styles.header}>
       <div className={styles.container}>
-        <Link
-          href="/"
-          className={styles.logo}
-        >
+        <Link href="/" className={styles.logo}>
           <Logo className={styles.logo} />
-          <a><span>Disco</span>tils</a>
+          <span>Disco</span>tils
         </Link>
         <div className={styles.nav}>
           <Link href="/lookup">
