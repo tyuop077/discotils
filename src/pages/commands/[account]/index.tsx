@@ -34,7 +34,10 @@ const ApplicationCommandsAccount: NextPage = () => {
           </Link>
           {guilds && (
             guilds.map((guild) => (
-              <Link href={`/commands/${accountId}/${guild.id}`} key={guild.id} legacyBehavior>
+              <Link
+                href={`/commands/${accountId}/${guild.id}`}
+                key={guild.id}
+              >
                 <div className={styles.guild}>
                   {guild.icon ? (
                     <img

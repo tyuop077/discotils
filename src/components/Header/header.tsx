@@ -10,17 +10,17 @@ const Header = () => (
     <header className={styles.header}>
       <div className={styles.container}>
         <Link
-          href="/" legacyBehavior
+          href="/"
           className={styles.logo}
         >
           <Logo className={styles.logo} />
           <a><span>Disco</span>tils</a>
         </Link>
         <div className={styles.nav}>
-          <Link href="/lookup" legacyBehavior>
+          <Link href="/lookup">
             <Lookup title="Discord Snowflake Parser & User ID Fetcher" />
           </Link>
-          <Link href="/commands" legacyBehavior>
+          <Link href="/commands">
             <Slash title="Application Commands" />
           </Link>
         </div>

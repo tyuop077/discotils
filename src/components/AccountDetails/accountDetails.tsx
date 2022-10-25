@@ -19,7 +19,6 @@ const AccountDetails = ({id, account, onClose, validating, extended, href}: Prop
   return (
     <Link
       href={href ?? ""}
-      legacyBehavior
       className={`${extended ? styles.extended : styles.selectable}${account.active ? "" : ` ${styles.disabled}}`}`}
     >
       <img
