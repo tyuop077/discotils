@@ -14,11 +14,11 @@ const Header = () => (
           <span>Disco</span>tils
         </Link>
         <div className={styles.nav}>
-          <Link href="/lookup">
-            <Lookup title="Discord Snowflake Parser & User ID Fetcher" />
+          <Link href="/lookup" title="Discord Snowflake Parser & User ID Fetcher">
+            <Lookup />
           </Link>
-          <Link href="/commands">
-            <Slash title="Application Commands" />
+          <Link href="/commands" title="Application Commands">
+            <Slash />
           </Link>
         </div>
       </div>
