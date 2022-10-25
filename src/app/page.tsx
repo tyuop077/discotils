@@ -1,10 +1,9 @@
-import type {NextPage} from "next"
-import Head from "next/head"
-import styles from "@styles/Home.module.scss"
+import styles from "@styles/Home.module.scss";
+import Head from "next/head";
 import Logo from "@assets/Logo.svg";
 import Selector from "@components/Selector/selector";
 
-const Home: NextPage = () => {
+export default async function Page() {
   return (
     <main className={styles.container}>
       <Head>
@@ -24,5 +23,3 @@ const Home: NextPage = () => {
     </main>
   )
 }
-
-export default Home
