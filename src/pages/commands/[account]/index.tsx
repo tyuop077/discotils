@@ -25,20 +25,16 @@ const ApplicationCommandsAccount: NextPage = () => {
         <div className={styles.guildsPicker}>
           <Link
             href={`/commands/${accountId}/global`}
+            className={styles.guild}
           >
-            <div className={styles.guild}>
-              <div className={styles.global}>
-                <Wrench />
-              </div>
-              <p>Global</p>
+            <div className={styles.global}>
+              <Wrench />
             </div>
+            <p>Global</p>
           </Link>
           {guilds && (
             guilds.map((guild) => (
-              <Link
-                href={`/commands/${accountId}/${guild.id}`}
-                key={guild.id}
-              >
+              <Link href={`/commands/${accountId}/${guild.id}`} key={guild.id} legacyBehavior>
                 <div className={styles.guild}>
                   {guild.icon ? (
                     <img
@@ -68,7 +64,7 @@ const ApplicationCommandsAccount: NextPage = () => {
         <h3>Select a server on the left</h3>
       </div>
     </main>
-  )
+  );
 }
 
 export default ApplicationCommandsAccount

@@ -9,17 +9,18 @@ const Header = () => (
     <div className={styles.glow} />
     <header className={styles.header}>
       <div className={styles.container}>
-        <Link href="/">
-          <div className={styles.logo}>
-            <Logo className={styles.logo} />
-            <a><span>Disco</span>tils</a>
-          </div>
+        <Link
+          href="/" legacyBehavior
+          className={styles.logo}
+        >
+          <Logo className={styles.logo} />
+          <a><span>Disco</span>tils</a>
         </Link>
         <div className={styles.nav}>
-          <Link href="/lookup">
+          <Link href="/lookup" legacyBehavior>
             <Lookup title="Discord Snowflake Parser & User ID Fetcher" />
           </Link>
-          <Link href="/commands">
+          <Link href="/commands" legacyBehavior>
             <Slash title="Application Commands" />
           </Link>
         </div>

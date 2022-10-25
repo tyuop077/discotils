@@ -12,7 +12,7 @@ const ApplicationCommands: NextPage = () => {
   const accountId = router.query.account;
   const guildId = router.query.guild;
   const {commands, isLoading, isError} = useCommands(
-    typeof accountId === "string" ? accountId :undefined,
+    typeof accountId === "string" ? accountId : undefined,
     typeof guildId === "string" ? guildId : undefined
   );
   return (
@@ -29,13 +29,12 @@ const ApplicationCommands: NextPage = () => {
               <Link
                 href={`/commands/${accountId}/${guildId}/${command.id}`}
                 key={command.id}
+                className={styles.command}
               >
-                <div className={styles.command}>
-                  <div className={styles.icon}>
-                    <Slash />
-                  </div>
-                  <p>{command.name}</p>
+                <div className={styles.icon}>
+                  <Slash />
                 </div>
+                <p>{command.name}</p>
               </Link>
             ))
           )}
@@ -48,7 +47,7 @@ const ApplicationCommands: NextPage = () => {
         </div>
       </div>
     </main>
-  )
+  );
 }
 
 export default ApplicationCommands

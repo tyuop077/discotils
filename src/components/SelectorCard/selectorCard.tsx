@@ -12,12 +12,11 @@ interface Props {
 const SelectorCard = ({title, icon, href, label}: Props) => (
   <Link
     href={href}
+    className={styles.card}
   >
-    <a className={styles.card}>
-      {icon}
-      <h2>{title}</h2>
-      <p>{label}</p>
-    </a>
+    {icon}
+    <h2>{title}</h2>
+    <p>{label}</p>
   </Link>
 )
 
