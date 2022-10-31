@@ -2,6 +2,8 @@ import {ReactNode} from "react";
 import Header from "@components/Header/header";
 import Footer from "@components/Footer/footer";
 
+import "@styles/globals.scss";
+
 export default function RootLayout({children}: { children: ReactNode }) {
   return (
     <html lang="en">
