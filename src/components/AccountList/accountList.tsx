@@ -15,7 +15,7 @@ const toastLabels: Record<string, string> = {
   added: "Account added"
 }
 
-const AccountList = ({extended, to}: {extended?: boolean, to?: string}) => {
+const AccountList = ({extended, to, preventTab}: {extended?: boolean, to?: string, preventTab?: boolean}) => {
   const [accounts, setAccounts] = useState<Record<string, Account>>();
   const [status, setStatus] = useState<string | null>(null);
   useEffect(() => {
@@ -84,12 +84,15 @@ const AccountList = ({extended, to}: {extended?: boolean, to?: string}) => {
                   validating={status === "validating"}
                   extended={extended}
                   href={to?.replace("{}", id)}
+                  preventTab={preventTab ?? false}
                 />
               ))
             ) : (
               <div className={styles.empty}>
                 <b>Looks like you haven&apos;t added any accounts yet</b>
-                <p>Add one by pasting the new bot token here</p>
+                {extended ? (
+                  <p>Add one by pasting the new bot token here</p>
+                ) : null}
               </div>
             )
           ) : (

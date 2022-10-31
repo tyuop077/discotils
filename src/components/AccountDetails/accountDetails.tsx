@@ -10,16 +10,18 @@ interface Props {
   onClose: () => void,
   validating: boolean,
   extended?: boolean,
-  href?: string
+  href?: string,
+  preventTab?: boolean
 }
 
-const AccountDetails = ({id, account, onClose, validating, extended, href}: Props) => {
+const AccountDetails = ({id, account, onClose, validating, extended, href, preventTab}: Props) => {
   const timeLabel = new Intl.RelativeTimeFormat("en", {numeric: "auto"})
     .format((account.cachedOn - Date.now() / 1000 | 0) / 60 | 0, "minutes");
   return (
     <Link
       href={href ?? ""}
       className={`${extended ? styles.extended : styles.selectable}${account.active ? "" : ` ${styles.disabled}}`}`}
+      tabIndex={preventTab ? -1 : undefined}
     >
       <img
         src={

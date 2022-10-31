@@ -51,6 +51,10 @@
   &:active {
     background-color: #FFFFFF0D;
   }
+  &:focus {
+    background-color: #FFFFFF19;
+  }
+  outline: none;
   padding: 8px;
   border-radius: 12px;
   transition: background-color 80ms;
