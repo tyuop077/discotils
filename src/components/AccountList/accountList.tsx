@@ -65,10 +65,6 @@ const AccountList = ({extended, to, preventTab}: {extended?: boolean, to?: strin
   return (
     <>
       <div className={styles.accountList}>
-        <input
-          type="password"
-          placeholder="token"
-        />
         <div className={styles.accounts}>
           {list ? (
             list.length !== 0 ? (
