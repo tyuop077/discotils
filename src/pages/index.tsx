@@ -1,14 +1,16 @@
-import styles from "@styles/Home.module.scss";
+import type {NextPage} from "next"
+import Head from "next/head"
+import styles from "@styles/Home.module.scss"
 import Logo from "@assets/Logo.svg";
 import Selector from "@components/Selector/selector";
 
-export default async function Page() {
+const Home: NextPage = () => {
   return (
     <main className={styles.container}>
-      <head>
+      <Head>
         <title>Discotils</title>
         <meta name="description" content="Discord Utilities" />
-      </head>
+      </Head>
       <div className={styles.logo}>
         <Logo />
         <h1>Discotils</h1>
@@ -22,3 +24,5 @@ export default async function Page() {
     </main>
   )
 }
+
+export default Home
