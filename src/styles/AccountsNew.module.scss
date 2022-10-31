@@ -1,0 +1,96 @@
+.container {
+  width: 100%;
+  max-width: 620px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 20px 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: calc(100vh - 50px - 50px);
+  h3 {
+    margin: 0;
+    text-align: center;
+    font-weight: 400;
+    padding-bottom: 20px;
+  }
+}
+
+.divider {
+  // divider with "or" span
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  color: #5f6368;
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #5f6368;
+  }
+  span {
+    margin: 0 10px;
+  }
+}
+
+.input {
+  input, button {
+    color: white;
+    height: 50px;
+    border-radius: 25px;
+    background-color: #1f2226;
+    border: 1px solid #5f6368;
+    outline: none;
+    font-size: 20px;
+    padding: 2px 20px;
+    margin-bottom: 20px;
+    user-select: none;
+    &:hover {
+      background-color: #33383f;
+      box-shadow: 0 1px 6px 0 #171717;
+      border-color: #dfe1e500;
+    }
+  }
+  input {
+    width: 100%;
+  }
+  button {
+    cursor: pointer;
+    &:active {
+      background-color: #2D3238;
+      box-shadow: 0 1px 6px 0 #171717;
+      border-color: #dfe1e500;
+    }
+  }
+}
+
+.botInput {
+  @extend .input;
+  display: flex;
+  input {
+    border-radius: 25px 0 0 25px;
+  }
+  button {
+    border-radius: 0 25px 25px 0;
+  }
+}
+
+.bearerInput {
+  @extend .input;
+  display: flex;
+  flex-direction: column;
+  //order-radius: 10px;
+  //overflow: hidden;
+  //order: 1px solid #5f6368;
+  input, button {
+    //border: none;
+    &:first-child {
+      border-radius: 25px 25px 0 0;
+    }
+    &:last-child {
+      border-radius: 0 0 25px 25px;
+    }
+    border-radius: 0;
+    margin: 0;
+  }
+}
