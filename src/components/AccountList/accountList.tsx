@@ -64,9 +64,6 @@ const AccountList = ({extended, to}: {extended?: boolean, to?: string}) => {
   const toast = toastLabels[status!];
   return (
     <>
-      {list?.length !== 0 && extended ? (
-        <h3>Paste a new or existing bot token to add it here</h3>
-      ) : null}
       <div className={styles.accountList}>
         <input
           type="password"
@@ -92,15 +89,17 @@ const AccountList = ({extended, to}: {extended?: boolean, to?: string}) => {
             ) : (
               <div className={styles.empty}>
                 <b>Looks like you haven&apos;t added any accounts yet</b>
-                <p>Add one by pasting the new token here</p>
+                <p>Add one by pasting the new bot token here</p>
               </div>
             )
           ) : (
-            <>
-              <AccountDetailsPlaceholder extended={extended} />
-              <AccountDetailsPlaceholder extended={extended} />
-              <AccountDetailsPlaceholder extended={extended} />
-            </>
+            extended ? (
+              <>
+                <AccountDetailsPlaceholder extended={extended} />
+                <AccountDetailsPlaceholder extended={extended} />
+                <AccountDetailsPlaceholder extended={extended} />
+              </>
+            ) : null
           )}
         </div>
         {toast ? (

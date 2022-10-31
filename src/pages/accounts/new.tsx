@@ -1,8 +1,14 @@
 import {NextPage} from "next";
 import styles from "@styles/AccountsNew.module.scss";
 import Head from "next/head";
+import AccountList from "@components/AccountList/accountList";
+import {useState} from "react";
+import {useRouter} from "next/router";
 
 const NewAccount: NextPage = () => {
+  const [isListOpen, setListOpen] = useState(false);
+  const router = useRouter();
+  const id = router.query.id;
   return (
     <main className={styles.container}>
       <Head>
@@ -27,7 +33,15 @@ const NewAccount: NextPage = () => {
         <input
           type="text"
           placeholder="client id"
+          onFocus={() => setListOpen(true)}
+          onBlur={() => setListOpen(false)}
+          value={id ?? undefined}
         />
+        {isListOpen ? (
+          <div className={styles.list}>
+            <AccountList to="/accounts/new?id={}" />
+          </div>
+        ) : null}
         <input
           type="password"
           placeholder="client secret"
