@@ -19,7 +19,7 @@ const AccountPicker = () => {
     setOpen(false);
   }, [account_id])
   return (
-    <div>
+    <div className={styles.picker}>
       <div
         className={`${styles.list}${open ? ` ${styles.open}` : ""}`}
         onClick={() => setOpen(!open)}
