@@ -5,7 +5,6 @@ import TextPlaceholder from "@components/TextPlaceholder/textPlaceholder";
 import Link from "next/link";
 
 interface Props {
-  id: string,
   account: Account,
   onClose: () => void,
   validating: boolean,
@@ -14,7 +13,7 @@ interface Props {
   preventTab?: boolean
 }
 
-const AccountDetails = ({id, account, onClose, validating, extended, href, preventTab}: Props) => {
+const AccountDetails = ({account, onClose, validating, extended, href, preventTab}: Props) => {
   const timeLabel = new Intl.RelativeTimeFormat("en", {numeric: "auto"})
     .format((account.cachedOn - Date.now() / 1000 | 0) / 60 | 0, "minutes");
   return (
@@ -27,7 +26,7 @@ const AccountDetails = ({id, account, onClose, validating, extended, href, preve
         src={
           account.avatar ?
             "https://cdn.discordapp.com/avatars/" +
-            `${encodeURIComponent(id)}/${encodeURIComponent(account.avatar)}.webp?size=128` :
+            `${encodeURIComponent(account.id)}/${encodeURIComponent(account.avatar)}.webp?size=128` :
             `https://cdn.discordapp.com/embed/avatars/${parseInt(account.discriminator) % 5}.png`
         }
         alt={account.username}
@@ -50,7 +49,7 @@ const AccountDetails = ({id, account, onClose, validating, extended, href, preve
           </p>
           : <p className="error">Invalid token</p>
       )}
-      <code>{id}</code>
+      <code>{account.id}</code>
     </Link>
   );
 }

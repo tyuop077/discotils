@@ -60,7 +60,7 @@ const AccountList = ({extended, to, preventTab}: {extended?: boolean, to?: strin
     }, 3000);
     return () => clearTimeout(timeout)
   }, [status])
-  const list = accounts ? Object.entries(accounts) : undefined;
+  const list = accounts ? Object.values(accounts) : undefined;
   const toast = toastLabels[status!];
   return (
     <>
@@ -68,18 +68,17 @@ const AccountList = ({extended, to, preventTab}: {extended?: boolean, to?: strin
         <div className={styles.accounts}>
           {list ? (
             list.length !== 0 ? (
-              list.map(([id, account]) => (
+              list.map((account) => (
                 <AccountDetails
-                  key={id}
-                  id={id}
+                  key={account.id}
                   account={account}
                   onClose={() => {
-                    AccountManager.remove(id);
+                    AccountManager.remove(account.id);
                     setAccounts(AccountManager.accounts);
                   }}
                   validating={status === "validating"}
                   extended={extended}
-                  href={to?.replace("{}", id)}
+                  href={to?.replace("{}", account.id)}
                   preventTab={preventTab ?? false}
                 />
               ))
