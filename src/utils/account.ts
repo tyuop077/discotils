@@ -4,7 +4,11 @@ export interface IAccount {
   username: string;
   discriminator: string;
   avatar?: string;
-  token: string;
+  tokens: {
+    bot: string;
+    bearer?: string;
+  }
+  secret?: string;
   cachedOn: number;
   active: boolean;
 }
@@ -14,31 +18,44 @@ export default class Account implements IAccount {
   username!: string;
   discriminator!: string;
   avatar?: string;
-  token!: string;
+  tokens!: {
+    bot: string;
+    bearer?: string;
+  }
+  secret?: string;
   cachedOn!: number;
   active = true;
+
   constructor(data: IAccount, id: string) {
     Object.assign(this, data);
     this.id = id;
     if (!data.cachedOn) this._updateCachedOn();
   }
+
   toJSON() {
     return {
       username: this.username,
       discriminator: this.discriminator,
       avatar: this.avatar,
-      token: this.token,
+      tokens: {
+        bot: this.tokens.bot,
+        bearer: this.tokens.bearer
+      },
+      secret: this.secret,
       cachedOn: this.cachedOn,
       active: this.active ? undefined : false
     };
   }
+
   update(data?: Partial<IAccount>) {
     if (data) Object.assign(this, data);
     AccountManager.accounts[this.id] = this;
   }
+
   _updateCachedOn() {
     this.cachedOn = Date.now() / 1000 | 0;
   }
+
   async fetch() {
     try {
       const res = await Account._fetch(this.token);
@@ -50,6 +67,7 @@ export default class Account implements IAccount {
     }
     return this;
   }
+
   static async _fetch(token: string) {
     const res = await fetch(`https://discord.com/api/v10/users/@me`, {
       headers: {
@@ -61,6 +79,7 @@ export default class Account implements IAccount {
     if (res.status === 401) return {invalid: true};
     throw new Error(`Can't fetch user info (${res.statusText}):\n${await res.text()}`);
   }
+
   async checkValidity(removeOnFail = false) {
     if (!this.active) return;
     const user = await this.fetch();
@@ -75,5 +94,9 @@ export default class Account implements IAccount {
         avatar: user.avatar
       })
     }
+  }
+
+  get token() {
+    return this.tokens.bearer || this.tokens.bot;
   }
 }
