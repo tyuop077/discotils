@@ -1,24 +1,25 @@
 .container {
   width: 100%;
   max-width: 620px;
-  margin-right: auto;
-  margin-left: auto;
+  margin: 0 auto;
   padding: 20px 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 10px;
-  * {
+  h1, h2 {
+    margin: 0;
     width: 100%;
   }
-  h1 {
-    margin: 0;
+  h2 {
+    font-size: 1em;
+    font-weight: 400;
   }
 }
 
 .input {
   width: 100%;
   max-width: 400px;
+  margin: 10px auto;
   input {
     width: 100%;
     outline: 0;
@@ -39,8 +40,7 @@
 }
 
 .results {
-  width: 100%;
   background-color: #21252b;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 10px;
 }
