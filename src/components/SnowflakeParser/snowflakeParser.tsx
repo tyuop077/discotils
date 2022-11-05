@@ -2,6 +2,7 @@ import {Snowflake} from "@utils/snowflake";
 import {useMemo, useState} from "react";
 import styles from "./snowflakeParser.module.scss";
 import ArrowDown from "@assets/ArrowDown.svg";
+import {CopyToClipboard} from "@components/CopyToClipboard/copyToClipboard";
 
 interface DateType {
   lang: string;
@@ -31,6 +32,7 @@ const SnowflakeParser = ({id}: {id: string}) => {
       <p>Created on: </p>
       <span className={styles.date}>
         {data.date.toLocaleString()}
+        <CopyToClipboard text={data.timestamp} />
       </span>
       <div className={styles.string}>
         <span>{str}</span>
