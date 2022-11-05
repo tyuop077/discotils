@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import styles from "@styles/Lookup.module.scss";
+import Head from "next/head";
 
 enum Type {
   Default,
@@ -15,8 +16,12 @@ const Lookup = () => {
   }, [id, type]);
   return (
     <main className={styles.container}>
-      <h1>Lookup</h1>
-      <p>Enter the ID of the user, server or channel to get information about it</p>
+      <Head>
+        <title>Lookup - Discotils</title>
+        <meta name="description" content="Snowflake parser, user and server ID resolver" />
+      </Head>
+      <h1>Snowflake parser & ID resolver</h1>
+      <p>Enter the ID of the user, server or to get information about it</p>
       <div className={styles.input}>
         <input
           type="text"
