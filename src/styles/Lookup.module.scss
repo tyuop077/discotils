@@ -36,6 +36,10 @@
     &:active, &:focus {
       border-color: #5865F2;
     }
+    &::selection {
+      background-color: #5963DA;
+      color: white;
+    }
   }
 }
 
