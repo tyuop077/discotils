@@ -97,6 +97,25 @@ export default class Account implements IAccount {
   }
 
   get token() {
-    return this.tokens.bearer || this.tokens.bot;
+    return this.tokens.bot;
+  }
+
+  getBearerToken() {
+    return this.tokens.bearer;
+  }
+
+  static async _fetchBearer(id: string, secret: string) {
+    const res = await fetch("https://discord.com/api/v10/oauth2/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams({
+        grant_type: "client_credentials",
+        scope: "applications.commands.update "
+      })
+    });
+    const data = await res.json();
+    return {data, invalid: !res.ok};
   }
 }

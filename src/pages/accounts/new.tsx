@@ -24,6 +24,17 @@ const add = async (_token: string) => {
   return "Looks like there's a connection issue, please check your access to the internet and try again";
 }
 
+const addBearer = async (id: string, secret: string) => {
+  if (!id || !secret) return "Please enter both the ID and the secret";
+  try {
+    const res = await AccountManager.addBearer(id, secret);
+    return res?.failed ? "Invalid credentials" : "added";
+  } catch (e) {
+    console.error(e);
+  }
+  return "Looks like there's a connection issue, please check your access to the internet and try again";
+}
+
 const NewAccount: NextPage = () => {
   const [isListOpen, setListOpen] = useState(false);
   const router = useRouter();
@@ -94,7 +105,19 @@ const NewAccount: NextPage = () => {
           type="password"
           placeholder="client secret"
         />
-        <button>
+        <button
+          onClick={() => {
+            const id = idInput.current!.value;
+            const secret = tokenInput.current!.value;
+            addBearer(id, secret).then(r => {
+              if (r === "added") {
+                router.push("/accounts");
+              } else {
+                setStatus({message: r, nonce: status.nonce + 1});
+              }
+            })
+          }}
+        >
           Generate
         </button>
       </div>

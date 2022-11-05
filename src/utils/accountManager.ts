@@ -3,6 +3,7 @@ import Account, {IAccount} from "@utils/account";
 
 class AccountManager {
   static _cache: Record<string, Account>;
+
   static get accounts(): Record<string, Account> {
     if (this._cache) return this._cache;
     this._cache = {};
@@ -18,13 +19,16 @@ class AccountManager {
     this._cache = res;
     return res
   }
+
   static set accounts(accounts: Record<string, Account>) {
     this._cache = accounts;
     this.updateStorage();
   }
+
   static updateStorage() {
     localStorage.setItem("accounts", JSON.stringify(this._cache));
   }
+
   static async checkAll() {
     const accounts = this.accounts;
     const now = Date.now() / 1000 | 0;
@@ -49,16 +53,24 @@ class AccountManager {
     AccountManager.updateStorage();
     return {success: true}
   }
+
   static async add(token: string) {
     const user = await Account._fetch(token);
     if (user.invalid) return {failed: true};
     AccountManager._cache[user.data.id] = new Account({...user.data, token}, user.data.id);
     AccountManager.updateStorage();
   }
+
   static remove(id: string) {
     const accounts = this.accounts;
     delete accounts[id];
     this.accounts = accounts;
+  }
+
+  static async addBearer(id: string, secret: string) {
+    const token = await Account._fetchBearer(id, secret);
+    if (token.invalid) return {failed: true};
+    await AccountManager.add(token.data);
   }
 }
 
