@@ -5,7 +5,7 @@ export const fetcher = async (path: string, token: string, method = "GET", optio
     method,
     ...options,
     headers: {
-      Authorization: `Bot ${token}`,
+      Authorization: token ? `Bot ${token}` : undefined!,
       ...options.headers
     }
   });
