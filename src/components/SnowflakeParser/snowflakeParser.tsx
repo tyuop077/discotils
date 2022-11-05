@@ -7,7 +7,6 @@ const SnowflakeParser = ({id}: {id: string}) => {
   const data = useMemo(() => {
     const timestamp = Snowflake.toTimestamp(id);
     const date = new Date(Number(timestamp));
-    const dateStr = date.toLocaleString();
     return {timestamp, date}
   }, [id]);
 
@@ -26,7 +25,6 @@ const SnowflakeParser = ({id}: {id: string}) => {
       <span className={styles.date}>
         {data.date.toLocaleString()}
       </span>
-      <p>Date: {data.date.toLocaleString()}</p>
       <div className={styles.string}>
         <span>{str}</span>
         <ArrowDown
