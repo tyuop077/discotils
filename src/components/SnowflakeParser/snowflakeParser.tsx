@@ -3,6 +3,13 @@ import {useMemo, useState} from "react";
 import styles from "./snowflakeParser.module.scss";
 import ArrowDown from "@assets/ArrowDown.svg";
 
+interface DateType {
+  lang: string;
+  timezone?: string;
+  dateStyle: "full" | "short";
+  timeStyle: "long" | "short" | "full";
+}
+
 const SnowflakeParser = ({id}: {id: string}) => {
   const data = useMemo(() => {
     const timestamp = Snowflake.toTimestamp(id);
@@ -10,9 +17,9 @@ const SnowflakeParser = ({id}: {id: string}) => {
     return {timestamp, date}
   }, [id]);
 
-  const [type, setType] = useState<{lang: string, timezone?: string}>({lang: "default"});
+  const [type, setType] = useState<DateType>({lang: "default", dateStyle: "full", timeStyle: "long"});
   const [show, setShow] = useState(false);
-  const str = new Intl.DateTimeFormat(type.lang, { dateStyle: "full", timeStyle: "long", timeZone: type.timezone }).format(Number(data.timestamp));
+  const str = new Intl.DateTimeFormat(type.lang, { dateStyle: type.dateStyle, timeStyle: type.timeStyle, timeZone: type.timezone }).format(Number(data.timestamp));
 
   return (
     <div className={styles.snowflake}>
@@ -65,6 +72,46 @@ const SnowflakeParser = ({id}: {id: string}) => {
                 onClick={() => setType({...type, timezone: "Etc/UTC"})}
               >
                 UTC
+              </button>
+            </div>
+          </div>
+          <div className={styles.option}>
+            <span>Date style</span>
+            <div>
+              <button
+                className={type.dateStyle === "full" ? styles.selected : undefined}
+                onClick={() => setType({...type, dateStyle: "full"})}
+              >
+                Full
+              </button>
+              <button
+                className={type.dateStyle === "short" ? styles.selected : undefined}
+                onClick={() => setType({...type, dateStyle: "short"})}
+              >
+                Short
+              </button>
+            </div>
+          </div>
+          <div className={styles.option}>
+            <span>Time style</span>
+            <div>
+              <button
+                className={type.timeStyle === "long" ? styles.selected : undefined}
+                onClick={() => setType({...type, timeStyle: "long"})}
+              >
+                Long
+              </button>
+              <button
+                className={type.timeStyle === "short" ? styles.selected : undefined}
+                onClick={() => setType({...type, timeStyle: "short"})}
+              >
+                Short
+              </button>
+              <button
+                className={type.timeStyle === "full" ? styles.selected : undefined}
+                onClick={() => setType({...type, timeStyle: "full"})}
+              >
+                Full
               </button>
             </div>
           </div>
