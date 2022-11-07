@@ -11,31 +11,34 @@ interface DateType {
   timeStyle: "long" | "short" | "full";
 }
 
-let once = false;
-
 const SnowflakeParser = ({id}: {id: string}) => {
   const data = useMemo(() => {
     const timestamp = Snowflake.toTimestamp(id);
     const date = new Date(Number(timestamp));
     return {timestamp, date}
   }, [id]);
+
   const [type, setType] = useState<DateType>({lang: "default", dateStyle: "full", timeStyle: "long"});
   const [show, setShow] = useState(false);
   const [maximized, setMaximized] = useState(true);
+
   const str = new Intl.DateTimeFormat(type.lang, {
     dateStyle: type.dateStyle,
     timeStyle: type.timeStyle,
     timeZone: type.timezone
   }).format(Number(data.timestamp));
+
   useEffect(() => {
     const dateType = localStorage.getItem("snowflakeParserDate");
-    if (dateType) setType(JSON.parse(dateType));}, [])
-  useEffect(() => {
-    if (!once) {
-      once = true;
-      return;
-    }
-    localStorage.setItem("snowflakeParserDate", JSON.stringify(type));}, [type])
+    if (dateType) setType(JSON.parse(dateType));
+  }, [])
+
+  const updateType = (value: Partial<DateType>) => {
+    const updatedType = {...type, ...value};
+    setType(updatedType);
+    localStorage.setItem("snowflakeParserDate", JSON.stringify(updatedType));
+  }
+
   return (
     <div className={styles.snowflake}>
       <div className={`${styles.head}${maximized ? "" : ` ${styles.hidden}`}`}>
@@ -71,13 +74,13 @@ const SnowflakeParser = ({id}: {id: string}) => {
                 <div>
                   <button
                     className={type.lang === "default" ? styles.selected : undefined}
-                    onClick={() => setType({...type, lang: "default"})}
+                    onClick={() => updateType({lang: "default"})}
                   >
                     Local
                   </button>
                   <button
                     className={type.lang === "en-US" ? styles.selected : undefined}
-                    onClick={() => setType({...type, lang: "en-US"})}
+                    onClick={() => updateType({lang: "en-US"})}
                   >
                     English
                   </button>
@@ -88,13 +91,13 @@ const SnowflakeParser = ({id}: {id: string}) => {
                 <div>
                   <button
                     className={type.timezone === undefined ? styles.selected : undefined}
-                    onClick={() => setType({...type, timezone: undefined})}
+                    onClick={() => updateType({timezone: undefined})}
                   >
                     Local
                   </button>
                   <button
                     className={type.timezone === "Etc/UTC" ? styles.selected : undefined}
-                    onClick={() => setType({...type, timezone: "Etc/UTC"})}
+                    onClick={() => updateType({timezone: "Etc/UTC"})}
                   >
                     UTC
                   </button>
@@ -105,13 +108,13 @@ const SnowflakeParser = ({id}: {id: string}) => {
                 <div>
                   <button
                     className={type.dateStyle === "full" ? styles.selected : undefined}
-                    onClick={() => setType({...type, dateStyle: "full"})}
+                    onClick={() => updateType({dateStyle: "full"})}
                   >
                     Full
                   </button>
                   <button
                     className={type.dateStyle === "short" ? styles.selected : undefined}
-                    onClick={() => setType({...type, dateStyle: "short"})}
+                    onClick={() => updateType({dateStyle: "short"})}
                   >
                     Short
                   </button>
@@ -122,19 +125,19 @@ const SnowflakeParser = ({id}: {id: string}) => {
                 <div>
                   <button
                     className={type.timeStyle === "long" ? styles.selected : undefined}
-                    onClick={() => setType({...type, timeStyle: "long"})}
+                    onClick={() => updateType({timeStyle: "long"})}
                   >
                     Long
                   </button>
                   <button
                     className={type.timeStyle === "short" ? styles.selected : undefined}
-                    onClick={() => setType({...type, timeStyle: "short"})}
+                    onClick={() => updateType({timeStyle: "short"})}
                   >
                     Short
                   </button>
                   <button
                     className={type.timeStyle === "full" ? styles.selected : undefined}
-                    onClick={() => setType({...type, timeStyle: "full"})}
+                    onClick={() => updateType({timeStyle: "full"})}
                   >
                     Full
                   </button>
