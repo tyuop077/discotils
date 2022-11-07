@@ -45,15 +45,11 @@ const LookupLayout = (page: ReactElement) => {
         </div>
       </div>
       {valid && (
-        <>
-          <div className={styles.results}>
-            <SnowflakeParser id={id} />
-          </div>
-          <div className={router.pathname === "/lookup" ? undefined : styles.results}>
-            {page}
-          </div>
-        </>
+        <div className={styles.results}>
+          <SnowflakeParser id={id} />
+        </div>
       )}
+      {page}
     </main>
   );
 }
