@@ -6,7 +6,7 @@ const Lookup = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Lookup - Discotils</title>
+        <title>Snowflake parser - Discotils</title>
         <meta name="description" content="Snowflake parser" />
       </Head>
     </div>
