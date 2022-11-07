@@ -56,7 +56,7 @@ const SnowflakeParser = ({id}: {id: string}) => {
         <>
           <p>Timestamp: </p>
           <p className={styles.timestamp}>
-            <span>{Number(data.timestamp) / 1000 | 0}</span>
+            <span>{Math.floor(Number(data.timestamp) / 1000)}</span>
             <small>{String(Number(data.timestamp) % 1000 | 0).padStart(3, "0")}</small>
           </p>
           <p>Created on: </p>
