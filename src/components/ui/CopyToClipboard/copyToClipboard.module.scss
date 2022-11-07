@@ -15,7 +15,7 @@
     border-radius: 4px;
   }
   svg {
-    color: #696d72;
+    color: #8080807F;
   }
   // show .tooltip on hover
   &:hover {
@@ -23,12 +23,12 @@
       display: block;
     }
     svg {
-      color: #46494D;
+      color: #8080804C;
     }
   }
   &:active {
     svg {
-      color: #2E3033;
+      color: #80808033;
     }
   }
 }

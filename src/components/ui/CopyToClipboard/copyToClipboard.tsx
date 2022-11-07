@@ -19,9 +19,9 @@ export const CopyToClipboard = ({text}: {text: string}) => {
       <button onClick={copyToClipboard}>
         <Clipboard />
         {isCopied ? (
-          <span className={styles.tooltip}>
+          <div className={styles.tooltip}>
             Copied!
-          </span>
+          </div>
         ) : null}
       </button>
     </div>
