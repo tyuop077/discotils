@@ -1,5 +1,5 @@
 import {Snowflake} from "@utils/snowflake";
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import styles from "./snowflakeParser.module.scss";
 import ArrowDown from "@assets/ArrowDown.svg";
 import {CopyToClipboard} from "@components/CopyToClipboard/copyToClipboard";
@@ -11,6 +11,8 @@ interface DateType {
   timeStyle: "long" | "short" | "full";
 }
 
+let once = false;
+
 const SnowflakeParser = ({id}: {id: string}) => {
   const data = useMemo(() => {
     const timestamp = Snowflake.toTimestamp(id);
@@ -21,7 +23,24 @@ const SnowflakeParser = ({id}: {id: string}) => {
   const [type, setType] = useState<DateType>({lang: "default", dateStyle: "full", timeStyle: "long"});
   const [show, setShow] = useState(false);
   const [maximized, setMaximized] = useState(true);
-  const str = new Intl.DateTimeFormat(type.lang, { dateStyle: type.dateStyle, timeStyle: type.timeStyle, timeZone: type.timezone }).format(Number(data.timestamp));
+  const str = new Intl.DateTimeFormat(type.lang, {
+    dateStyle: type.dateStyle,
+    timeStyle: type.timeStyle,
+    timeZone: type.timezone
+  }).format(Number(data.timestamp));
+
+  useEffect(() => {
+    const dateType = localStorage.getItem("snowflakeParserDate");
+    if (dateType) setType(JSON.parse(dateType));
+  }, [])
+
+  useEffect(() => {
+    if (!once) {
+      once = true;
+      return;
+    }
+    localStorage.setItem("snowflakeParserDate", JSON.stringify(type));
+  }, [type])
 
   return (
     <div className={styles.snowflake}>
