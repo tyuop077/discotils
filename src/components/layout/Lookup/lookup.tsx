@@ -49,7 +49,7 @@ const LookupLayout = (page: ReactElement) => {
           <div className={styles.results}>
             <SnowflakeParser id={id} />
           </div>
-          <div className={styles.results}>
+          <div className={router.pathname === "/lookup" ? undefined : styles.results}>
             {page}
           </div>
         </>

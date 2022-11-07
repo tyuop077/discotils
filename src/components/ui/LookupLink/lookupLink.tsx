@@ -10,7 +10,7 @@ interface Props {
 const LookupLink = ({children, activeClass, href}: Props) => {
   const router = useRouter();
   return (
-    <Link href={`/lookup${href}`} className={router.pathname == `/lookup${href}` ? activeClass : undefined} scroll={false}>
+    <Link href={`/lookup${href}`} className={router.pathname === `/lookup${href}` ? activeClass : undefined} scroll={false}>
       {children}
     </Link>
   )
