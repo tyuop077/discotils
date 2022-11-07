@@ -19,7 +19,6 @@ const SnowflakeParser = ({id}: {id: string}) => {
     const date = new Date(Number(timestamp));
     return {timestamp, date}
   }, [id]);
-
   const [type, setType] = useState<DateType>({lang: "default", dateStyle: "full", timeStyle: "long"});
   const [show, setShow] = useState(false);
   const [maximized, setMaximized] = useState(true);
@@ -28,20 +27,15 @@ const SnowflakeParser = ({id}: {id: string}) => {
     timeStyle: type.timeStyle,
     timeZone: type.timezone
   }).format(Number(data.timestamp));
-
   useEffect(() => {
     const dateType = localStorage.getItem("snowflakeParserDate");
-    if (dateType) setType(JSON.parse(dateType));
-  }, [])
-
+    if (dateType) setType(JSON.parse(dateType));}, [])
   useEffect(() => {
     if (!once) {
       once = true;
       return;
     }
-    localStorage.setItem("snowflakeParserDate", JSON.stringify(type));
-  }, [type])
-
+    localStorage.setItem("snowflakeParserDate", JSON.stringify(type));}, [type])
   return (
     <div className={styles.snowflake}>
       <div className={`${styles.head}${maximized ? "" : ` ${styles.hidden}`}`}>
@@ -55,15 +49,14 @@ const SnowflakeParser = ({id}: {id: string}) => {
       {maximized ? (
         <>
           <p>Timestamp: </p>
-          <p className={styles.timestamp}>
+          <div className={styles.timestamp}>
             <span>{Math.floor(Number(data.timestamp) / 1000)}</span>
             <small>{String(Number(data.timestamp) % 1000 | 0).padStart(3, "0")}</small>
-          </p>
-          <p>Created on: </p>
-          <span className={styles.date}>
-        {data.date.toLocaleString()}
             <CopyToClipboard text={data.timestamp} />
-      </span>
+          </div>
+          <p>Created on: </p>
+          <span className={styles.date}>{data.date.toLocaleString()}
+            <CopyToClipboard text={data.timestamp} /></span>
           <div className={styles.string}>
             <span>{str}</span>
             <ArrowDown
