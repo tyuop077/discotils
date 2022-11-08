@@ -40,18 +40,16 @@ export const Profile = ({data}: {data: User}) => {
   const flags = publicFlagsToFlags(data.public_flags);
   return (
     <div className={styles.user}>
-      {data.banner ? (
-        <div className={styles.banner}>
+      <div
+        className={data.banner ? styles.banner : styles.accent}
+        style={{"--c": colorIntToHex(data.accent_color)} as CSSProperties}
+      >
+        {data.banner && (
           <img
             src={image("banners", 1024, data.id, data.banner)}
           />
-        </div>
-      ) : (
-        <div
-          className={styles.accent}
-          style={{"--c": colorIntToHex(data.accent_color)} as CSSProperties}
-        />
-      )}
+        )}
+      </div>
       <div className={styles.info}>
         <div className={styles.avatar}>
           <img
