@@ -1,8 +1,8 @@
 export class Snowflake {
   static readonly epoch = BigInt(1420070400000);
 
-  static toTimestamp(snowflake: string): string {
+  static toTimestamp(snowflake: string): bigint {
     const id = BigInt(snowflake);
-    return String((id >> BigInt(22)) + this.epoch);
+    return (id >> BigInt(22)) + this.epoch;
   }
 }

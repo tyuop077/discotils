@@ -2,7 +2,7 @@ import styles from "./copyToClipboard.module.scss";
 import {useEffect, useState} from "react";
 import Clipboard from "@assets/Clipboard.svg";
 
-export const CopyToClipboard = ({text}: {text: string}) => {
+export const CopyToClipboard = ({text}: {text: string | number | bigint}) => {
   const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
@@ -10,7 +10,7 @@ export const CopyToClipboard = ({text}: {text: string}) => {
   }, [text])
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(String(text));
     setIsCopied(true);
   };
 

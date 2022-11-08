@@ -59,7 +59,8 @@ const SnowflakeParser = ({id}: {id: string}) => {
           </div>
           <p>Created on: </p>
           <span className={styles.date}>{data.date.toLocaleString()}
-            <CopyToClipboard text={data.timestamp} /></span>
+            <CopyToClipboard text={data.timestamp} />
+          </span>
           <div className={styles.string}>
             <span>{str}</span>
             <ArrowDown
