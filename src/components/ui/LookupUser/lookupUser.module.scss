@@ -95,6 +95,10 @@
   flex-direction: column;
   gap: 10px;
   code {
+    position: relative;
+    background-color: #171A1E;
+    border-radius: 10px;
+    padding: 10px;
     word-break: break-word;
   }
 }
@@ -118,4 +122,11 @@
   height: 15px;
   border-radius: 50%;
   background-color: var(--c);
+}
+
+.json {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: -5px;
 }

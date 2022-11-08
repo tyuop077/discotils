@@ -4,6 +4,7 @@ import {CSSProperties} from "react";
 import HSBravery from "@assets/HSBravery.svg";
 import HSBrilliance from "@assets/HSBrilliance.svg";
 import HSBalance from "@assets/HSBalance.svg";
+import {CopyToClipboard} from "@components/CopyToClipboard/copyToClipboard";
 
 const image = (path: string, size = 128, id: string, hash?: string) => "https://cdn.discordapp.com/" + (hash ?
   `${path}/${id}/${hash}.${hash.startsWith("a_") ? "gif" : "webp"}?size=${size}` :
@@ -107,6 +108,10 @@ export const Profile = ({data}: {data: User}) => {
               </p>
             </div>
           )}
+          <div className={styles.json}>
+            <span>JSON:</span>
+            <CopyToClipboard text={JSON.stringify(data)} />
+          </div>
           <code>{JSON.stringify(data)}</code>
         </div>
       </div>
