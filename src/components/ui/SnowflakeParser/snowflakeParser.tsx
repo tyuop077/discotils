@@ -11,7 +11,7 @@ interface DateType {
   timeStyle: "long" | "short" | "full";
 }
 
-const SnowflakeParser = ({id}: {id: string}) => {
+const SnowflakeParser = ({id, maximizedByDefault}: {id: string, maximizedByDefault: boolean}) => {
   const data = useMemo(() => {
     const timestamp = Snowflake.toTimestamp(id);
     const date = new Date(Number(timestamp));
@@ -20,7 +20,7 @@ const SnowflakeParser = ({id}: {id: string}) => {
 
   const [type, setType] = useState<DateType>({lang: "default", dateStyle: "full", timeStyle: "long"});
   const [show, setShow] = useState(false);
-  const [maximized, setMaximized] = useState(true);
+  const [maximized, setMaximized] = useState(maximizedByDefault);
 
   const str = new Intl.DateTimeFormat(type.lang, {
     dateStyle: type.dateStyle,

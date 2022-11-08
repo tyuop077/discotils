@@ -46,7 +46,10 @@ const LookupLayout = (page: ReactElement) => {
       </div>
       {valid && (
         <div className={styles.results}>
-          <SnowflakeParser id={id} />
+          <SnowflakeParser
+            id={id}
+            maximizedByDefault={router.pathname === "/lookup"}
+          />
         </div>
       )}
       {page}
