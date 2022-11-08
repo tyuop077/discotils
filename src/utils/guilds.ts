@@ -1,12 +1,12 @@
 import useSWR from 'swr';
-import {fetcher} from "@utils/fetcher";
+import {discordFetcher} from "@utils/discordFetcher";
 import AccountManager from "@utils/accountManager";
 import Guild, {IGuild} from "@utils/guild";
 
 export const useGuilds = (accountId?: string) => {
   const {data, error} = useSWR(
     accountId ? [`users/@me/guilds`, AccountManager.accounts[accountId].token] : null,
-    fetcher
+    discordFetcher
   );
   return {
     guilds: (data as IGuild[])?.map(g => new Guild(g)),

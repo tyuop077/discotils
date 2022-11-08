@@ -1,6 +1,6 @@
 import AccountManager from "@utils/accountManager";
 
-export const fetcher = async (path: string, token: string, method = "GET", options: RequestInit = {}) => {
+export const discordFetcher = async (path: string, token: string, method = "GET", options: RequestInit = {}) => {
   const res = await fetch(`https://discord.com/api/v10/${path}`, {
     method,
     ...options,
