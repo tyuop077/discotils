@@ -19,42 +19,103 @@
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
+    background-color: var(--c);
   }
   .banner {
     height: 200px;
+    border: 3px solid var(--c);
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 10px;
     }
   }
   .accent {
     height: 70px;
-    background-color: var(--c);
   }
-  .info {
-    display: flex;
-    margin: -60px 16px 0;
-    align-items: flex-end;
-    .avatar {
-      width: 120px;
-      height: 120px;
+}
+
+.info {
+  display: flex;
+  margin: -60px 16px 0;
+  align-items: flex-end;
+  .avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 5px solid #21252b;
+    background-color: #21252b;
+    img {
       border-radius: 50%;
-      border: 5px solid #21252b;
-      background-color: #21252b;
-      img {
-        border-radius: 50%;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-    }
-    .badges {
-      background-color: #1d2126;
-      border-radius: 4px;
-      padding: 2px 4px;
-      height: 30px;
-      margin-bottom: 10px;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
   }
+  .badges {
+    background-color: #1d2126;
+    border-radius: 4px;
+    padding: 2px 4px;
+    height: 30px;
+    margin-bottom: 10px;
+  }
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  background-color: #1d2126;
+  border-radius: 10px;
+  padding: 10px;
+  gap: 10px;
+  .name {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #282C33;
+    span {
+      color: #b9bbbe;
+    }
+    p { // bot badge
+      display: inline-block;
+      background-color: #5865f2; //#7289da
+      color: #fff;
+      padding: 2px 4px;
+      border-radius: 4px;
+      margin: 0 0 0 4px;
+      font-size: 10px;
+      font-weight: 500;
+    }
+  }
+}
+
+.data {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  code {
+    word-break: break-word;
+  }
+}
+
+.value {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  p {
+    display: inline-block;
+    margin: 0;
+    background-color: #171A1E;
+    padding: 4px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+}
+
+.color {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: var(--c);
 }

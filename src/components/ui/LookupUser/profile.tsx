@@ -9,10 +9,8 @@ const image = (path: string, size = 128, id: string, hash?: string) => "https://
   `${path}/${id}/${hash}.${hash.startsWith("a_") ? "gif" : "webp"}?size=${size}` :
   `embed/${path}/${Number(id) % 5}.png`);
 
-const colorIntToHex = (color: number) => {
-  const hex = color.toString(16);
-  return "#" + "0".repeat(6 - hex.length) + hex;
-}
+const colorIntToHex = (color: number) =>
+  "#" + color.toString(16).padStart(6, "0");
 
 enum Flags {
   BRAVERY,
@@ -49,7 +47,7 @@ export const Profile = ({data}: {data: User}) => {
       ) : (
         <div
           className={styles.accent}
-          style={{"--c": colorIntToHex(data.accent_color)} as CSSProperties}
+          style={data.accent_color ? {"--c": colorIntToHex(data.accent_color)} as CSSProperties : undefined}
         />
       )}
       <div className={styles.info}>
@@ -59,22 +57,59 @@ export const Profile = ({data}: {data: User}) => {
             alt={`${data.username}'s avatar`}
           />
         </div>
-        <div className={styles.badges}>
-          {flags.map(flag => {
-            switch (flag) {
-              case Flags.BRAVERY:
-                return <HSBravery />;
-              case Flags.BRILLIANCE:
-                return <HSBrilliance />;
-              case Flags.BALANCE:
-                return <HSBalance />;
-              default:
-                return null;
-            }
-          })}
+        {flags.length > 0 && (
+          <div className={styles.badges}>
+            {flags.map(flag => {
+              switch (flag) {
+                case Flags.BRAVERY:
+                  return <HSBravery />;
+                case Flags.BRILLIANCE:
+                  return <HSBrilliance />;
+                case Flags.BALANCE:
+                  return <HSBalance />;
+                default:
+                  return null;
+              }
+            })}
+          </div>
+        )}
+      </div>
+      <div className={styles.details}>
+        <div className={styles.name}>
+          <b>{data.username}</b>
+          <span>#{data.discriminator}</span>
+          {data.bot && <p className={styles.label}>BOT</p>}
+          {flags.includes(Flags.TEAM_USER) && <p className={styles.label}>TEAM USER</p>}
+        </div>
+        <div className={styles.data}>
+          {data.banner_color && (
+            <div className={styles.value}>
+              <span>Banner color:</span>
+              <div
+                className={styles.color}
+                style={{"--c": data.banner_color} as CSSProperties}
+              />
+              <p>{data.banner_color}</p>
+            </div>
+          )}
+          {data.accent_color && (
+            <div className={styles.value}>
+              <span>Accent color:</span>
+              <div
+                className={styles.color}
+                style={{"--c": colorIntToHex(data.accent_color)} as CSSProperties}
+              />
+              <p
+                title="Click to copy"
+                onClick={() => navigator.clipboard.writeText(colorIntToHex(data.accent_color))}
+              >
+                {colorIntToHex(data.accent_color)}
+              </p>
+            </div>
+          )}
+          <code>{JSON.stringify(data)}</code>
         </div>
       </div>
-      <b>{data.username}#${data.discriminator}</b>
     </div>
   )
 }
