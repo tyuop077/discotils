@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   let rateLimited = false;
 
-  await limiter.check(res, 15, "CACHE_TOKEN") // requests per minute
+  await limiter.check(res, 15, req.headers["x-forwarded-for"] as string) // requests per minute
     .catch(() => rateLimited = true);
 
   if (rateLimited) {
