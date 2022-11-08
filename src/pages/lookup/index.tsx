@@ -1,15 +1,12 @@
-import styles from "@styles/Lookup.module.scss";
 import Head from "next/head";
 import LookupLayout from "@layout/Lookup/lookup";
 
 const Lookup = () => {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Snowflake parser - Discotils</title>
-        <meta name="description" content="Snowflake parser" />
-      </Head>
-    </div>
+    <Head>
+      <title>Snowflake parser - Discotils</title>
+      <meta name="description" content="Discord's snowflake parser" />
+    </Head>
   );
 }
 
