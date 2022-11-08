@@ -1,19 +1,32 @@
 import Link from "next/link";
 import {useRouter} from "next/router";
+import {ReactNode} from "react";
+
+interface InitializerProps {
+  activeClass: string;
+  id: string;
+}
 
 interface Props {
-  children: React.ReactNode;
-  activeClass: string;
+  children: ReactNode;
   href: string;
 }
 
-const LookupLink = ({children, activeClass, href}: Props) => {
-  const router = useRouter();
-  return (
-    <Link href={`/lookup${href}`} className={router.pathname === `/lookup${href}` ? activeClass : undefined} scroll={false}>
-      {children}
-    </Link>
-  )
+const createLookupLink = ({activeClass, id}: InitializerProps) => {
+  const LookupLink = ({children, href}: Props) => {
+    const router = useRouter();
+    return (
+      <Link
+        href={`/lookup${href}?id=${id}`}
+        className={router.pathname === `/lookup${href}` ? activeClass : undefined}
+        scroll={false}
+        as={`/lookup${href}`}
+      >
+        {children}
+      </Link>
+    )
+  }
+  return {LookupLink};
 }
 
-export default LookupLink
+export default createLookupLink

@@ -2,6 +2,7 @@ import {MutableRefObject, ReactElement, useEffect, useRef, useState} from "react
 import styles from "./lookup.module.scss";
 import SnowflakeParser from "@components/SnowflakeParser/snowflakeParser";
 import LookupLink from "@components/LookupLink/lookupLink";
+import createLookupLink from "@components/LookupLink/lookupLink";
 import {useRouter} from "next/router";
 
 const LookupLayout = (page: ReactElement) => {
@@ -10,11 +11,15 @@ const LookupLayout = (page: ReactElement) => {
   const valid = /^\d{17,20}$/.test(id);
   const inputRef = useRef() as MutableRefObject<HTMLInputElement>;
   const initialId = router.query.id;
+
   useEffect(() => {
     if (typeof initialId !== "string") return;
     setId(initialId);
     inputRef.current!.value = initialId;
   }, [initialId]);
+
+  const {LookupLink} = createLookupLink({activeClass: styles.active, id});
+
   return (
     <main className={styles.container}>
       <h1>Snowflake parser & ID resolver</h1>
@@ -33,13 +38,13 @@ const LookupLayout = (page: ReactElement) => {
           }}
         />
         <div className={styles.type}>
-          <LookupLink href="" activeClass={styles.active}>
+          <LookupLink href="">
             Snowflake
           </LookupLink>
-          <LookupLink href="/user" activeClass={styles.active}>
+          <LookupLink href="/user">
             User
           </LookupLink>
-          <LookupLink href="/guild" activeClass={styles.active}>
+          <LookupLink href="/guild">
             Server
           </LookupLink>
         </div>
