@@ -4,8 +4,9 @@ import {fetcherWithStatus, WithStatus} from "@utils/fetcher";
 import Loader from "@components/Loader/loader";
 import CloudOff from "@assets/CloudOff.svg";
 import UserOff from "@assets/UserOff.svg";
+import Profile from "@components/LookupUser/profile";
 
-interface User {
+export interface User {
   id: string;
   username: string;
   avatar?: string;
@@ -34,7 +35,7 @@ const LookupUser = ({id}: {id: string}) => {
   return (
     data ? (
       data.status === 200 ? (
-        <p>{JSON.stringify(data.body)}</p>
+        <Profile data={data.body as User} />
       ) : (
         <div className={styles.error}>
           {data.status === 404 ? <UserOff /> : <CloudOff />}
