@@ -3,6 +3,7 @@ import {useEffect, useMemo, useState} from "react";
 import styles from "./snowflakeParser.module.scss";
 import ArrowDown from "@assets/ArrowDown.svg";
 import {CopyToClipboard} from "@components/CopyToClipboard/copyToClipboard";
+import formatTime from "@utils/formatTime";
 
 interface DateType {
   lang: string;
@@ -27,6 +28,7 @@ const SnowflakeParser = ({id, maximizedByDefault}: {id: string, maximizedByDefau
     timeStyle: type.timeStyle,
     timeZone: type.timezone
   }).format(Number(data.timestamp));
+  const relativeStr = formatTime(Number(data.timestamp), type.lang);
 
   useEffect(() => {
     const dateType = localStorage.getItem("snowflakeParserDate");
@@ -58,11 +60,13 @@ const SnowflakeParser = ({id, maximizedByDefault}: {id: string, maximizedByDefau
             <CopyToClipboard text={data.timestamp} />
           </div>
           <p>Created on: </p>
-          <span className={styles.date}>{data.date.toLocaleString()}
+          <span className={styles.date}>
+            {data.date.toLocaleString()}
             <CopyToClipboard text={data.timestamp} />
           </span>
           <div className={styles.string}>
             <span>{str}</span>
+            <span>({relativeStr})</span>
             <ArrowDown
               className={show ? styles.open : undefined}
               onClick={() => setShow(!show)}
