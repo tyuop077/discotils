@@ -57,7 +57,7 @@ export const Profile = ({data}: {data: User}) => {
             </div>
           )}
           {flags.includes(Flags.HTTP_INTERACTIONS) || flags.includes(Flags.TEAM_USER) && (
-            <div className={styles.minor}>
+            <div className={`${styles.tag} ${styles.minor}`}>
               {flags.includes(Flags.HTTP_INTERACTIONS) && <span>HTTP interactions</span>}
               {flags.includes(Flags.TEAM_USER) && <span>TEAM USER</span>}
             </div>
