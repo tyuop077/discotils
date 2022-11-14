@@ -91,6 +91,10 @@
         padding: 2px 4px;
       }
     }
+    .minor {
+      @extend .tag;
+      background-color: #2f3136;
+    }
   }
 }
 
@@ -133,4 +137,21 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: -5px;
+}
+
+.note {
+  // yellow warning note
+  display: flex;
+  align-items: center;
+  background-color: #171A1E;
+  border-radius: 4px;
+  padding: 4px 4px;
+  margin-bottom: 10px;
+  svg {
+    height: 32px;
+    width: 32px;
+    margin-right: 4px;
+  }
+  // with shadow
+  box-shadow: 0 0 0 1px #f2c94c, 0 0 0 2px #1d2126;
 }

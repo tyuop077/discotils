@@ -4,6 +4,7 @@ import {CSSProperties} from "react";
 import {CopyToClipboard} from "@components/CopyToClipboard/copyToClipboard";
 import {Flags, flagToComponent, publicFlagsToFlags} from "@utils/userFlags";
 import Check from "@assets/Check.svg";
+import Warning from "@assets/Warning.svg";
 
 const image = (path: string, size = 128, id: string, hash?: string) => "https://cdn.discordapp.com/" + (hash ?
   `${path}/${id}/${hash}.${hash.startsWith("a_") ? "gif" : "webp"}?size=${size}` :
@@ -46,17 +47,21 @@ export const Profile = ({data}: {data: User}) => {
         <div className={styles.name}>
           <b>{data.username}</b>
           <span>#{data.discriminator}</span>
-          {(data.bot || flags.includes(Flags.TEAM_USER) || flags.includes(Flags.SYSTEM)) && (
+          {(data.bot || flags.includes(Flags.SYSTEM)) && (
             <div className={styles.tag}>
               {flags.includes(Flags.VERIFIED_BOT) && <Check />}
               <span>
                 {data.bot && "BOT"}
-                {flags.includes(Flags.TEAM_USER) && "TEAM USER"}
                 {flags.includes(Flags.SYSTEM) && "SYSTEM"}
               </span>
             </div>
           )}
-          {flags.includes(Flags.TEAM_USER) && <p className={styles.label}>TEAM USER</p>}
+          {flags.includes(Flags.HTTP_INTERACTIONS) || flags.includes(Flags.TEAM_USER) && (
+            <div className={styles.minor}>
+              {flags.includes(Flags.HTTP_INTERACTIONS) && <span>HTTP interactions</span>}
+              {flags.includes(Flags.TEAM_USER) && <span>TEAM USER</span>}
+            </div>
+          )}
         </div>
         <div className={styles.data}>
           {data.banner_color && (
@@ -67,6 +72,12 @@ export const Profile = ({data}: {data: User}) => {
                 style={{"--c": data.banner_color} as CSSProperties}
               />
               <p>{data.banner_color}</p>
+            </div>
+          )}
+          {flags.includes(Flags.SPAMMER) && (
+            <div className={styles.note}>
+              <Warning />
+              <span>This user is tagged as spammer</span>
             </div>
           )}
           {data.accent_color && (
