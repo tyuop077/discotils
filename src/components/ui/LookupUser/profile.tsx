@@ -3,6 +3,7 @@ import {User} from "@components/LookupUser/lookupUser";
 import {CSSProperties} from "react";
 import {CopyToClipboard} from "@components/CopyToClipboard/copyToClipboard";
 import {Flags, flagToComponent, publicFlagsToFlags} from "@utils/userFlags";
+import Check from "@assets/Check.svg";
 
 const image = (path: string, size = 128, id: string, hash?: string) => "https://cdn.discordapp.com/" + (hash ?
   `${path}/${id}/${hash}.${hash.startsWith("a_") ? "gif" : "webp"}?size=${size}` :
@@ -13,6 +14,7 @@ const colorIntToHex = (color: number) =>
 
 export const Profile = ({data}: {data: User}) => {
   const flags = publicFlagsToFlags(data.public_flags);
+  const badges = flags.map(flagToComponent);
   return (
     <div className={styles.user}>
       {data.banner ? (
@@ -34,9 +36,9 @@ export const Profile = ({data}: {data: User}) => {
             alt={`${data.username}'s avatar`}
           />
         </div>
-        {flags.length > 0 && (
+        {badges.filter(b => b).length > 0 && (
           <div className={styles.badges}>
-            {flags.map(flagToComponent)}
+            {badges}
           </div>
         )}
       </div>
@@ -44,7 +46,16 @@ export const Profile = ({data}: {data: User}) => {
         <div className={styles.name}>
           <b>{data.username}</b>
           <span>#{data.discriminator}</span>
-          {data.bot && <p className={styles.label}>BOT</p>}
+          {(data.bot || flags.includes(Flags.TEAM_USER) || flags.includes(Flags.SYSTEM)) && (
+            <div className={styles.tag}>
+              {flags.includes(Flags.VERIFIED_BOT) && <Check />}
+              <span>
+                {data.bot && "BOT"}
+                {flags.includes(Flags.TEAM_USER) && "TEAM USER"}
+                {flags.includes(Flags.SYSTEM) && "SYSTEM"}
+              </span>
+            </div>
+          )}
           {flags.includes(Flags.TEAM_USER) && <p className={styles.label}>TEAM USER</p>}
         </div>
         <div className={styles.data}>

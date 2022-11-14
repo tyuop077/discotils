@@ -19,7 +19,7 @@
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
-    background-color: var(--c);
+    background-color: var(--c, #1d2126);
   }
   .banner {
     height: 200px;
@@ -78,15 +78,18 @@
     span {
       color: #b9bbbe;
     }
-    p { // bot badge
-      display: inline-block;
+    .tag { // bot badge
+      display: inline-flex;
+      align-items: center;
       background-color: #5865f2; //#7289da
-      color: #fff;
-      padding: 2px 4px;
       border-radius: 4px;
       margin: 0 0 0 4px;
       font-size: 10px;
       font-weight: 500;
+      span {
+        color: #fff;
+        padding: 2px 4px;
+      }
     }
   }
 }
