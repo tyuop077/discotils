@@ -1,10 +1,11 @@
 import styles from "./lookupUser.module.scss";
 import {User} from "@components/LookupUser/lookupUser";
-import {CSSProperties} from "react";
+import {CSSProperties, ReactNode} from "react";
 import HSBravery from "@assets/HSBravery.svg";
 import HSBrilliance from "@assets/HSBrilliance.svg";
 import HSBalance from "@assets/HSBalance.svg";
 import {CopyToClipboard} from "@components/CopyToClipboard/copyToClipboard";
+import ActiveDeveloper from "@assets/ActiveDeveloper.svg";
 
 const image = (path: string, size = 128, id: string, hash?: string) => "https://cdn.discordapp.com/" + (hash ?
   `${path}/${id}/${hash}.${hash.startsWith("a_") ? "gif" : "webp"}?size=${size}` :
@@ -17,15 +18,24 @@ enum Flags {
   BRAVERY,
   BRILLIANCE,
   BALANCE,
-  TEAM_USER
+  TEAM_USER,
+  ACTIVE_DEVELOPER
 }
 
 const bitToFlag = {
   [1 << 6]: Flags.BRAVERY,
   [1 << 7]: Flags.BRILLIANCE,
   [1 << 8]: Flags.BALANCE,
-  [1 << 10]: Flags.TEAM_USER
+  [1 << 10]: Flags.TEAM_USER,
+  [1 << 22]: Flags.ACTIVE_DEVELOPER
 }
+
+const flagToComponent = (flag: Flags) => (({
+  [Flags.BRAVERY]: <HSBravery />,
+  [Flags.BRILLIANCE]: <HSBrilliance />,
+  [Flags.BALANCE]: <HSBalance />,
+  [Flags.ACTIVE_DEVELOPER]: <ActiveDeveloper />
+} as Record<Flags, ReactNode>)[flag] ?? null)
 
 const publicFlagsToFlags = (publicFlags: number) => {
   const flags = [];
@@ -60,18 +70,7 @@ export const Profile = ({data}: {data: User}) => {
         </div>
         {flags.length > 0 && (
           <div className={styles.badges}>
-            {flags.map(flag => {
-              switch (flag) {
-                case Flags.BRAVERY:
-                  return <HSBravery />;
-                case Flags.BRILLIANCE:
-                  return <HSBrilliance />;
-                case Flags.BALANCE:
-                  return <HSBalance />;
-                default:
-                  return null;
-              }
-            })}
+            {flags.map(flagToComponent)}
           </div>
         )}
       </div>
