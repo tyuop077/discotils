@@ -18,7 +18,8 @@ const LookupGuild = ({id}: {id: string}) => {
   );
   const {data: inviteData, error: inviteError} = useSWRImmutable<WithStatus<Invite | RestForwarderError>>(
     (widgetData?.body as GuildWidget)?.instant_invite ?
-      `https://discord.com/api/v10/invites/${(widgetData?.body as GuildWidget).instant_invite}` +
+      "https://discord.com/api/v10/invites/" +
+      (widgetData?.body as GuildWidget).instant_invite?.split("/").at(-1) +
       "?with_counts=true&with_expiration=true" : null,
     fetcherWithStatus
   );
