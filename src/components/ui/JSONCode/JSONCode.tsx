@@ -11,20 +11,22 @@ export const JSONCode = ({content, title}: {content: any, title?: string}) => {
         </div>
         <code>{JSON.stringify(content)}</code>
       </div>
-      <div className={styles.tools}>
-        <button
-          className={styles.external}
-          onClick={() => {
-            window.open(
-              `https://jsoneditoronline.org/#left=json.${encodeURIComponent(JSON.stringify(content))}`,
-              "_blank"
-            );
-          }}
-        >
-          <External />
-        </button>
-        <CopyToClipboard text={JSON.stringify(content)} />
-      </div>
+      {content && (
+        <div className={styles.tools}>
+          <button
+            className={styles.external}
+            onClick={() => {
+              window.open(
+                `https://jsoneditoronline.org/#left=json.${encodeURIComponent(JSON.stringify(content))}`,
+                "_blank"
+              );
+            }}
+          >
+            <External />
+          </button>
+          <CopyToClipboard text={JSON.stringify(content)} />
+        </div>
+      )}
     </div>
   )
 }

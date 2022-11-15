@@ -3,6 +3,7 @@
   position: relative;
   flex-direction: column;
   gap: 10px;
+  overflow: hidden;
 }
 
 .content {
@@ -10,6 +11,17 @@
   border-radius: 10px;
   padding: 10px;
   word-break: break-word;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 250px;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #2F3336;
+    border-radius: 10px;
+    padding-right: 10px;
+  }
 }
 
 .tools {
