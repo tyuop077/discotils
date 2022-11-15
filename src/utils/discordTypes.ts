@@ -18,11 +18,8 @@ export interface GuildWidgetChannel {
 }
 
 export interface GuildWidgetMember {
-  id: string;
   username: string;
-  discriminator: string;
-  avatar: string;
-  status: string;
+  status: "online" | "dnd" | "idle" | "offline";
   avatar_url: string;
 }
 
