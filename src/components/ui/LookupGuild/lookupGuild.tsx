@@ -1,4 +1,4 @@
-import styles from "./lookupUser.module.scss";
+import styles from "./lookupGuild.module.scss";
 import useSWRImmutable from "swr/immutable";
 import {CodeToLine, RestForwarderError} from "@utils/restForwarderHandler";
 import {fetcherWithStatus, WithStatus} from "@utils/fetcher";
