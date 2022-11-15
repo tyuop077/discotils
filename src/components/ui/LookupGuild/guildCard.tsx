@@ -1,6 +1,7 @@
 import styles from "./lookupGuild.module.scss";
 import {GuildPreview, GuildWidget, Invite} from "@utils/discordTypes";
 import {JSONCode} from "@components/JSONCode/JSONCode";
+import {cdnImage} from "@utils/cdnImage";
 
 interface Props {
   id: string;
@@ -12,6 +13,28 @@ interface Props {
 export const GuildCard = ({id, widget, invite, preview}: Props) => {
   return (
     <div className={styles.guild}>
+      {preview.splash && (
+        <div className={styles.splash}>
+          <img
+            src={cdnImage("splashes", 1024, id, preview.splash)}
+          />
+          <div className={styles.splashOverlay}>
+            <a
+              className={styles.original}
+              href={cdnImage("splashes", 2048, id, preview.splash, {
+                format: "png"
+              })}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open original
+            </a>
+          </div>
+        </div>
+      )}
+      <div className={styles.name}>
+
+      </div>
       <p>Guild Widget</p>
       <JSONCode title={`GET /guilds/${id}/widget.json`} content={widget} />
       <p>Guild Invite</p>
