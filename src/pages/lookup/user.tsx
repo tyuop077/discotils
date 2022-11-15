@@ -1,4 +1,4 @@
-import styles from "@styles/LookupUser.module.scss";
+import styles from "@styles/Lookup.module.scss";
 import Head from "next/head";
 import LookupLayout from "@layout/Lookup/lookup";
 import {useRouter} from "next/router";
