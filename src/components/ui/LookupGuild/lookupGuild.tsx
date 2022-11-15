@@ -4,7 +4,7 @@ import {CodeToLine, RestForwarderError} from "@utils/restForwarderHandler";
 import {fetcherWithStatus, WithStatus} from "@utils/fetcher";
 import Loader from "@components/Loader/loader";
 import CloudOff from "@assets/CloudOff.svg";
-import UserOff from "@assets/UserOff.svg";
+import Logo from "@assets/Logo.svg";
 import {GuildPreview, GuildWidget, Invite} from "@utils/discordTypes";
 
 const LookupGuild = ({id}: {id: string}) => {
@@ -31,7 +31,7 @@ const LookupGuild = ({id}: {id: string}) => {
         />
       ) : (
         <div className={styles.error}>
-          {widgetData.status === 404 ? <UserOff /> : <CloudOff />}
+          {widgetData.status === 404 ? <Logo /> : <CloudOff />}
           <h3>
             {CodeToLine[widgetData.status](widgetData.body as RestForwarderError, "Guild") ?? (widgetData.body as RestForwarderError).error}
           </h3>
