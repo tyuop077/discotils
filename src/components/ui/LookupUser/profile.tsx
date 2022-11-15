@@ -6,9 +6,9 @@ import {Flags, flagToComponent, publicFlagsToFlags} from "@utils/userFlags";
 import Check from "@assets/Check.svg";
 import Warning from "@assets/Warning.svg";
 
-const image = (path: string, size = 128, id: string, hash?: string) => "https://cdn.discordapp.com/" + (hash ?
+const image = (path: string, size = 128, id: string, hash?: string, discriminator?: string) => "https://cdn.discordapp.com/" + (hash ?
   `${path}/${id}/${hash}.${hash.startsWith("a_") ? "gif" : "webp"}?size=${size}` :
-  `embed/${path}/${Number(id) % 5}.png`);
+  `embed/${path}/${Number(discriminator) % 5}.png`);
 
 const colorIntToHex = (color: number) =>
   "#" + color.toString(16).padStart(6, "0");
@@ -23,6 +23,13 @@ export const Profile = ({data}: {data: User}) => {
           <img
             src={image("banners", 1024, data.id, data.banner)}
           />
+          <div className={styles.bannerOverlay}>
+            <div className={styles.download}>
+              <a href={image("banners", 1024, data.id, data.banner)} download>
+                Download
+              </a>
+            </div>
+          </div>
         </div>
       ) : (
         <div
@@ -33,7 +40,7 @@ export const Profile = ({data}: {data: User}) => {
       <div className={styles.info}>
         <div className={styles.avatar}>
           <img
-            src={image("avatars", 128, data.id, data.avatar)}
+            src={image("avatars", 128, data.id, data.avatar, data.discriminator)}
             alt={`${data.username}'s avatar`}
           />
         </div>
