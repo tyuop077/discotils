@@ -5,10 +5,8 @@ import {Flags, flagToComponent, profileSortedBadges, publicFlagsToFlags} from "@
 import {cdnImage} from "@utils/cdnImage";
 import Check from "@assets/Check.svg";
 import Warning from "@assets/Warning.svg";
+import {colorIntToHex} from "@utils/colorIntToHex";
 import {JSONCode} from "@components/JSONCode/JSONCode";
-
-const colorIntToHex = (color: number) =>
-  "#" + color.toString(16).padStart(6, "0");
 
 export const Profile = ({data}: {data: User}) => {
   const flags = profileSortedBadges(publicFlagsToFlags(data.public_flags));
