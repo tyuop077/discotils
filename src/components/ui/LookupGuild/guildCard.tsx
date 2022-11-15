@@ -5,9 +5,9 @@ import {cdnImage} from "@utils/cdnImage";
 
 interface Props {
   id: string;
-  widget: GuildWidget;
-  invite: Invite;
-  preview: GuildPreview;
+  widget?: GuildWidget;
+  invite?: Invite;
+  preview?: GuildPreview;
 }
 
 export const GuildCard = ({id, widget, invite, preview}: Props) => {
@@ -33,7 +33,19 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
         </div>
       )}
       <div className={styles.name}>
-
+        {(invite?.guild.icon || preview?.icon) ? (
+          <img
+            className={styles.avatar}
+            src={cdnImage("icons", 128, id, invite?.guild.icon || preview?.icon)}
+          />
+        ) : (
+          <div
+            className={styles.avatar}
+          >
+            {invite?.guild.name.split(" ").map(s => s[0]).join("")}
+          </div>
+        )}
+        <b>{preview?.name ?? widget?.name}</b>
       </div>
       <p>Guild Widget</p>
       <JSONCode title={`GET /guilds/${id}/widget.json`} content={widget} />
