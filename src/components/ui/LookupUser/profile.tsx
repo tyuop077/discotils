@@ -2,7 +2,7 @@ import styles from "./lookupUser.module.scss";
 import {User} from "@components/LookupUser/lookupUser";
 import {CSSProperties} from "react";
 import {CopyToClipboard} from "@components/CopyToClipboard/copyToClipboard";
-import {Flags, flagToComponent, publicFlagsToFlags} from "@utils/userFlags";
+import {Flags, flagToComponent, profileSortedBadges, publicFlagsToFlags} from "@utils/userFlags";
 import Check from "@assets/Check.svg";
 import Warning from "@assets/Warning.svg";
 
@@ -14,7 +14,7 @@ const colorIntToHex = (color: number) =>
   "#" + color.toString(16).padStart(6, "0");
 
 export const Profile = ({data}: {data: User}) => {
-  const flags = publicFlagsToFlags(data.public_flags);
+  const flags = profileSortedBadges(publicFlagsToFlags(data.public_flags));
   const badges = flags.map(flagToComponent);
   return (
     <div className={styles.user}>

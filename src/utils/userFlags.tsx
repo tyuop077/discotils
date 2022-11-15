@@ -55,16 +55,31 @@ const flagToPath = (flag: Flags) => (({
   [Flags.BRILLIANCE]: "hypesquad/Brilliance.svg",
   [Flags.BALANCE]: "hypesquad/Balance.svg",
   [Flags.EARLY_SUPPORTER]: "EarlySupporter.svg",
-  // [Flags.TEAM_USER]: "TeamUser.svg",
-  // [Flags.SYSTEM]: "System.svg",
   [Flags.BUG_HUNTER_GOLD]: "BugHunterGold.svg",
-  // [Flags.VERIFIED_BOT]: "VerifiedBot.svg",
   [Flags.EARLY_VERIFIED_BOT_DEVELOPER]: "EarlyVerifiedBotDeveloper.svg",
   [Flags.CERTIFIED_MODERATOR]: "CertifiedModerator.svg",
-  // [Flags.HTTP_INTERACTIONS]: "HttpInteractions.svg",
-  // [Flags.SPAMMER]: "Spammer.svg",
   [Flags.ACTIVE_DEVELOPER]: "ActiveDeveloper.svg"
 } as Record<Flags, string>)[flag] ?? null)
+
+const profileBadgesOrder = [
+  Flags.STAFF,
+  Flags.PARTNER,
+  Flags.CERTIFIED_MODERATOR,
+  Flags.HYPESQUAD_EVENTS,
+  Flags.BRAVERY,
+  Flags.BRILLIANCE,
+  Flags.BALANCE,
+  Flags.BUG_HUNTER,
+  Flags.BUG_HUNTER_GOLD,
+  Flags.ACTIVE_DEVELOPER,
+  Flags.EARLY_VERIFIED_BOT_DEVELOPER,
+  Flags.EARLY_SUPPORTER
+]
+
+export const profileSortedBadges = (flags: Flags[]) => {
+  return flags.sort((a, b) => profileBadgesOrder.indexOf(a) - profileBadgesOrder.indexOf(b));
+}
+
 
 export const flagToComponent = (flag: Flags) => {
   const path = flagToPath(flag);
