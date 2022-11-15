@@ -117,6 +117,6 @@ class GuildLookupWithStatus {
   }
 }
 
-export const GuildLookup = () => ({
+export const GuildLookup = ({
   withStatus: GuildLookupWithStatus
 })
