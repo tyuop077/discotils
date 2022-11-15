@@ -41,6 +41,7 @@ const LookupGuild = ({id}: {id: string}) => {
             </div>
           )}
           <GuildCard
+            id={id}
             widget={widgetData.body as GuildWidget}
             invite={inviteData?.body as Invite}
             preview={previewData?.body as GuildPreview}
