@@ -56,11 +56,6 @@ export interface Guild {
       emoji_name: string;
     }[]
   };
-  channel: {
-    id: string;
-    name: string;
-    type: number;
-  };
   approximate_member_count: number;
   approximate_presence_count: number;
 }
@@ -70,6 +65,11 @@ export interface Invite {
   type: number;
   expires_at?: string;
   guild: Guild;
+  channel: {
+    id: string;
+    name: string;
+    type: number;
+  };
 }
 
 export interface Emoji {
