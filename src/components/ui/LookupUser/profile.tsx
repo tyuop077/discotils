@@ -1,14 +1,11 @@
 import styles from "./lookupUser.module.scss";
-import {User} from "@components/LookupUser/lookupUser";
+import {User} from "@utils/discordTypes";
 import {CSSProperties} from "react";
 import {Flags, flagToComponent, profileSortedBadges, publicFlagsToFlags} from "@utils/userFlags";
+import {cdnImage} from "@utils/cdnImage";
 import Check from "@assets/Check.svg";
 import Warning from "@assets/Warning.svg";
 import {JSONCode} from "@components/JSONCode/JSONCode";
-
-const image = (path: string, size = 128, id: string, hash?: string, discriminator?: string) => "https://cdn.discordapp.com/" + (hash ?
-  `${path}/${id}/${hash}.${hash.startsWith("a_") ? "gif" : "webp"}?size=${size}` :
-  `embed/${path}/${Number(discriminator) % 5}.png`);
 
 const colorIntToHex = (color: number) =>
   "#" + color.toString(16).padStart(6, "0");
@@ -21,12 +18,12 @@ export const Profile = ({data}: {data: User}) => {
       {data.banner ? (
         <div className={styles.banner}>
           <img
-            src={image("banners", 1024, data.id, data.banner)}
+            src={cdnImage("banners", 1024, data.id, data.banner)}
           />
           <div className={styles.bannerOverlay}>
             <a
               className={styles.original}
-              href={image("banners", 2048, data.id, data.banner)}
+              href={cdnImage("banners", 2048, data.id, data.banner)}
               target="_blank"
               rel="noreferrer"
             >
@@ -43,12 +40,15 @@ export const Profile = ({data}: {data: User}) => {
       <div className={styles.info}>
         <a
           className={styles.avatar}
-          href={image("avatars", 2048, data.id, data.avatar, data.discriminator)}
+          href={cdnImage("avatars", 2048, data.id, data.avatar, {
+            discriminator: data.discriminator,
+            format: "png"
+          })}
           target="_blank"
           rel="noreferrer"
         >
           <img
-            src={image("avatars", 128, data.id, data.avatar, data.discriminator)}
+            src={cdnImage("avatars", 128, data.id, data.avatar, {discriminator: data.discriminator})}
             alt={`${data.username}'s avatar`}
           />
         </a>
