@@ -13,7 +13,7 @@ interface Props {
 export const GuildCard = ({id, widget, invite, preview}: Props) => {
   return (
     <div className={styles.guild}>
-      {preview.splash && (
+      {preview?.splash && (
         <div className={styles.splash}>
           <img
             src={cdnImage("splashes", 1024, id, preview.splash)}
