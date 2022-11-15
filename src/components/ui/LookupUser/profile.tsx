@@ -23,7 +23,7 @@ export const Profile = ({data}: {data: User}) => {
               className={styles.original}
               href={cdnImage("banners", 2048, data.id, data.banner)}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Open original
             </a>
@@ -43,7 +43,7 @@ export const Profile = ({data}: {data: User}) => {
             format: "png"
           })}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
         >
           <img
             src={cdnImage("avatars", 128, data.id, data.avatar, {discriminator: data.discriminator})}

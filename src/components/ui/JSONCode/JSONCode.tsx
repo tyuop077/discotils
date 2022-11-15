@@ -18,7 +18,8 @@ export const JSONCode = ({content, title}: {content: any, title?: string}) => {
             onClick={() => {
               window.open(
                 `https://jsoneditoronline.org/#left=json.${encodeURIComponent(JSON.stringify(content))}`,
-                "_blank"
+                "_blank",
+                "noopener noreferrer"
               );
             }}
           >
