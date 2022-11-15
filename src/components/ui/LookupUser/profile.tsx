@@ -21,7 +21,9 @@ export const Profile = ({data}: {data: User}) => {
           <div className={styles.bannerOverlay}>
             <a
               className={styles.original}
-              href={cdnImage("banners", 2048, data.id, data.banner)}
+              href={cdnImage("banners", 2048, data.id, data.banner, {
+                format: "png"
+              })}
               target="_blank"
               rel="noopener noreferrer"
             >
