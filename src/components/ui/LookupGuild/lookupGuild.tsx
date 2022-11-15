@@ -6,6 +6,8 @@ import Loader from "@components/Loader/loader";
 import CloudOff from "@assets/CloudOff.svg";
 import Logo from "@assets/Logo.svg";
 import {GuildPreview, GuildWidget, Invite} from "@utils/discordTypes";
+import Warning from "@assets/Warning.svg";
+import {GuildCard} from "@components/LookupGuild/guildCard";
 
 const LookupGuild = ({id}: {id: string}) => {
   const {data: widgetData, error: widgetError} = useSWRImmutable<WithStatus<GuildWidget | RestForwarderError>>(
@@ -18,17 +20,29 @@ const LookupGuild = ({id}: {id: string}) => {
     fetcherWithStatus
   );
   const {data: previewData, error: previewError} = useSWRImmutable<WithStatus<GuildPreview | RestForwarderError>>(
-    (widgetData?.body as GuildWidget).id ? `/api/guild/${id}/preview` : null, fetcherWithStatus
+    (widgetData?.body as GuildWidget)?.id ? `/api/guild/${id}/preview` : null, fetcherWithStatus
   );
   return (
     widgetData ? (
       widgetData.status === 200 ? (
         // TODO: Add guild profile
-        <GuildCard
-          widget={widgetData.body as GuildWidget}
-          invite={inviteData?.body as Invite}
-          preview={previewData?.body as GuildPreview}
-        />
+        <>
+          {(inviteError || previewError) && (
+            <div className={styles.note}>
+              <Warning />
+              <p>
+                Failed to fetch{" "}
+                {[inviteError ?? "invite info", previewError ?? "preview info"].filter(t => t).join(" and ")}
+                , please check your access to the internet and try again
+              </p>
+            </div>
+          )}
+          <GuildCard
+            widget={widgetData.body as GuildWidget}
+            invite={inviteData?.body as Invite}
+            preview={previewData?.body as GuildPreview}
+          />
+        </>
       ) : (
         <div className={styles.error}>
           {widgetData.status === 404 ? <Logo /> : <CloudOff />}
