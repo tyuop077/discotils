@@ -1,5 +1,6 @@
 import styles from "./lookupUser.module.scss";
 import useSWRImmutable from "swr/immutable";
+import {User} from "@utils/discordTypes";
 import {CodeToLine, RestForwarderError} from "@utils/restForwarderHandler";
 import {fetcherWithStatus, WithStatus} from "@utils/fetcher";
 import Loader from "@components/Loader/loader";
@@ -7,21 +8,10 @@ import CloudOff from "@assets/CloudOff.svg";
 import UserOff from "@assets/UserOff.svg";
 import Profile from "@components/LookupUser/profile";
 
-export interface User {
-  id: string;
-  username: string;
-  avatar?: string;
-  bot?: boolean;
-  avatar_decoration?: string;
-  discriminator: string;
-  public_flags: number;
-  banner?: string;
-  banner_color: string;
-  accent_color: number;
-}
-
 const LookupUser = ({id}: {id: string}) => {
-  const {data, error} = useSWRImmutable<WithStatus<User | RestForwarderError>>(`/api/user/${id}`, fetcherWithStatus);
+  const {data, error} = useSWRImmutable<WithStatus<User | RestForwarderError>>(
+    `/api/user/${id}`, fetcherWithStatus
+  );
   return (
     data ? (
       data.status === 200 ? (
