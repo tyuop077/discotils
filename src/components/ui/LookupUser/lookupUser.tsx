@@ -20,7 +20,7 @@ const LookupUser = ({id}: {id: string}) => {
         <div className={styles.error}>
           {data.status === 404 ? <UserOff /> : <CloudOff />}
           <h3>
-            {CodeToLine[data.status](data.body as RestForwarderError) ?? (data.body as RestForwarderError).error}
+            {CodeToLine[data.status](data.body as RestForwarderError, "User") ?? (data.body as RestForwarderError).error}
           </h3>
         </div>
       )
