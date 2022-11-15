@@ -1,0 +1,44 @@
+.code {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.content {
+  background-color: #171A1E;
+  border-radius: 10px;
+  padding: 10px;
+  word-break: break-word;
+}
+
+.tools {
+  display: flex;
+  position: absolute;
+  right: 0;
+  padding: 10px;
+}
+
+.external {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background-color: transparent;
+  object-fit: contain;
+  border: none;
+  cursor: pointer;
+  svg {
+    color: #8080807F;
+  }
+  &:hover {
+    svg {
+      color: #8080804C;
+    }
+  }
+}
+
+.header {
+  color: gray;
+  padding-bottom: 5px;
+  font-size: 1.2em;
+}
