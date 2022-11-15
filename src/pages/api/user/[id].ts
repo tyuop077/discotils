@@ -1,6 +1,7 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {Snowflake} from "@utils/snowflake";
 import rateLimit from "@utils/rateLimit";
+import {DiscordRateLimit} from "@utils/discordRateLimit";
 
 const token = process.env.DISCORD_BOT_TOKEN!;
 
@@ -23,6 +24,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(404).json({error: "Bad request"});
   }
 
+  if (DiscordRateLimit.isRateLimited("users")) {
+    return res.status(429).json({
+      error: "Server was rate limited",
+      side: "server"
+    });
+  }
+
   let rateLimited = false;
 
   await limiter.check(res, 15, req.headers["x-forwarded-for"] as string) // requests per minute
@@ -42,6 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       case 404:
         return res.status(404).json({error: "User not found"});
       case 429:
+        DiscordRateLimit.rateLimited("users", userRes);
         return res.status(429).json({
           error: "Server was rate limited",
           retryAfter: userRes.headers.get("Retry-After"),
