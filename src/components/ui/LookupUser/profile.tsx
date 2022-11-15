@@ -24,11 +24,12 @@ export const Profile = ({data}: {data: User}) => {
             src={image("banners", 1024, data.id, data.banner)}
           />
           <div className={styles.bannerOverlay}>
-            <div className={styles.download}>
-              <a href={image("banners", 1024, data.id, data.banner)} download>
-                Download
-              </a>
-            </div>
+            <a
+              className={styles.original}
+              href={image("banners", 2048, data.id, data.banner)}
+            >
+              Open original
+            </a>
           </div>
         </div>
       ) : (
