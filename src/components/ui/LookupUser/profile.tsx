@@ -1,10 +1,10 @@
 import styles from "./lookupUser.module.scss";
 import {User} from "@components/LookupUser/lookupUser";
 import {CSSProperties} from "react";
-import {CopyToClipboard} from "@components/CopyToClipboard/copyToClipboard";
 import {Flags, flagToComponent, profileSortedBadges, publicFlagsToFlags} from "@utils/userFlags";
 import Check from "@assets/Check.svg";
 import Warning from "@assets/Warning.svg";
+import {JSONCode} from "@components/JSONCode/JSONCode";
 
 const image = (path: string, size = 128, id: string, hash?: string, discriminator?: string) => "https://cdn.discordapp.com/" + (hash ?
   `${path}/${id}/${hash}.${hash.startsWith("a_") ? "gif" : "webp"}?size=${size}` :
@@ -28,6 +28,7 @@ export const Profile = ({data}: {data: User}) => {
               className={styles.original}
               href={image("banners", 2048, data.id, data.banner)}
               target="_blank"
+              rel="noreferrer"
             >
               Open original
             </a>
@@ -44,6 +45,7 @@ export const Profile = ({data}: {data: User}) => {
           className={styles.avatar}
           href={image("avatars", 2048, data.id, data.avatar, data.discriminator)}
           target="_blank"
+          rel="noreferrer"
         >
           <img
             src={image("avatars", 128, data.id, data.avatar, data.discriminator)}
@@ -108,11 +110,7 @@ export const Profile = ({data}: {data: User}) => {
               </p>
             </div>
           )}
-          <div className={styles.json}>
-            <span>JSON:</span>
-            <CopyToClipboard text={JSON.stringify(data)} />
-          </div>
-          <code>{JSON.stringify(data)}</code>
+          <JSONCode title={`GET /users/${data.id}`} content={data} />
         </div>
       </div>
     </div>
