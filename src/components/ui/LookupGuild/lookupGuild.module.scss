@@ -19,12 +19,15 @@
   align-items: center;
   background-color: #171A1E;
   border-radius: 4px;
-  padding: 4px 4px;
+  padding: 8px;
   margin-bottom: 10px;
   svg {
     height: 32px;
     width: 32px;
     margin-right: 4px;
+  }
+  p {
+    margin: 0;
   }
   box-shadow: 0 0 0 1px #f2c94c, 0 0 0 2px #1d2126;
 }
