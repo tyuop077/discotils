@@ -8,10 +8,12 @@ import Logo from "@assets/Logo.svg";
 import {GuildPreview, GuildWidget, Invite} from "@utils/discordTypes";
 import Warning from "@assets/Warning.svg";
 import {GuildCard} from "@components/LookupGuild/guildCard";
+import {Snowflake} from "@utils/snowflake";
 
 const LookupGuild = ({id}: {id: string}) => {
+  const valid = /^\d{17,20}$/.test(id) && Snowflake.toTimestamp(id) + BigInt(10000) <= Date.now();
   const {data: widgetData, error: widgetError} = useSWRImmutable<WithStatus<GuildWidget | RestForwarderError>>(
-    `https://discord.com/api/guilds/${id}/widget.json`,
+    valid ? `https://discord.com/api/guilds/${id}/widget.json` : null,
     fetcherWithStatus
   );
   const {data: inviteData, error: inviteError} = useSWRImmutable<WithStatus<Invite | RestForwarderError>>(
@@ -70,7 +72,10 @@ const LookupGuild = ({id}: {id: string}) => {
         </h3>
       </div>
     ) : (
-      <Loader />
+      valid ? <Loader /> : <div className={styles.note}>
+        <Warning />
+        <p>This snowflake was not yet generated to be a valid guild id</p>
+      </div>
     )
   );
 }
