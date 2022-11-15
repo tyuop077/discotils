@@ -28,7 +28,6 @@ const LookupGuild = ({id}: {id: string}) => {
   return (
     widgetData ? (
       (widgetData.status === 200 || widgetData.status === 403) ? (
-        // TODO: Add guild profile
         <>
           {(inviteError || previewError) && (
             <div className={styles.note}>
@@ -37,6 +36,14 @@ const LookupGuild = ({id}: {id: string}) => {
                 Failed to fetch{" "}
                 {[inviteError ?? "invite info", previewError ?? "preview info"].filter(t => t).join(" and ")}
                 , please check your access to the internet and try again
+              </p>
+            </div>
+          )}
+          {widgetData.status === 403 && previewData?.status === 404 && (
+            <div className={styles.note}>
+              <Warning />
+              <p>
+                Guild has no public methods of getting information, so we can&apos;t show you any info about it
               </p>
             </div>
           )}
