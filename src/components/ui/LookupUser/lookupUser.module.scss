@@ -62,12 +62,12 @@
     }
   }
   .original {
-    color: gray;
+    opacity: 0.4;
     &:hover {
       text-decoration: underline;
-      color: white;
+      opacity: 1;
     }
-    transition: color 80ms ease-in-out;
+    transition: opacity 80ms ease-in-out;
   }
 }
 

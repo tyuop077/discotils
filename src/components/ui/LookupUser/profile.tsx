@@ -27,6 +27,7 @@ export const Profile = ({data}: {data: User}) => {
             <a
               className={styles.original}
               href={image("banners", 2048, data.id, data.banner)}
+              target="_blank"
             >
               Open original
             </a>
@@ -39,12 +40,16 @@ export const Profile = ({data}: {data: User}) => {
         />
       )}
       <div className={styles.info}>
-        <div className={styles.avatar}>
+        <a
+          className={styles.avatar}
+          href={image("avatars", 2048, data.id, data.avatar, data.discriminator)}
+          target="_blank"
+        >
           <img
             src={image("avatars", 128, data.id, data.avatar, data.discriminator)}
             alt={`${data.username}'s avatar`}
           />
-        </div>
+        </a>
         {badges.filter(b => b).length > 0 && (
           <div className={styles.badges}>
             {badges}
