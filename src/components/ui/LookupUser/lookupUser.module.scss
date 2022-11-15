@@ -9,7 +9,6 @@
   }
   svg {
     max-width: 100px;
-    //filter: grayscale(100%);
     opacity: 0.3;
   }
 }
@@ -167,7 +166,6 @@
 }
 
 .note {
-  // yellow warning note
   display: flex;
   align-items: center;
   background-color: #171A1E;
@@ -179,6 +177,5 @@
     width: 32px;
     margin-right: 4px;
   }
-  // with shadow
   box-shadow: 0 0 0 1px #f2c94c, 0 0 0 2px #1d2126;
 }
