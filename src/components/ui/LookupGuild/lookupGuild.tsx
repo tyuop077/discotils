@@ -1,6 +1,6 @@
 import styles from "./lookupGuild.module.scss";
 import useSWRImmutable from "swr/immutable";
-import {CodeToLine, RestForwarderError} from "@utils/restForwarderHandler";
+import {DiscordLocalizedStatus, RestForwarderError} from "@utils/restForwarderHandler";
 import {fetcherWithStatus, WithStatus} from "@utils/fetcher";
 import Loader from "@components/Loader/loader";
 import CloudOff from "@assets/CloudOff.svg";
@@ -47,7 +47,7 @@ const LookupGuild = ({id}: {id: string}) => {
         <div className={styles.error}>
           {widgetData.status === 404 ? <Logo /> : <CloudOff />}
           <h3>
-            {CodeToLine[widgetData.status](widgetData.body as RestForwarderError, "Guild") ?? (widgetData.body as RestForwarderError).error}
+            {DiscordLocalizedStatus[widgetData.status](widgetData.body as RestForwarderError, "Guild") ?? (widgetData.body as RestForwarderError).error}
           </h3>
         </div>
       )

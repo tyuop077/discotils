@@ -1,7 +1,7 @@
 import styles from "./lookupUser.module.scss";
 import useSWRImmutable from "swr/immutable";
 import {User} from "@utils/discordTypes";
-import {CodeToLine, RestForwarderError} from "@utils/restForwarderHandler";
+import {RestForwarderError, ServerLocalizedStatus} from "@utils/restForwarderHandler";
 import {fetcherWithStatus, WithStatus} from "@utils/fetcher";
 import Loader from "@components/Loader/loader";
 import CloudOff from "@assets/CloudOff.svg";
@@ -20,7 +20,7 @@ const LookupUser = ({id}: {id: string}) => {
         <div className={styles.error}>
           {data.status === 404 ? <UserOff /> : <CloudOff />}
           <h3>
-            {CodeToLine[data.status](data.body as RestForwarderError, "User") ?? (data.body as RestForwarderError).error}
+            {ServerLocalizedStatus[data.status](data.body as RestForwarderError, "User") ?? (data.body as RestForwarderError).error}
           </h3>
         </div>
       )
