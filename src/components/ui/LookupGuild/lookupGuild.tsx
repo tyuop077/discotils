@@ -11,7 +11,8 @@ import {GuildCard} from "@components/LookupGuild/guildCard";
 
 const LookupGuild = ({id}: {id: string}) => {
   const {data: widgetData, error: widgetError} = useSWRImmutable<WithStatus<GuildWidget | RestForwarderError>>(
-    `https://discord.com/api/guilds/${id}/widget.json`, fetcherWithStatus
+    `https://discord.com/api/guilds/${id}/widget.json`,
+    fetcherWithStatus
   );
   const {data: inviteData, error: inviteError} = useSWRImmutable<WithStatus<Invite | RestForwarderError>>(
     (widgetData?.body as GuildWidget)?.instant_invite ?
@@ -20,11 +21,13 @@ const LookupGuild = ({id}: {id: string}) => {
     fetcherWithStatus
   );
   const {data: previewData, error: previewError} = useSWRImmutable<WithStatus<GuildPreview | RestForwarderError>>(
-    (widgetData?.body as GuildWidget)?.id ? `/api/guild/${id}/preview` : null, fetcherWithStatus
+    (widgetData?.status === 200 || widgetData?.status === 403) ?
+      `/api/guild/${id}/preview` : null,
+    fetcherWithStatus
   );
   return (
     widgetData ? (
-      widgetData.status === 200 ? (
+      (widgetData.status === 200 || widgetData.status === 403) ? (
         // TODO: Add guild profile
         <>
           {(inviteError || previewError) && (
