@@ -1,3 +1,5 @@
+import {User} from "@components/LookupUser/lookupUser";
+
 interface GuildWidgetChannel {
   id: string;
   name: string;
@@ -59,14 +61,62 @@ interface Invite {
   guild: Guild;
 }
 
-export class GuildLookup {
+interface Emoji {
+  id: string;
+  name: string;
+  roles?: string[];
+  user?: User;
+  require_colons?: boolean;
+  managed?: boolean;
+  animated?: boolean;
+  available?: boolean;
+}
+
+interface Sticker {
+  id: string;
+  name: string;
+  description: string;
+  tags: string;
+  type: 2;
+  format_type: number;
+  available?: boolean;
+  guild_id: string;
+}
+
+interface GuildPreview {
+  id: string;
+  name: string;
+  icon: string;
+  splash: string;
+  discovery_splash: string;
+  emojis: Emoji[];
+  features: string[];
+  approximate_member_count: number;
+  approximate_presence_count: number;
+  description: string;
+  stickers: Sticker[];
+}
+
+class GuildLookupWithStatus {
   static async byId(id: string) {
     const res = await fetch(`https://discord.com/api/guilds/${id}/widget.json`);
-    return await res.json() as GuildWidget;
+    const body = await res.json() as GuildWidget;
+    return {status: res.status, body};
   }
 
   static async byInviteCode(code: string) {
     const res = await fetch(`https://discord.com/api/v10/invites/${code}?with_counts=true&with_expiration=true`);
-    const data = await res.json() as Invite;
+    const body = await res.json() as Invite;
+    return {status: res.status, body};
+  }
+
+  static async byPreview(id: string) {
+    const res = await fetch(`/api/guild/${id}/preview`);
+    const body = await res.json() as GuildPreview;
+    return {status: res.status, body};
   }
 }
+
+export const GuildLookup = () => ({
+  withStatus: GuildLookupWithStatus
+})
