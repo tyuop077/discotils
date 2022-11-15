@@ -1,5 +1,6 @@
 import styles from "./lookupUser.module.scss";
 import useSWRImmutable from "swr/immutable";
+import {CodeToLine, RestForwarderError} from "@utils/restForwarderHandler";
 import {fetcherWithStatus, WithStatus} from "@utils/fetcher";
 import Loader from "@components/Loader/loader";
 import CloudOff from "@assets/CloudOff.svg";
@@ -19,19 +20,8 @@ export interface User {
   accent_color: number;
 }
 
-interface Error {
-  error: string;
-  side?: "client" | "server";
-}
-
-const CodeToLine: Record<number, (e: Error) => string> = {
-  404: () => "User you were looking for doesn't exist",
-  429: (e) => `${e.side ? "You are being" : "Server was"} rate limited, please try again later`,
-  500: () => "Looks like there's an issue on our end, please report this to the developer",
-}
-
 const LookupUser = ({id}: {id: string}) => {
-  const {data, error} = useSWRImmutable<WithStatus<User | Error>>(`/api/user/${id}`, fetcherWithStatus);
+  const {data, error} = useSWRImmutable<WithStatus<User | RestForwarderError>>(`/api/user/${id}`, fetcherWithStatus);
   return (
     data ? (
       data.status === 200 ? (
@@ -40,7 +30,7 @@ const LookupUser = ({id}: {id: string}) => {
         <div className={styles.error}>
           {data.status === 404 ? <UserOff /> : <CloudOff />}
           <h3>
-            {CodeToLine[data.status](data.body as Error) ?? (data.body as Error).error}
+            {CodeToLine[data.status](data.body as RestForwarderError) ?? (data.body as RestForwarderError).error}
           </h3>
         </div>
       )
