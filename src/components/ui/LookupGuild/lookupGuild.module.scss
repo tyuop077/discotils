@@ -21,6 +21,7 @@
   border-radius: 4px;
   padding: 8px;
   margin-bottom: 10px;
+  box-shadow: 0 0 0 1px #f2c94c, 0 0 0 2px #1d2126;
   svg {
     height: 32px;
     width: 32px;
@@ -29,7 +30,21 @@
   p {
     margin: 0;
   }
-  box-shadow: 0 0 0 1px #f2c94c, 0 0 0 2px #1d2126;
+  code {
+    font-size: 1.2em;
+    background-color: #2F3136;
+    border-radius: 4px;
+    padding: 0 4px;
+  }
+  button {
+    display: block;
+    background-color: #2B323A;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 4px 8px;
+    margin-top: 5px;
+  }
 }
 
 .info {

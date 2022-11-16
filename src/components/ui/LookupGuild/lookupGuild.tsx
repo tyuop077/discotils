@@ -18,7 +18,8 @@ const LookupGuild = ({id}: {id: string}) => {
     valid ? `https://discord.com/api/guilds/${id}/widget.json` : null,
     fetcherWithStatus
   );
-  const inviteCode = customInviteCode || (widgetData?.body as GuildWidget)?.instant_invite?.split("/").at(-1);
+  const inviteCode = customInviteCode ||
+    (widgetData?.body as GuildWidget)?.instant_invite?.split("/").at(-1);
   const {data: inviteData, error: inviteError} = useSWRImmutable<WithStatus<Invite | RestForwarderError>>(
     inviteCode ? `https://discord.com/api/v10/invites/${inviteCode}?with_counts=true&with_expiration=true` : null,
     fetcherWithStatus
@@ -33,10 +34,9 @@ const LookupGuild = ({id}: {id: string}) => {
         <>
           {(customInviteCode && (id !== (inviteData?.body as Invite)?.guild.id)) && (
             <div className={styles.note}>
-              <Warning />
               <p>
                 Provided code &quot;{customInviteCode}&quot; is not an invite for this guild.
-                Expected {id}, got {(inviteData?.body as Invite)?.guild.id}
+                Expected <code>{id}</code>, got <code>{(inviteData?.body as Invite)?.guild.id}</code>.
                 <button
                   onClick={() => setCustomInviteCode(undefined)}
                 >
