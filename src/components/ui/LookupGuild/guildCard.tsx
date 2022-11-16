@@ -2,6 +2,7 @@ import styles from "./lookupGuild.module.scss";
 import {GuildPreview, GuildWidget, Invite} from "@utils/discordTypes";
 import {JSONCode} from "@components/JSONCode/JSONCode";
 import {cdnImage} from "@utils/cdnImage";
+import {GuildBoostIcon} from "@components/GuildBoostIcon/guildBoostIcon";
 
 interface Props {
   id: string;
@@ -11,17 +12,24 @@ interface Props {
 }
 
 export const GuildCard = ({id, widget, invite, preview}: Props) => {
+  const guild = {...invite?.guild, ...preview};
   return (
     <div className={styles.guild}>
-      {preview?.splash && (
-        <div className={styles.splash}>
+      {guild.banner && (
+        <div
+          className={[styles.banner,
+            (guild.premium_subscription_count ?? 0) <= 7 ? styles.disabledBanner : null].filter(s => s).join(" ")}
+        >
           <img
-            src={cdnImage("splashes", 1024, id, preview.splash)}
+            src={cdnImage("banners", 1024, id, guild.banner)}
           />
-          <div className={styles.splashOverlay}>
+          <div className={styles.bannerOverlay}>
+            {/*{(guild.premium_subscription_count ?? 0) <= 7 && (
+              <span>Guild must have at least 7 boosts to enable banner</span>
+            )}*/}
             <a
               className={styles.original}
-              href={cdnImage("splashes", 2048, id, preview.splash, {
+              href={cdnImage("banners", 2048, id, guild.banner, {
                 format: "png"
               })}
               target="_blank"
@@ -32,20 +40,26 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
           </div>
         </div>
       )}
-      <div className={styles.name}>
-        {(invite?.guild.icon || preview?.icon) ? (
+      <div className={styles.content}>
+        {guild.icon ? (
           <img
             className={styles.avatar}
-            src={cdnImage("icons", 128, id, invite?.guild.icon || preview?.icon)}
+            src={cdnImage("icons", 128, id, guild.icon)}
           />
-        ) : (
+        ) : guild.name && (
           <div
             className={styles.avatar}
           >
-            {invite?.guild.name.split(" ").map(s => s[0]).join("")}
+            {guild.name.split(" ").map(s => s[0]).join("")}
           </div>
         )}
-        <b>{preview?.name ?? widget?.name}</b>
+        <div className={styles.details}>
+          <div className={styles.title}>
+            <b>{preview?.name ?? widget?.name}</b>
+            <GuildBoostIcon boosts={guild.premium_subscription_count} hasBanner={Boolean(guild.banner)} />
+          </div>
+          {guild.premium_subscription_count}
+        </div>
       </div>
       <p>Guild Widget</p>
       <JSONCode title={`GET /guilds/${id}/widget.json`} content={widget} />
