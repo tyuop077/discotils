@@ -46,6 +46,25 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
           </div>
         </div>
       )}
+      {guild.splash && (
+        <div className={styles.splash}>
+          <img
+            src={cdnImage("splashes", 1024, id, guild.splash)}
+          />
+          <div className={styles.splashOverlay}>
+            {/*<a
+              className={styles.original}
+              href={cdnImage("splashes", 2048, id, guild.splash, {
+                format: "png"
+              })}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open original
+            </a>*/}
+          </div>
+        </div>
+      )}
       <div className={styles.content}>
         {guild.icon ? (
           <img
