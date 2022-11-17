@@ -20,7 +20,7 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
   const guildIconType = guild.features?.includes("VERIFIED") ? GuildIconType.Verified :
     guild.features?.includes("PARTNERED") ? GuildIconType.Partnered : GuildIconType.None;
   return (
-    <div className={styles.guild}>
+    <>
       {guild.banner && (
         <div
           className={[styles.banner,
@@ -30,6 +30,18 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
             src={cdnImage("banners", 1024, id, guild.banner)}
           />
           <div className={styles.bannerOverlay}>
+            {guild.splash && (
+              <a
+                className={styles.original}
+                href={cdnImage("splashes", 2048, id, guild.splash, {
+                  format: "png"
+                })}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open original splash
+              </a>
+            )}
             <a
               className={styles.original}
               href={cdnImage("banners", 2048, id, guild.banner, {
@@ -38,7 +50,7 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Open original
+              Open original banner
             </a>
           </div>
         </div>
@@ -48,18 +60,6 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
           <img
             src={cdnImage("splashes", 1024, id, guild.splash)}
           />
-          <div className={styles.splashOverlay}>
-            {/*<a
-              className={styles.original}
-              href={cdnImage("splashes", 2048, id, guild.splash, {
-                format: "png"
-              })}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Open original
-            </a>*/}
-          </div>
         </div>
       )}
       <div className={styles.content}>
@@ -119,6 +119,6 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
       />
       <p>Guild Preview</p>
       <JSONCode title={`GET /guild/${id}/preview`} content={preview} />
-    </div>
+    </>
   )
 }

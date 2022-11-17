@@ -102,10 +102,14 @@
 .bannerOverlay {
   opacity: 0;
   transition: opacity 80ms ease-in-out;
-  transform: translateY(-30px);
+  transform: translateY(-50px);
   padding-right: 10px;
   display: flex;
+  flex-direction: column;
   float: right;
+  height: 40px;
+  justify-content: flex-end;
+  align-items: flex-end;
   .button {
     background-color: #5865F2;
     padding: 5px 10px;
@@ -132,9 +136,9 @@
   }
   @media (hover: none) {
     opacity: 1;
-    @media /*(min-width: 450px) and*/ (max-width: 570px) {
-      transform: translateY(-195px);
-    }
+  }
+  @media (max-width: 570px) {
+    transform: translateY(-195px);
   }
 }
 
@@ -209,7 +213,8 @@
     object-fit: cover;
     object-position: center;
   }
-  div {
+  &:before {
+    content: "";
     position: absolute;
     top: 0;
     width: 100%;
