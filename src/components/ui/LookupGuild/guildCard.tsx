@@ -30,9 +30,6 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
             src={cdnImage("banners", 1024, id, guild.banner)}
           />
           <div className={styles.bannerOverlay}>
-            {/*{(guild.premium_subscription_count ?? 0) <= 7 && (
-              <span>Guild must have at least 7 boosts to enable banner</span>
-            )}*/}
             <a
               className={styles.original}
               href={cdnImage("banners", 2048, id, guild.banner, {
@@ -67,10 +64,16 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
       )}
       <div className={styles.content}>
         {guild.icon ? (
-          <img
-            className={styles.avatar}
-            src={cdnImage("icons", 128, id, guild.icon)}
-          />
+          <a
+            href={cdnImage("icons", 2048, id, guild.icon, {format: "png"})}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              className={styles.avatar}
+              src={cdnImage("icons", 128, id, guild.icon)}
+            />
+          </a>
         ) : guild.name && (
           <div
             className={styles.avatar}
