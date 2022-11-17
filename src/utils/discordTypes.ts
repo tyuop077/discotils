@@ -57,7 +57,7 @@ export interface Guild {
   approximate_presence_count: number;
 }
 
-export interface Invite {
+export interface Invite { // with expiration and counts
   code: string;
   type: number;
   expires_at?: string;
@@ -67,6 +67,8 @@ export interface Invite {
     name: string;
     type: number;
   };
+  approximate_member_count: number;
+  approximate_presence_count: number;
 }
 
 export interface Emoji {
