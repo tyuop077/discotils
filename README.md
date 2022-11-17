@@ -10,10 +10,10 @@ Install yarn (to use commands below)
 
 Install packages into `node_modules`
 
-### `yarn start`
+### `yarn dev`
 
 Run the app in the development mode.
 
-### `yarn run build`
+### `yarn build`
 
 Builds the app for production to the `build` folder.
