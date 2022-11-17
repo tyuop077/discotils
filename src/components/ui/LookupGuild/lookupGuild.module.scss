@@ -130,6 +130,12 @@
     }
     transition: opacity 80ms ease-in-out;
   }
+  @media (hover: none) {
+    opacity: 1;
+    @media /*(min-width: 450px) and*/ (max-width: 570px) {
+      transform: translateY(-195px);
+    }
+  }
 }
 
 .content {
@@ -137,6 +143,15 @@
   gap: 10px;
   margin: -40px 16px 0;
   position: relative;
+  background-color: #181B1F4C;
+  padding: 10px;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  @media (max-width: 450px) {
+    margin: 0;
+    backdrop-filter: none;
+    background-color: transparent;
+  }
   .details {
     display: flex;
     flex-direction: column;
