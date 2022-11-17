@@ -12,7 +12,11 @@ interface Props {
 }
 
 export const GuildCard = ({id, widget, invite, preview}: Props) => {
-  const guild = {...invite?.guild, ...preview};
+  const guild = {
+    ...{
+      approximate_member_count: invite?.approximate_member_count,
+      approximate_presence_count: invite?.approximate_presence_count,
+    }, ...invite?.guild, ...preview};
   const guildIconType = guild.features?.includes("VERIFIED") ? GuildIconType.Verified :
     guild.features?.includes("PARTNERED") ? GuildIconType.Partnered : GuildIconType.None;
   return (
