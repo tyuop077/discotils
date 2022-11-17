@@ -32,11 +32,11 @@ const LookupGuild = ({id}: {id: string}) => {
     widgetData ? (
       (widgetData.status === 200 || widgetData.status === 403) ? (
         <>
-          {(customInviteCode && (id !== (inviteData?.body as Invite)?.guild.id)) && (
+          {(customInviteCode && (id !== (inviteData?.body as Invite)?.guild?.id)) && (
             <div className={styles.note}>
               <p>
                 Provided code &quot;{customInviteCode}&quot; is not an invite for this guild.
-                Expected <code>{id}</code>, got <code>{(inviteData?.body as Invite)?.guild.id}</code>.
+                Expected <code>{id}</code>, got <code>{(inviteData?.body as Invite)?.guild?.id}</code>.
                 <button
                   onClick={() => setCustomInviteCode(undefined)}
                 >
@@ -55,7 +55,7 @@ const LookupGuild = ({id}: {id: string}) => {
               </p>
             </div>
           )}
-          {widgetData.status === 403 && previewData?.status === 404 && (
+          {widgetData.status === 403 && previewData?.status === 404 && !inviteData?.body && (
             <div className={styles.note}>
               <Warning />
               <p>
@@ -69,7 +69,7 @@ const LookupGuild = ({id}: {id: string}) => {
             invite={inviteData?.body as Invite}
             preview={previewData?.body as GuildPreview}
           />
-          {widgetData.status !== 200 && (
+          {!(inviteData?.body as Invite)?.guild?.id && (
             <div className={`${styles.note} ${styles.info}`}>
               <p>
                 <span>BETA</span> You can provide an invite code or vanity URL if you have one:
