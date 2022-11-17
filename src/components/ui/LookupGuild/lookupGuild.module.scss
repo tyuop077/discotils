@@ -148,7 +148,12 @@
   }
 }
 
-.title {
+.block {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -158,4 +163,18 @@
   width: 80px;
   height: 80px;
   border-radius: 25px;
+}
+
+.status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.online {
+  background-color: #3BA55DFF;
+}
+
+.offline {
+  background-color: #747F8DFF;
 }

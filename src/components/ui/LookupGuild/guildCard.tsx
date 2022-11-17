@@ -2,7 +2,7 @@ import styles from "./lookupGuild.module.scss";
 import {GuildPreview, GuildWidget, Invite} from "@utils/discordTypes";
 import {JSONCode} from "@components/JSONCode/JSONCode";
 import {cdnImage} from "@utils/cdnImage";
-import {GuildBoostIcon} from "@components/GuildBoostIcon/guildBoostIcon";
+import {GuildIcon, GuildIconType} from "@components/GuildIcon/guildIcon";
 
 interface Props {
   id: string;
@@ -13,6 +13,8 @@ interface Props {
 
 export const GuildCard = ({id, widget, invite, preview}: Props) => {
   const guild = {...invite?.guild, ...preview};
+  const guildIconType = guild.features?.includes("VERIFIED") ? GuildIconType.Verified :
+    guild.features?.includes("PARTNERED") ? GuildIconType.Partnered : GuildIconType.None;
   return (
     <div className={styles.guild}>
       {guild.banner && (
@@ -54,13 +56,31 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
           </div>
         )}
         <div className={styles.details}>
-          <div className={styles.title}>
-            <b>{preview?.name ?? widget?.name}</b>
-            <GuildBoostIcon boosts={guild.premium_subscription_count} hasBanner={Boolean(guild.banner)} />
+          <div className={styles.row}>
+            <b>{guild.name}</b>
+            <GuildIcon
+              boosts={guild.premium_subscription_count}
+              hasBanner={Boolean(guild.banner)}
+              type={guildIconType}
+            />
           </div>
-          {guild.premium_subscription_count}
+          <div className={styles.block}>
+            {guild.approximate_presence_count && (
+              <div className={styles.row}>
+                <div className={`${styles.status} ${styles.online}`} />
+                {guild.approximate_presence_count} online
+              </div>
+            )}
+            {guild.approximate_member_count && (
+              <div className={styles.row}>
+                <div className={`${styles.status} ${styles.offline}`} />
+                {guild.approximate_member_count} members
+              </div>
+            )}
+          </div>
         </div>
       </div>
+      <p>{guild.description}</p>
       <p>Guild Widget</p>
       <JSONCode title={`GET /guilds/${id}/widget.json`} content={widget} />
       <p>Guild Invite</p>
