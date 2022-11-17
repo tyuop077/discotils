@@ -1,0 +1,39 @@
+.head {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #282C33;
+  h4 {
+    font-weight: 400;
+    margin: 0;
+  }
+  button {
+    border: none;
+    background: none;
+    object-fit: contain;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 80ms;
+    &:hover {
+      background-color: #FFFFFF19;
+    }
+    &:active {
+      background-color: #FFFFFF0D;
+    }
+  }
+  svg {
+    color: #C4C4C4;
+    transform: rotate(180deg);
+  }
+}
+
+.collapsed {
+  svg {
+    transform: rotate(0);
+  }
+  border-bottom: none;
+  padding-bottom: 0;
+}
