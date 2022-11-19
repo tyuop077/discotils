@@ -167,6 +167,50 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
           </a>
         </div>
       )}
+      {(guild.splash || guild.discovery_splash) && (
+        <ExpandContainer title="Splashes">
+          <p>Splash</p>
+          {guild.splash && (
+            <div className={styles.banner}>
+              <img
+                src={cdnImage("splashes", 1024, id, guild.splash)}
+              />
+              <div className={styles.bannerOverlay}>
+                <a
+                  className={styles.original}
+                  href={cdnImage("splashes", 2048, id, guild.splash, {
+                    format: "png"
+                  })}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open original splash
+                </a>
+              </div>
+            </div>
+          )}
+          <p>Discovery splash</p>
+          {guild.discovery_splash && (
+            <div className={styles.banner}>
+              <img
+                src={cdnImage("discovery-splashes", 1024, id, guild.discovery_splash)}
+              />
+              <div className={styles.bannerOverlay}>
+                <a
+                  className={styles.original}
+                  href={cdnImage("discovery-splashes", 2048, id, guild.discovery_splash, {
+                    format: "png"
+                  })}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open original discovery splash
+                </a>
+              </div>
+            </div>
+          )}
+        </ExpandContainer>
+      )}
       <div className={styles.cards}>
         {guild.emojis && (
           <ScrollCard title="Emojis">
