@@ -1,0 +1,24 @@
+.card {
+  background-color: #1F2126;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  p {
+    margin: 0 0 5px;
+    border-bottom: 2px solid #282C33;
+    padding: 5px;
+  }
+}
+
+.content {
+  max-height: 200px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #2F3336;
+    border-radius: 10px;
+    padding-right: 10px;
+  }
+}
