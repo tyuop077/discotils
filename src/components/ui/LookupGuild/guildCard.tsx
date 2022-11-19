@@ -3,6 +3,7 @@ import {GuildPreview, GuildWidget, Invite} from "@utils/discordTypes";
 import {JSONCode} from "@components/JSONCode/JSONCode";
 import {cdnImage} from "@utils/cdnImage";
 import {GuildIcon, GuildIconType} from "@components/GuildIcon/guildIcon";
+import ExpandContainer from "@components/ExpandContainer/expandContainer";
 
 interface Props {
   id: string;
@@ -107,18 +108,20 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
         </div>
       </div>
       <p>{guild.description}</p>
-      <p>Guild Widget</p>
-      <JSONCode title={`GET /guilds/${id}/widget.json`} content={widget} />
-      <p>Guild Invite</p>
-      <JSONCode
-        title={widget?.instant_invite ?
-          `GET /invites/${widget.instant_invite.split("/").at(-1)}?with_counts=true&with_expiration=true` :
-          (widget?.id) ? "Widget has no instant invites because vanity url exists or invites were suspended" :
-            "Widget was disabled for this guild"}
-        content={invite}
-      />
-      <p>Guild Preview</p>
-      <JSONCode title={`GET /guild/${id}/preview`} content={preview} />
+      <ExpandContainer title="Requests">
+        <p>Guild Widget</p>
+        <JSONCode title={`GET /guilds/${id}/widget.json`} content={widget} />
+        <p>Guild Invite</p>
+        <JSONCode
+          title={widget?.instant_invite ?
+            `GET /invites/${widget.instant_invite.split("/").at(-1)}?with_counts=true&with_expiration=true` :
+            (widget?.id) ? "Widget has no instant invites because vanity url exists or invites were suspended" :
+              "Widget was disabled for this guild"}
+          content={invite}
+        />
+        <p>Guild Preview</p>
+        <JSONCode title={`GET /guild/${id}/preview`} content={preview} />
+      </ExpandContainer>
     </>
   )
 }
