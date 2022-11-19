@@ -204,7 +204,7 @@
   top: 50px;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 60px);
   opacity: 0.4;
   z-index: -1;
   img {
@@ -213,10 +213,10 @@
     object-fit: cover;
     object-position: center;
   }
-  &:before {
+  &:after {
     content: "";
     position: absolute;
-    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background: linear-gradient(#1d212600 75%, #1d2126 100%);
