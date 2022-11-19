@@ -4,12 +4,30 @@ import {JSONCode} from "@components/JSONCode/JSONCode";
 import {cdnImage} from "@utils/cdnImage";
 import {GuildIcon, GuildIconType} from "@components/GuildIcon/guildIcon";
 import ExpandContainer from "@components/ExpandContainer/expandContainer";
+import Warning from "@assets/Warning.svg";
+import Check from "@assets/Check.svg";
+import External from "@assets/External.svg";
 
 interface Props {
   id: string;
   widget?: GuildWidget;
   invite?: Invite;
   preview?: GuildPreview;
+}
+
+const nsfwLevelString = {
+  0: "None",
+  1: "Explicit",
+  2: "Safe",
+  3: "Age Restricted"
+}
+
+const verificationLevelString = {
+  0: "None - unrestricted",
+  1: "Low - must have verified email on account",
+  2: "Medium - must be registered on Discord for longer than 5 minutes",
+  3: "High - must be a member of the server for longer than 10 minutes", // (╯°□°）╯︵ ┻━┻
+  4: "Very High - must have a verified phone number" // ┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻
 }
 
 export const GuildCard = ({id, widget, invite, preview}: Props) => {
@@ -110,6 +128,51 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
         </div>
       </div>
       <p>{guild.description}</p>
+      {guild.premium_subscription_count && (
+        <span className={styles.row}>
+          <GuildIcon boosts={guild.premium_subscription_count} />
+          Boosts: {guild.premium_subscription_count}
+        </span>
+      )}
+      {guildIconType !== GuildIconType.None && (
+        <span className={styles.row}>
+          <GuildIcon type={guildIconType} />
+          {guildIconType === GuildIconType.Verified && "Verified"}
+          {guildIconType === GuildIconType.Partnered && "Discord Partner"}
+        </span>
+      )}
+      {guild.nsfw && (
+        <div className={styles.row}>
+          <Warning width={20} />
+          <span>NSFW</span>
+        </div>
+      )}
+      {(guild.nsfw_level !== undefined) && (
+        <div className={styles.d}>
+          {guild.nsfw_level === 1 || guild.nsfw_level === 3 ? <Warning width={20} /> : <Check width={20} />}
+          <span>
+            NSFW Level: {guild.nsfw_level} ({nsfwLevelString[guild.nsfw_level]})
+          </span>
+        </div>
+      )}
+      {(guild.verification_level !== undefined) && (
+        <div className={styles.d}>
+          {guild.verification_level === 0 ? <Warning /> : <Check/>}
+          <span>
+            Verification level: {guild.verification_level} ({verificationLevelString[guild.verification_level]})
+          </span>
+        </div>
+      )}
+      {(guild.vanity_url_code || widget?.instant_invite) && (
+        <div className={`${styles.d} ${styles.invite}`}>
+          <External />
+          <a
+            href={guild.vanity_url_code ? `https://discord.gg/${guild.vanity_url_code}` : widget?.instant_invite}
+          >
+            discord.gg/<span>{[guild.vanity_url_code, widget?.instant_invite?.split("/").at(-1)].filter(c => c).join(", ")}</span>
+          </a>
+        </div>
+      )}
       <ExpandContainer title="Requests">
         <p>Guild Widget</p>
         <JSONCode title={`GET /guilds/${id}/widget.json`} content={widget} />

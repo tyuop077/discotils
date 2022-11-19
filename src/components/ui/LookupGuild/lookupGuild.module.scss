@@ -220,3 +220,23 @@
     background: linear-gradient(#1d212600 75%, #1d2126 100%);
   }
 }
+
+.d {
+  svg {
+    display: inline;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+}
+
+.invite {
+  color: #92EBFF;
+  a {
+    color: white;
+    span {
+      color: #75A8F9;
+    }
+  }
+}
