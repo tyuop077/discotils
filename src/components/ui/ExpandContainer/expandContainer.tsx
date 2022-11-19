@@ -12,11 +12,12 @@ const ExpandContainer = ({children, title, defaultOpen = false}: Props) => {
   const [open, setOpen] = useState(defaultOpen);
   return (
     <>
-      <div className={`${styles.head}${open ? "" : ` ${styles.collapsed}`}`}>
+      <div
+        className={`${styles.head}${open ? "" : ` ${styles.collapsed}`}`}
+        onClick={() => setOpen(!open)}
+      >
         <h4>{typeof title === "string" ? title : title(open)}</h4>
-        <button
-          onClick={() => setOpen(!open)}
-        >
+        <button>
           <ArrowDown className={open ? undefined : styles.collapsed} />
         </button>
       </div>

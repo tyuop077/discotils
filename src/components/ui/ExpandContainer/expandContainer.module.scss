@@ -1,8 +1,11 @@
 .head {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-bottom: 5px;
   border-bottom: 2px solid #282C33;
+  user-select: none;
+  cursor: pointer;
   h4 {
     font-weight: 400;
     margin: 0;
@@ -17,16 +20,16 @@
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 80ms;
-    &:hover {
-      background-color: #FFFFFF19;
-    }
-    &:active {
-      background-color: #FFFFFF0D;
-    }
   }
   svg {
     color: #C4C4C4;
     transform: rotate(180deg);
+  }
+  &:hover button {
+    background-color: #FFFFFF19;
+  }
+  &:active button {
+    background-color: #FFFFFF0D;
   }
 }
 
