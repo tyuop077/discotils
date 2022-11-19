@@ -39,11 +39,11 @@ export interface Guild {
   description?: string;
   icon?: string;
   features: string[];
-  verification_level: number;
+  verification_level: 0 | 1 | 2 | 3 | 4;
   vanity_url_code?: string;
   premium_subscription_count?: number;
-  nwfw: boolean;
-  nsfw_level: number;
+  nsfw: boolean;
+  nsfw_level: 0 | 1 | 2 | 3;
   welcome_screen?: {
     description: string;
     welcome_channels: {
