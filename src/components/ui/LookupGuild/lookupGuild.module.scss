@@ -254,6 +254,8 @@
 .cards {
   display: flex;
   flex-wrap: wrap;
+  margin: 10px 0;
+  gap: 10px;
   & > div {
     flex: 50%;
   }
@@ -266,4 +268,28 @@
   margin: 0;
   padding: 0 0 0 30px;
   word-break: break-word;
+}
+
+.emojis {
+  display: flex;
+  flex-wrap: wrap;
+  a {
+    margin: 5px;
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+.stickers {
+  display: flex;
+  flex-wrap: wrap;
+  a {
+    margin: 5px;
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
 }

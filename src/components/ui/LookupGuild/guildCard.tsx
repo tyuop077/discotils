@@ -175,16 +175,60 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
         </div>
       )}
       <div className={styles.cards}>
+        {guild.emojis && (
+          <ScrollCard title="Emojis">
+            <div className={styles.emojis}>
+              {guild.emojis.map(e => (
+                <a
+                  key={e.id}
+                  href={cdnImage("emojis", 1024, e.id, null, {
+                    format: e.animated ? "gif" : "png",
+                    noHash: true
+                  })}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src={cdnImage("emojis", 128, e.id, null, {
+                      format: e.animated ? "gif" : "png",
+                      noHash: true
+                    })}
+                    alt={e.name}
+                  />
+                </a>
+              ))}
+            </div>
+          </ScrollCard>
+        )}
+        {guild.stickers && (
+          <ScrollCard title="Stickers">
+            <div className={styles.stickers}>
+              {guild.stickers.map(s => (
+                <a
+                  key={s.id}
+                  href={cdnImage("stickers", 1024, s.id, null, {
+                    format: "png",
+                    noHash: true
+                  })}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src={cdnImage("stickers", 128, s.id, null, {
+                      format: "png",
+                      noHash: true
+                    })}
+                    alt={s.name}
+                  />
+                </a>
+              ))}
+            </div>
+          </ScrollCard>
+        )}
         {guild.features && (
           <ScrollCard title="Features">
             <ul className={styles.flexGap}>
-              {guild.features.map(f => (
-                <li
-                  key={f}
-                >
-                  {f}
-                </li>
-              ))}
+              {guild.features.map(f => <li key={f}>{f}</li>)}
             </ul>
           </ScrollCard>
         )}
@@ -201,7 +245,7 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
           content={invite}
         />
         <p>Guild Preview</p>
-        <JSONCode title={`GET /guild/${id}/preview`} content={preview} />
+        <JSONCode title={`GET /guilds/${id}/preview`} content={preview} />
       </ExpandContainer>
     </>
   )
