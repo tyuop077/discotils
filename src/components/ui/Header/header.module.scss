@@ -8,10 +8,14 @@
   height: 50px;
   display: flex;
   box-shadow: 0 1px 2px #1D2025FF;
+  a {
+    display: flex;
+  }
 }
 
 .container {
   max-width: 960px;
+  width: 100%;
   padding: 0 20px;
   margin: auto 0;
   display: flex;
@@ -69,6 +73,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100%;
   svg {
     width: 25px;
     height: 25px;
@@ -81,4 +86,10 @@
       color: #5e6bcc;
     }
   }
+}
+
+.navR {
+  @extend .nav;
+  margin-left: auto;
+  width: auto;
 }

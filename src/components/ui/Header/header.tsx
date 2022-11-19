@@ -3,6 +3,7 @@ import Link from "next/link";
 import Logo from "@assets/Logo.svg";
 import Lookup from "@assets/Lookup.svg";
 import Slash from "@assets/Slash.svg";
+import GitHub from "@assets/GitHub.svg";
 
 const Header = () => (
   <>
@@ -19,6 +20,11 @@ const Header = () => (
           </Link>
           <Link href="/commands" title="Application Commands">
             <Slash />
+          </Link>
+        </div>
+        <div className={styles.navR}>
+          <Link href="https://github.com/tyuop077/discotils" title="GitHub">
+            <GitHub />
           </Link>
         </div>
       </div>
