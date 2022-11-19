@@ -1,7 +1,6 @@
 import {Snowflake} from "@utils/snowflake";
 import {useEffect, useMemo, useState} from "react";
 import styles from "./snowflakeParser.module.scss";
-import ArrowDown from "@assets/ArrowDown.svg";
 import {CopyToClipboard} from "@components/CopyToClipboard/copyToClipboard";
 import formatTime from "@utils/formatTime";
 import ExpandContainer from "@components/ExpandContainer/expandContainer";
@@ -21,7 +20,6 @@ const SnowflakeParser = ({id, maximizedByDefault}: {id: string, maximizedByDefau
   }, [id]);
 
   const [type, setType] = useState<DateType>({lang: "default", dateStyle: "full", timeStyle: "long"});
-  const [show, setShow] = useState(false);
 
   const str = new Intl.DateTimeFormat(type.lang, {
     dateStyle: type.dateStyle,
@@ -58,15 +56,7 @@ const SnowflakeParser = ({id, maximizedByDefault}: {id: string, maximizedByDefau
             {data.date.toLocaleString()}
           <CopyToClipboard text={data.timestamp} />
           </span>
-        <div className={styles.string}>
-          <span>{str}</span>
-          <span>({relativeStr})</span>
-          <ArrowDown
-            className={show ? styles.open : undefined}
-            onClick={() => setShow(!show)}
-          />
-        </div>
-        {show && (
+        <ExpandContainer title={`${str} (${relativeStr})`}>
           <div className={styles.options}>
             <div className={styles.option}>
               <span>Language</span>
@@ -143,7 +133,7 @@ const SnowflakeParser = ({id, maximizedByDefault}: {id: string, maximizedByDefau
               </div>
             </div>
           </div>
-        )}
+        </ExpandContainer>
       </ExpandContainer>
     </div>
   )
