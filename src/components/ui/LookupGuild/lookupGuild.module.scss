@@ -261,7 +261,7 @@
   }
 }
 
-.flexGap {
+.features {
   display: flex;
   flex-direction: column;
   gap: 1px;
@@ -292,4 +292,29 @@
       height: 100px;
     }
   }
+}
+
+.welcomeScreen {
+  p {
+    margin: 0;
+    padding: 5px;
+  }
+  a {
+    color: #75A8F9;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  img {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.welcomeChannels {
+  margin: 5px;
+}
+
+.welcomeChannelEmoji {
+  font-size: 1.5em;
 }

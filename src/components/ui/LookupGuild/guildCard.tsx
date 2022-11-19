@@ -220,9 +220,42 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
         )}
         {guild.features && (
           <ScrollCard title="Features">
-            <ul className={styles.flexGap}>
+            <ul className={styles.features}>
               {guild.features.map(f => <li key={f}>{f}</li>)}
             </ul>
+          </ScrollCard>
+        )}
+        {guild.welcome_screen && (
+          <ScrollCard title="Welcome Screen">
+            <div className={styles.welcomeScreen}>
+              <p>{guild.welcome_screen.description}</p>
+              <div className={styles.welcomeChannels}>
+                {guild.welcome_screen.welcome_channels.map(c => (
+                  <div key={c.channel_id}>
+                    <div className={styles.row}>
+                      {c.emoji_name && (
+                        <span className={styles.welcomeChannelEmoji}>{c.emoji_name}</span>
+                      )}
+                      {c.emoji_id && (
+                        <img
+                          src={cdnImage("emojis", 128, c.emoji_id, null, {
+                            format: "png",
+                            noHash: true
+                          })}
+                        >
+                          alt={c.emoji_name}
+                        </img>
+                      )}
+                      <a
+                        href={`https://discord.com/channels/${guild.id}/${c.channel_id}`}
+                      >
+                        <span>{c.description}</span>
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </ScrollCard>
         )}
       </div>
