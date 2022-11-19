@@ -9,7 +9,7 @@ import {GuildPreview, GuildWidget, Invite} from "@utils/discordTypes";
 import Warning from "@assets/Warning.svg";
 import {GuildCard} from "@components/LookupGuild/guildCard";
 import {Snowflake} from "@utils/snowflake";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const LookupGuild = ({id}: {id: string}) => {
   const valid = /^\d{17,20}$/.test(id) && Snowflake.toTimestamp(id) + BigInt(10000) <= Date.now();
@@ -24,19 +24,23 @@ const LookupGuild = ({id}: {id: string}) => {
     inviteCode ? `https://discord.com/api/v10/invites/${inviteCode}?with_counts=true&with_expiration=true` : null,
     fetcherWithStatus
   );
+  const inviteDataId = (inviteData?.body as Invite)?.guild?.id;
   const {data: previewData, error: previewError} = useSWRImmutable<WithStatus<GuildPreview | RestForwarderError>>(
     (widgetData?.status === 200 || widgetData?.status === 403) ? `/api/guild/${id}/preview` : null,
     fetcherWithStatus
   );
+  useEffect(() => {
+    setCustomInviteCode(undefined);
+  }, [id])
   return (
     widgetData ? (
       (widgetData.status === 200 || widgetData.status === 403) ? (
         <>
-          {(customInviteCode && (id !== (inviteData?.body as Invite)?.guild?.id)) && (
+          {(customInviteCode && inviteDataId && (id !== inviteDataId)) && (
             <div className={styles.note}>
               <p>
                 Provided code &quot;{customInviteCode}&quot; is not an invite for this guild.
-                Expected <code>{id}</code>, got <code>{(inviteData?.body as Invite)?.guild?.id}</code>.
+                Expected <code>{id}</code>, got <code>{inviteDataId}</code>.
                 <button
                   onClick={() => setCustomInviteCode(undefined)}
                 >
@@ -55,13 +59,33 @@ const LookupGuild = ({id}: {id: string}) => {
               </p>
             </div>
           )}
-          {widgetData.status === 403 && previewData?.status === 404 && !inviteData?.body && (
-            <div className={styles.note}>
-              <Warning />
-              <p>
-                Guild has no public methods of getting information, so we can&apos;t show you any info about it
-              </p>
-            </div>
+          {!inviteDataId && (
+            <>
+              {widgetData.status === 403 && previewData?.status === 404 && !inviteData?.body ? (
+                <div className={styles.error}>
+                  <CloudOff />
+                  <h3>Server has no public methods of getting information, so we can&apos;t show you any info about it</h3>
+                </div>
+              ) : !previewData && (
+                <div className={styles.error}>
+                  <Loader />
+                  <h3>Fetching preview...</h3>
+                </div>
+              )}
+              <div className={styles.info}>
+                <p>
+                  You can provide an invite code or vanity URL if you have one:
+                  <input
+                    type="text"
+                    placeholder="discord-developers"
+                    onKeyDown={e => {
+                      if (e.key !== "Enter") return;
+                      setCustomInviteCode(e.currentTarget.value.split("/").at(-1));
+                    }}
+                  />
+                </p>
+              </div>
+            </>
           )}
           <GuildCard
             id={id}
@@ -69,21 +93,6 @@ const LookupGuild = ({id}: {id: string}) => {
             invite={inviteData?.body as Invite}
             preview={previewData?.body as GuildPreview}
           />
-          {!(inviteData?.body as Invite)?.guild?.id && (
-            <div className={`${styles.note} ${styles.info}`}>
-              <p>
-                <span>BETA</span> You can provide an invite code or vanity URL if you have one:
-                <input
-                  type="text"
-                  placeholder="discord-developers"
-                  onKeyDown={e => {
-                    if (e.key !== "Enter") return;
-                    setCustomInviteCode(e.currentTarget.value.split("/").at(-1));
-                  }}
-                />
-              </p>
-            </div>
-          )}
         </>
       ) : (
         <div className={styles.error}>

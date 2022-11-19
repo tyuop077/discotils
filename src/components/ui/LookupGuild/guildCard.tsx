@@ -63,7 +63,9 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
           />
         </div>
       )}
-      <div className={styles.content}>
+      <div
+        className={[styles.content, guild.banner ? null : styles.noBanner].filter(s => s).join(" ")}
+      >
         {guild.icon ? (
           <a
             href={cdnImage("icons", 2048, id, guild.icon, {format: "png"})}
