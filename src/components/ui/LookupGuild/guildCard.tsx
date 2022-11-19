@@ -7,6 +7,7 @@ import ExpandContainer from "@components/ExpandContainer/expandContainer";
 import Warning from "@assets/Warning.svg";
 import Check from "@assets/Check.svg";
 import External from "@assets/External.svg";
+import ScrollCard from "@components/ScrollCard/scrollCard";
 
 interface Props {
   id: string;
@@ -173,6 +174,21 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
           </a>
         </div>
       )}
+      <div className={styles.cards}>
+        {guild.features && (
+          <ScrollCard title="Features">
+            <ul className={styles.flexGap}>
+              {guild.features.map(f => (
+                <li
+                  key={f}
+                >
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </ScrollCard>
+        )}
+      </div>
       <ExpandContainer title="Requests">
         <p>Guild Widget</p>
         <JSONCode title={`GET /guilds/${id}/widget.json`} content={widget} />

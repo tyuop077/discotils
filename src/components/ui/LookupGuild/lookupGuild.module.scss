@@ -240,3 +240,30 @@
     }
   }
 }
+
+/*.cards {
+  // grid with two columns and last odd column full width
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+  @media (max-width: 450px) {
+    grid-template-columns: 1fr;
+  }
+}*/
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  & > div {
+    flex: 50%;
+  }
+}
+
+.flexGap {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 0;
+  padding: 0 0 0 30px;
+  word-break: break-word;
+}
