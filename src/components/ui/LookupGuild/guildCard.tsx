@@ -43,24 +43,17 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
     <>
       {guild.banner && (
         <div
-          className={[styles.banner,
-            (guild.premium_subscription_count ?? 0) <= 7 ? styles.disabledBanner : null].filter(s => s).join(" ")}
+          className={[
+            styles.banner,
+            guild.features?.includes("BANNER") ? null : styles.disabledBanner
+          ].filter(s => s).join(" ")}
         >
           <img
             src={cdnImage("banners", 1024, id, guild.banner)}
           />
           <div className={styles.bannerOverlay}>
-            {guild.splash && (
-              <a
-                className={styles.original}
-                href={cdnImage("splashes", 2048, id, guild.splash, {
-                  format: "png"
-                })}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Open original splash
-              </a>
+            {!guild.features?.includes("BANNER") && (
+              <span>Serves has banner disabled</span>
             )}
             <a
               className={styles.original}
