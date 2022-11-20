@@ -8,6 +8,7 @@ import Warning from "@assets/Warning.svg";
 import Check from "@assets/Check.svg";
 import External from "@assets/External.svg";
 import ScrollCard from "@components/ScrollCard/scrollCard";
+import formatTime from "@utils/formatTime";
 
 interface Props {
   id: string;
@@ -165,6 +166,18 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
           >
             discord.gg/<span>{[guild.vanity_url_code, widget?.instant_invite?.split("/").at(-1)].filter(c => c).join(", ")}</span>
           </a>
+          {invite && (
+            <p>
+              (
+                <a
+                  href={`https://discord.com/channels/${invite.guild.id}/${invite.channel.id}`}
+                >
+                  #{invite.channel.name}
+                </a>
+              , {invite.expires_at ? `expires ${formatTime(Date.parse(invite.expires_at), "en")}` : "never expires"}
+              )
+            </p>
+          )}
         </div>
       )}
       {(guild.splash || guild.discovery_splash) && (
@@ -299,6 +312,34 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
                   </div>
                 ))}
               </div>
+            </div>
+          </ScrollCard>
+        )}
+        {widget?.channels && (
+          <ScrollCard title="Voice channels that @everyone can see">
+            <ul className={styles.features}>
+              {widget.channels.map(c => (
+                <li key={c.id}>
+                  <a href={`https://discord.com/channels/${guild.id}/${c.id}`}>
+                    {c.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </ScrollCard>
+        )}
+        {widget?.members && (
+          <ScrollCard title="Online members">
+            <div className={styles.members}>
+              {widget.members.map(m => (
+                <div className={styles.row} key={m.username}>
+                  <a href={m.avatar_url}>
+                    <img src={m.avatar_url} alt={`${m.username}'s avatar`} />
+                    <div className={`${styles.pStatus} ${styles[m.status]}`} />
+                  </a>
+                  {m.username}
+                </div>
+              ))}
             </div>
           </ScrollCard>
         )}

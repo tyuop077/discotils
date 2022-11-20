@@ -197,6 +197,14 @@
   background-color: #747F8DFF;
 }
 
+.dnd {
+  background-color: #ED4245FF;
+}
+
+.idle {
+  background-color: #FAA61AFF;
+}
+
 .splash {
   position: absolute;
   top: 50px;
@@ -237,6 +245,14 @@
     color: white;
     span {
       color: #75A8F9;
+    }
+  }
+  p {
+    display: inline;
+    margin-left: 5px;
+    color: gray;
+    a {
+      color: #859BBE;
     }
   }
 }
@@ -317,4 +333,32 @@
 
 .welcomeChannelEmoji {
   font-size: 1.5em;
+}
+
+.members {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 5px;
+  div {
+    position: relative;
+  }
+  img, a {
+    width: 32px;
+    height: 32px;
+  }
+  img {
+    border-radius: 50%;
+  }
+}
+
+.pStatus {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  transform: translate(32px - 13px, -15px);
+  border: 3px solid #1d2126;
 }
