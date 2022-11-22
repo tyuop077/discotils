@@ -31,10 +31,7 @@ export async function restForwarder(req: NextApiRequest, res: NextApiResponse, d
   }
 
   if (DiscordRateLimit.isRateLimited("users")) {
-    return res.status(429).json({
-      error: "Server was rate limited",
-      side: "server"
-    });
+    return res.status(509).json({error: "Server was rate limited"});
   }
 
   let rateLimited = false;
@@ -43,7 +40,7 @@ export async function restForwarder(req: NextApiRequest, res: NextApiResponse, d
     .catch(() => rateLimited = true);
 
   if (rateLimited) {
-    return res.status(429).json({error: "Too many requests", side: "client"});
+    return res.status(429).json({error: "Too many requests"});
   }
 
   const userRes = await fetch(`https://discord.com/api/v10/${data.path(id)}`, {
