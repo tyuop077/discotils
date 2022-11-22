@@ -9,6 +9,7 @@ import Check from "@assets/Check.svg";
 import External from "@assets/External.svg";
 import ScrollCard from "@components/ScrollCard/scrollCard";
 import formatTime from "@utils/formatTime";
+import {ChannelMention} from "@components/ChannelMention/channelMention";
 
 interface Props {
   id: string;
@@ -172,7 +173,7 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
                 <a
                   href={`https://discord.com/channels/${invite.guild.id}/${invite.channel.id}`}
                 >
-                  #{invite.channel.name}
+                  <ChannelMention>{invite.channel.name}</ChannelMention>
                 </a>
               , {invite.expires_at ? `expires ${formatTime(Date.parse(invite.expires_at), "en")}` : "never expires"}
               )
