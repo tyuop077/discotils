@@ -1,0 +1,17 @@
+.channel {
+  background-color: #5865F24C;
+  color: #DEE0FCFF;
+  transition: background-color 50ms ease-out, color 50ms ease-out;
+  padding: 0 2px;
+  border-radius: 3px;
+  &:hover {
+    background-color: #5865F2FF;
+    color: white;
+  }
+  svg {
+    width: 1.05rem;
+    position: relative;
+    fill: white;
+    top: 3px;
+  }
+}
