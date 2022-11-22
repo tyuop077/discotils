@@ -123,7 +123,7 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
         </div>
       </div>
       <p>{guild.description}</p>
-      {guild.premium_subscription_count && (
+      {guild.premium_subscription_count !== undefined && (
         <span className={styles.row}>
           <GuildIcon boosts={guild.premium_subscription_count} />
           Boosts: {guild.premium_subscription_count}
@@ -181,48 +181,50 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
         </div>
       )}
       {(guild.splash || guild.discovery_splash) && (
-        <ExpandContainer title="Splashes">
-          <p>Splash</p>
-          {guild.splash && (
-            <div className={styles.banner}>
-              <img
-                src={cdnImage("splashes", 1024, id, guild.splash)}
-              />
-              <div className={styles.bannerOverlay}>
-                <a
-                  className={styles.original}
-                  href={cdnImage("splashes", 2048, id, guild.splash, {
-                    format: "png"
-                  })}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Open original splash
-                </a>
+        <div className={styles.splashes}>
+          <ExpandContainer title="Splashes">
+            <p>Splash</p>
+            {guild.splash && (
+              <div className={styles.banner}>
+                <img
+                  src={cdnImage("splashes", 1024, id, guild.splash)}
+                />
+                <div className={styles.bannerOverlay}>
+                  <a
+                    className={styles.original}
+                    href={cdnImage("splashes", 2048, id, guild.splash, {
+                      format: "png"
+                    })}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Open original splash
+                  </a>
+                </div>
               </div>
-            </div>
-          )}
-          <p>Discovery splash</p>
-          {guild.discovery_splash && (
-            <div className={styles.banner}>
-              <img
-                src={cdnImage("discovery-splashes", 1024, id, guild.discovery_splash)}
-              />
-              <div className={styles.bannerOverlay}>
-                <a
-                  className={styles.original}
-                  href={cdnImage("discovery-splashes", 2048, id, guild.discovery_splash, {
-                    format: "png"
-                  })}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Open original discovery splash
-                </a>
+            )}
+            <p>Discovery splash</p>
+            {guild.discovery_splash && (
+              <div className={styles.banner}>
+                <img
+                  src={cdnImage("discovery-splashes", 1024, id, guild.discovery_splash)}
+                />
+                <div className={styles.bannerOverlay}>
+                  <a
+                    className={styles.original}
+                    href={cdnImage("discovery-splashes", 2048, id, guild.discovery_splash, {
+                      format: "png"
+                    })}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Open original discovery splash
+                  </a>
+                </div>
               </div>
-            </div>
-          )}
-        </ExpandContainer>
+            )}
+          </ExpandContainer>
+        </div>
       )}
       <div className={styles.cards}>
         {guild.emojis && (
@@ -277,7 +279,7 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
         )}
         {guild.features && (
           <ScrollCard title="Features">
-            <ul className={styles.features}>
+            <ul className={styles.table}>
               {guild.features.map(f => <li key={f}>{f}</li>)}
             </ul>
           </ScrollCard>
@@ -317,7 +319,7 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
         )}
         {widget?.channels && (
           <ScrollCard title="Voice channels that @everyone can see">
-            <ul className={styles.features}>
+            <ul className={styles.table}>
               {widget.channels.map(c => (
                 <li key={c.id}>
                   <a href={`https://discord.com/channels/${guild.id}/${c.id}`}>
@@ -329,7 +331,7 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
           </ScrollCard>
         )}
         {widget?.members && (
-          <ScrollCard title="Online members">
+          <ScrollCard title={`Online members (${widget.members.length}${widget.members.length === 100 ? ", partial" : ""})`}>
             <div className={styles.members}>
               {widget.members.map(m => (
                 <div className={styles.row} key={m.username}>
