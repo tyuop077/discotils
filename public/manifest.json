@@ -1,0 +1,15 @@
+{
+  "name": "Discotils",
+  "short_name": "Discotils",
+  "start_url": "/",
+  "display": "fullscreen",
+  "background_color": "#1D2126",
+  "theme_color": "#21252B",
+  "icons": [
+    {
+      "src": "/Logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
