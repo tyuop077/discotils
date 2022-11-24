@@ -36,9 +36,21 @@
     svg {
       float: left;
       display: inline-block;
+      max-width: 80px;
     }
     h2 {
       text-align: left;
     }
   }
+}
+
+.soon {
+  display: inline;
+  background-color: rgba(56, 62, 71, 0.1);
+  border-radius: 10px;
+  margin-left: 5px;
+  padding: 4px;
+  font-size: 0.6em;
+  color: cornflowerblue;
+  vertical-align: top;
 }

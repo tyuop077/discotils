@@ -1,3 +1,8 @@
+<br />
+<div align="center">
+    <img src="./public/Logo.svg" width="64px" />
+</div>
+
 # Discotils
 
 Discord Utilities
