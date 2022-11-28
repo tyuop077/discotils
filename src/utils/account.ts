@@ -5,7 +5,7 @@ export interface IAccount {
   discriminator: string;
   avatar?: string;
   tokens: {
-    bot: string;
+    bot?: string;
     bearer?: string;
   }
   secret?: string;
@@ -58,7 +58,7 @@ export default class Account implements IAccount {
 
   async fetch() {
     try {
-      const res = await Account._fetch(this.token);
+      const res = await Account._fetch(this.tokens.bot ?? this.tokens.bearer, this.tokens.bot ? "bot" : "bearer");
       if (res.invalid) {
         this.active = false;
       }
@@ -68,16 +68,26 @@ export default class Account implements IAccount {
     return this;
   }
 
-  static async _fetch(token: string) {
+  static async _fetch(token: string, type: "bot" | "bearer") {
     const res = await fetch(`https://discord.com/api/v10/users/@me`, {
       headers: {
-        Authorization: `Bot ${token}`,
+        Authorization: `${type === "bearer" ? "Bearer" : "Bot"} ${token}`,
         "Content-Type": "application/json"
       }
     });
     if (res.ok) return {invalid: false, data: await res.json()};
     if (res.status === 401) return {invalid: true};
     throw new Error(`Can't fetch user info (${res.statusText}):\n${await res.text()}`);
+  }
+
+  static async _fetchApplication(bearerToken: string) {
+    const res = await fetch("https://discord.com/api/v10/oauth2/applications/@me", {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+        "Content-Type": "application/json"
+      }
+    });
+    return {data: await res.json(), invalid: !res.ok};
   }
 
   async checkValidity(removeOnFail = false) {
@@ -96,15 +106,13 @@ export default class Account implements IAccount {
     }
   }
 
-  get token() {
-    return this.tokens.bot;
+  getAuthHeader(prefers?: "bot" | "bearer") {
+    if (prefers === "bot") return `Bot ${this.tokens.bot}`;
+    if (prefers === "bearer") return `Bearer ${this.tokens.bearer}`;
+    return this.tokens.bot ? `Bot ${this.tokens.bot}` : `Bearer ${this.tokens.bearer}`;
   }
 
-  getBearerToken() {
-    return this.tokens.bearer;
-  }
-
-  static async _fetchBearer(id: string, secret: string) {
+  static async _generateBearer(id: string, secret: string) {
     const res = await fetch("https://discord.com/api/v10/oauth2/token", {
       method: "POST",
       headers: {
@@ -112,7 +120,9 @@ export default class Account implements IAccount {
       },
       body: new URLSearchParams({
         grant_type: "client_credentials",
-        scope: "applications.commands.update "
+        scope: "identify applications.commands.update",
+        client_id: id,
+        client_secret: secret
       })
     });
     const data = await res.json();

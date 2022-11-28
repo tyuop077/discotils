@@ -54,10 +54,22 @@ class AccountManager {
     return {success: true}
   }
 
-  static async add(token: string) {
-    const user = await Account._fetch(token);
+  static async add(token: string, type: "bot" | "bearer", additionalOptions: Partial<IAccount> = {}) {
+    const user = type === "bot" ? await Account._fetch(token, type) : await Account._fetchApplication(token);
     if (user.invalid) return {failed: true};
-    AccountManager._cache[user.data.id] = new Account({...user.data, token}, user.data.id);
+    if (AccountManager._cache[user.data.id]) {
+      AccountManager._cache[user.data.id].update({tokens: {[type]: token}, ...additionalOptions});
+    } else {
+      AccountManager._cache[user.data.id] = new Account({
+          ...additionalOptions,
+          ...user.data,
+          tokens: {
+            [type]: token
+          }
+        },
+        user.data.id
+      );
+    }
     AccountManager.updateStorage();
   }
 
@@ -68,9 +80,20 @@ class AccountManager {
   }
 
   static async addBearer(id: string, secret: string) {
-    const token = await Account._fetchBearer(id, secret);
-    if (token.invalid) return {failed: true};
-    await AccountManager.add(token.data);
+    const tokenRes = await Account._generateBearer(id, secret);
+    if (tokenRes.invalid) return {failed: true};
+    const cache = AccountManager.accounts[id];
+    if (cache) { // just in case something goes wrong
+      cache.update({
+        tokens: {
+          ...cache.tokens,
+          bearer: tokenRes.data.access_token
+        },
+        secret
+      });
+      AccountManager.updateStorage();
+    }
+    await AccountManager.add(tokenRes.data.access_token, "bearer", {secret});
   }
 }
 
