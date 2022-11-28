@@ -6,7 +6,7 @@ import {discordFetcher} from "@utils/discordFetcher";
 export const useCommands = (applicationId?: string, guildId?: string) => {
   const {data, error} = useSWR(applicationId && guildId ? [
     `applications/${applicationId}${guildId === "global" ? "" : `/guilds/${guildId}`}/commands?with_localizations=true`,
-    AccountManager.accounts[applicationId].token
+    AccountManager.accounts[applicationId].getAuthHeader("bearer")
   ] : null, discordFetcher);
   return {
     commands: (data as ICommand[])?.map(c => new Command(c)),

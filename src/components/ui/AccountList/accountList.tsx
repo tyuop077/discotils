@@ -38,7 +38,7 @@ const AccountList = ({extended, to, preventTab}: {extended?: boolean, to?: strin
       if (match) {
         const token = match.groups?.token;
         if (!token) return;
-        AccountManager.add(token).then(r => {
+        AccountManager.add(token, "bot").then(r => {
           if (r?.failed) {
             setStatus("invalidToken");
           } else {

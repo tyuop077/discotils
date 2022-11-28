@@ -16,7 +16,7 @@ const add = async (_token: string) => {
   const token = match.groups?.token;
   if (!token) return "Unknown error";
   try {
-    const res = await AccountManager.add(token);
+    const res = await AccountManager.add(token, "bot");
     return res?.failed ? "Invalid token" : "added";
   } catch (e) {
     console.error(e);
@@ -39,8 +39,9 @@ const NewAccount: NextPage = () => {
   const [isListOpen, setListOpen] = useState(false);
   const router = useRouter();
   const id = router.asPath.split("#")[1];
-  const idInput = useRef() as MutableRefObject<HTMLInputElement>;
   const tokenInput = useRef() as MutableRefObject<HTMLInputElement>;
+  const idInput = useRef() as MutableRefObject<HTMLInputElement>;
+  const secretInput = useRef() as MutableRefObject<HTMLInputElement>;
   const [status, setStatus] = useState({message: "", nonce: 0});
   useEffect(() => {
     if (!id) return;
@@ -104,11 +105,12 @@ const NewAccount: NextPage = () => {
         <input
           type="password"
           placeholder="client secret"
+          ref={secretInput}
         />
         <button
           onClick={() => {
             const id = idInput.current!.value;
-            const secret = tokenInput.current!.value;
+            const secret = secretInput.current!.value;
             addBearer(id, secret).then(r => {
               if (r === "added") {
                 router.push("/accounts");

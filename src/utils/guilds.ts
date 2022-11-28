@@ -5,7 +5,7 @@ import Guild, {IGuild} from "@utils/guild";
 
 export const useGuilds = (accountId?: string) => {
   const {data, error} = useSWR(
-    accountId ? [`users/@me/guilds`, AccountManager.accounts[accountId].token] : null,
+    accountId ? [`users/@me/guilds`, AccountManager.accounts[accountId].getAuthHeader("bot")] : null,
     discordFetcher
   );
   return {
