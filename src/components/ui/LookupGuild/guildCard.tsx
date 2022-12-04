@@ -293,19 +293,17 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
                 {guild.welcome_screen.welcome_channels.map(c => (
                   <div key={c.channel_id}>
                     <div className={styles.row}>
-                      {c.emoji_name && (
-                        <span className={styles.welcomeChannelEmoji}>{c.emoji_name}</span>
-                      )}
-                      {c.emoji_id && (
+                      {c.emoji_id ? (
                         <img
                           src={cdnImage("emojis", 128, c.emoji_id, null, {
                             format: "png",
                             noHash: true
                           })}
-                        >
                           alt={c.emoji_name}
-                        </img>
-                      )}
+                        />
+                      ) : c.emoji_name ? (
+                        <span className={styles.welcomeChannelEmoji}>{c.emoji_name}</span>
+                      ) : null}
                       <a
                         href={`https://discord.com/channels/${guild.id}/${c.channel_id}`}
                       >
