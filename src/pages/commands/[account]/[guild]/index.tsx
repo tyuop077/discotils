@@ -21,8 +21,6 @@ const ApplicationCommands: NextPage = () => {
     <main className={styles.container}>
       <Head>
         <title>Application Commands Editor - Discotils</title>
-        <meta name="description" content="Discord slash commands, user and message context menus editor.
-        Register and edit commands and interactions, add localization with Discotils application commands builder." />
       </Head>
       <div className={styles.menu}>
         <div className={styles.commandsPicker}>
