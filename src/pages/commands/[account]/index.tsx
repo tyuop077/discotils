@@ -8,6 +8,7 @@ import Logo from "@assets/Logo.svg";
 import Link from "next/link";
 import Wrench from "@assets/Wrench.svg";
 import Loader from "@components/Loader/loader";
+import AccountManager from "@utils/accountManager";
 
 const ApplicationCommandsAccount: NextPage = () => {
   const router = useRouter();
@@ -30,6 +31,15 @@ const ApplicationCommandsAccount: NextPage = () => {
             </div>
             <p>Global</p>
           </Link>
+          <input
+            className={styles.input}
+            placeholder="Guild id"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                router.push(`/commands/${accountId}/${e.currentTarget.value}`);
+              }
+            }}
+          />
           {guilds && (
             guilds.map((guild) => (
               <Link
@@ -56,7 +66,9 @@ const ApplicationCommandsAccount: NextPage = () => {
             <Loader />
           )}
           {isError && (
-            <p>Something went wrong</p>
+            AccountManager.accounts[accountId as string].tokens.bot ?
+              <p>Something went wrong</p> :
+              <p>Guilds can&apos;t be fetched without bot token, but you may pass guild id instead</p>
           )}
         </div>
       </div>

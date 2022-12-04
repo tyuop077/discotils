@@ -90,3 +90,18 @@
     height: 40px;
   }
 }
+
+.input {
+  border: none;
+  border-bottom: 1px solid #b9bbbe;
+  background-color: #21252b;
+  color: #dcddde;
+  font-size: 1.2em;
+  padding: 5px 10px;
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid #dcddde;
+  }
+}
