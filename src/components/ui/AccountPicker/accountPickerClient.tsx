@@ -27,15 +27,13 @@ const AccountPicker = () => {
         {accounts ? (
           account && typeof account_id === "string" ? <>
             <img
-              src={
-                account.avatar ?
-                  "https://cdn.discordapp.com/avatars/" +
-                  `${encodeURIComponent(account_id)}/${encodeURIComponent(account.avatar)}.webp?size=128` :
-                  `https://cdn.discordapp.com/embed/avatars/${parseInt(account.discriminator) % 5}.png`
-              }
+              src={account.image}
               alt={account.username}
             />
-            <span>{account.username}#{account.discriminator}</span>
+            <span>
+              {account.username ?? account.name}
+              {account.discriminator && "#{account.discriminator}"}
+            </span>
             <ArrowDown />
           </> : <span>Select an account</span>
         ) : <Loader />}
