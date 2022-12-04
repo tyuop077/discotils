@@ -9,7 +9,7 @@ import Loader from "@components/Loader/loader";
 import Plus from "@assets/Plus.svg";
 import AccountManager from "@utils/accountManager";
 
-const ApplicationCommands: NextPage = () => {
+const ApplicationCommandsGuild: NextPage = () => {
   const router = useRouter();
   const accountId = router.query.account;
   const guildId = router.query.guild;
@@ -57,4 +57,4 @@ const ApplicationCommands: NextPage = () => {
   );
 }
 
-export default ApplicationCommands
+export default ApplicationCommandsGuild
