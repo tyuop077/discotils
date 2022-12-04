@@ -39,8 +39,10 @@ const ApplicationCommandsGuild: NextPage = () => {
                 className={styles.command}
               >
                 <Slash />
-                <p>{command.name}</p>
-                <span>{command.description}</span>
+                <div>
+                  <p>{command.name}</p>
+                  <span>{command.description}</span>
+                </div>
               </Link>
             ))
           )}
