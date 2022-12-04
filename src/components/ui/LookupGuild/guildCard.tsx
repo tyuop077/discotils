@@ -170,11 +170,11 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
           {invite && (
             <p>
               (
-                <a
+                <ChannelMention
                   href={`https://discord.com/channels/${invite.guild.id}/${invite.channel.id}`}
                 >
-                  <ChannelMention>{invite.channel.name}</ChannelMention>
-                </a>
+                  {invite.channel.name}
+                </ChannelMention>
               , {invite.expires_at ? `expires ${formatTime(Date.parse(invite.expires_at), "en")}` : "never expires"}
               )
             </p>
