@@ -6,6 +6,8 @@ import Slash from "@assets/Slash.svg";
 import Link from "next/link";
 import {useCommands} from "@utils/commands";
 import Loader from "@components/Loader/loader";
+import Plus from "@assets/Plus.svg";
+import AccountManager from "@utils/accountManager";
 
 const ApplicationCommands: NextPage = () => {
   const router = useRouter();
@@ -24,6 +26,13 @@ const ApplicationCommands: NextPage = () => {
       </Head>
       <div className={styles.menu}>
         <div className={styles.commandsPicker}>
+          <Link
+            href={`/commands/${accountId}/${guildId}/new`}
+            className={styles.command}
+          >
+            <Plus />
+            <p>Create new</p>
+          </Link>
           {commands && (
             commands.map((command) => (
               <Link
@@ -31,10 +40,9 @@ const ApplicationCommands: NextPage = () => {
                 key={command.id}
                 className={styles.command}
               >
-                <div className={styles.icon}>
-                  <Slash />
-                </div>
+                <Slash />
                 <p>{command.name}</p>
+                <span>{command.description}</span>
               </Link>
             ))
           )}
@@ -42,7 +50,8 @@ const ApplicationCommands: NextPage = () => {
             <Loader />
           )}
           {isError && (
-            <p>Something went wrong</p>
+            AccountManager.accounts[accountId as string].tokens.bearer ?
+              <p>Something went wrong</p> : <p>Use bearer token to see commands</p>
           )}
         </div>
       </div>
