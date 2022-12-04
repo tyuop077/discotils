@@ -23,12 +23,7 @@ const AccountDetails = ({account, onClose, validating, extended, href, preventTa
       tabIndex={preventTab ? -1 : undefined}
     >
       <img
-        src={
-          account.avatar ?
-            "https://cdn.discordapp.com/avatars/" +
-            `${encodeURIComponent(account.id)}/${encodeURIComponent(account.avatar)}.webp?size=128` :
-            `https://cdn.discordapp.com/embed/avatars/${parseInt(account.discriminator) % 5}.png`
-        }
+        src={account.image}
         alt={account.username}
       />
       {extended && (
@@ -38,8 +33,8 @@ const AccountDetails = ({account, onClose, validating, extended, href, preventTa
           <Close />
         </button>
       )}
-      <b>{account.username}</b>
-      <span>#{account.discriminator}</span>
+      <b>{account.username ?? account.name}</b>
+      {account.discriminator && <span>#{account.discriminator}</span>}
       {extended && (
         account.active ?
           <p>

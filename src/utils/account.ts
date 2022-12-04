@@ -1,9 +1,12 @@
 import AccountManager from "@utils/accountManager";
+import {cdnImage} from "@utils/cdnImage";
 
 export interface IAccount {
-  username: string;
+  username?: string;
+  name?: string;
   discriminator: string;
   avatar?: string;
+  icon?: string;
   tokens: {
     bot?: string;
     bearer?: string;
@@ -15,9 +18,11 @@ export interface IAccount {
 
 export default class Account implements IAccount {
   id: string;
-  username!: string;
+  username?: string;
+  name?: string;
   discriminator!: string;
   avatar?: string;
+  icon?: string;
   tokens!: {
     bot: string;
     bearer?: string;
@@ -35,8 +40,10 @@ export default class Account implements IAccount {
   toJSON() {
     return {
       username: this.username,
+      name: this.name,
       discriminator: this.discriminator,
       avatar: this.avatar,
+      icon: this.icon,
       tokens: {
         bot: this.tokens.bot,
         bearer: this.tokens.bearer
@@ -81,13 +88,13 @@ export default class Account implements IAccount {
   }
 
   static async _fetchApplication(bearerToken: string) {
-    const res = await fetch("https://discord.com/api/v10/oauth2/applications/@me", {
+    const res = await fetch("https://discord.com/api/v10/oauth2/@me", {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
         "Content-Type": "application/json"
       }
     });
-    return {data: await res.json(), invalid: !res.ok};
+    return {data: (await res.json()).application, invalid: !res.ok};
   }
 
   async checkValidity(removeOnFail = false) {
@@ -107,7 +114,6 @@ export default class Account implements IAccount {
   }
 
   getAuthHeader(prefers?: "bot" | "bearer") {
-    if (prefers === "bot") return `Bot ${this.tokens.bot}`;
     if (prefers === "bearer") return `Bearer ${this.tokens.bearer}`;
     return this.tokens.bot ? `Bot ${this.tokens.bot}` : `Bearer ${this.tokens.bearer}`;
   }
@@ -127,5 +133,17 @@ export default class Account implements IAccount {
     });
     const data = await res.json();
     return {data, invalid: !res.ok};
+  }
+
+  get image() {
+    return cdnImage(
+      this.avatar ? "avatars" : this.icon ? "app-icons" : "",
+      128,
+      this.id,
+      this.avatar ?? this.icon,
+      {
+        discriminator: this.discriminator,
+        format: "png"
+      });
   }
 }
