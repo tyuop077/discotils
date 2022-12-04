@@ -25,5 +25,6 @@ export const discordFetcher = async (path: string, authString: string, method = 
       throw new Error("Invalid session");
     }
   }
+  if (!res.ok) throw new Error(`Discord API returned ${res.status} ${res.statusText}`);
   return res.json();
 }
