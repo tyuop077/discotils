@@ -334,10 +334,10 @@ export const GuildCard = ({id, widget, invite, preview}: Props) => {
         {widget?.members && (
           <ScrollCard title={`Online members (${widget.members.length}${widget.members.length === 100 ? ", partial" : ""})`}>
             <div className={styles.members}>
-              {widget.members.map(m => (
-                <div className={styles.row} key={m.username}>
+              {widget.members.map((m, i) => (
+                <div className={styles.row} key={i}>
                   <a href={m.avatar_url}>
-                    <img src={m.avatar_url} alt={`${m.username}'s avatar`} />
+                    {m.avatar_url && <img src={m.avatar_url} alt={`${m.username}'s avatar`} />}
                     <div className={`${styles.pStatus} ${styles[m.status]}`} />
                   </a>
                   {m.username}
