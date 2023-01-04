@@ -1,8 +1,8 @@
-import type { NextPage } from "next"
+import type {NextPage} from "next"
 import Head from "next/head"
 import styles from "@styles/ErrorHandler.module.scss"
 
-const Home: NextPage = () => {
+const InternalError: NextPage = () => {
   return (
     <main>
       <Head>
@@ -16,4 +16,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default InternalError
