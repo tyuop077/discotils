@@ -13,7 +13,7 @@ const ApplicationCommandsCommand: NextPage = () => {
   const guildId = router.query.guild;
   const commandId = router.query.command;
   const {data, error} = useSWRImmutable<ICommand>(
-    commandId !== "new" ? [
+    (commandId !== "new" && accountId && guildId && commandId) ? [
       `applications/${accountId}/guilds/${guildId}/commands/${commandId}`,
       AccountManager.accounts[accountId as string].getAuthHeader("bot")
       ] : null,
